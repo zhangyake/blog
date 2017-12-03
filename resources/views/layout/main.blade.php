@@ -734,7 +734,7 @@
             <div class="widget">
                 <div class="category"><h4>分类归档</h4>
                     <ul class="category-list">
-                        @foreach($types as $item)
+                        @foreach(\Illuminate\Support\Facades\Cache::get('types',[]) as $item)
                             <li class="category-list-item"><a class="category-list-link"
                                                               href="{{route('type_archives_view',['id'=>$item->id])}}">{{$item->name}}</a><span
                                         class="category-list-count">{{$item->articles_count}}</span></li>
@@ -746,9 +746,9 @@
             <div class="widget">
                 <div class="tagcloud"><h4>标签云</h4>
 
-                    @foreach($types as $item)
+                    @foreach(\Illuminate\Support\Facades\Cache::get('tags',[]) as $item)
                         <a style="font-size: 15px;"
-                           href="{{route('type_archives_view',['id'=>$item->id])}}">{{$item->name}}</a>
+                           href="{{route('tag_archives_view',['id'=>$item->id])}}">{{$item->name}}</a>
 
                     @endforeach
 
@@ -757,7 +757,7 @@
             <div class="widget">
                 <div class="recent"><h4>最近文章</h4>
                     <ul class="post-list">
-                        @foreach($recentArticles as $item)
+                        @foreach(\Illuminate\Support\Facades\Cache::get('recentArticles',[]) as $item)
 
                             <li class="post-list-item"><a class="post-list-link"
                                                           href="{{route('article_view',['id'=>$item->id])}}">{{$item->title}}</a>

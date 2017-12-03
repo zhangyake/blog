@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends ApiController
 {
@@ -43,11 +45,29 @@ class ArticleController extends ApiController
     }
 
 //  发布文章
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $inputs  = $request->all();
+
         $inputs['user_id'] = $request->user()->id;
+
         $article = $this->articleRepository->store($inputs);
+        if(array_get($inputs,'tagIds')){
+            $tagIds = array_unique(array_get($inputs,'tagIds'));
+            $tmps = [];
+            foreach ($tagIds as $tagId) {
+                $tmps[] = ['article_id'=>$article->id,'tag_id'=>$tagId];
+            }
+
+           DB::table('tag_articles')->insert($tmps);
+        }
+        Cache::flush();
+
         return $this->successReturn(compact('article'));
     }
 

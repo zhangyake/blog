@@ -16,9 +16,15 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::middleware(['homeQuery'])->group(function () {
 
-Route::get('/articles/{id}', 'ArticleController@index')->name('article_view');
+    Route::get('/articles/{id}', 'ArticleController@index')->name('article_view');
 
-Route::get('/archives/{id}', 'TypeController@listArticles')->name('type_archives_view');
+    Route::get('/archives/type/{id}', 'TypeController@listArticles')->name('type_archives_view');
 
-Route::get('/archives', 'ArticleController@lists')->name('archives_view');
+    Route::get('/archives/tag/{id}', 'TagController@listArticles')->name('tag_archives_view');
+
+    Route::get('/archives', 'ArticleController@lists')->name('archives_view');
+
+});
+

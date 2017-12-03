@@ -15,11 +15,11 @@ use Illuminate\Http\Request;
 Route::post('/login', function (Request $request) {
     $data     = $request->all();
     $http     = new GuzzleHttp\Client;
-    $response = $http->post('http://xixiang.blog.app:8008/oauth/token', [
+    $response = $http->post(env("APP_URL") . 'oauth/token', [
         'form_params' => [
             'grant_type'    => 'password',
-            'client_id'     => 3,
-            'client_secret' => 'pgJfpOCrk7Ri79pqsqSnBm7A1E9GyMjqMvR7PM14',
+            'client_id'     => 4,
+            'client_secret' => 'jjoJVSiOoie2GVaMnDlgpRudoV3K3t57XFgDQLTh',
             'username'      => 'jaak@126.com',
             'password'      => 'admin',
             'scope'         => '*',

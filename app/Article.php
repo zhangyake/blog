@@ -18,4 +18,8 @@ class Article extends Model
     {
         return date('Y-m-d',strtotime($value));
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class,'tag_articles','article_id','tag_id');
+    }
 }
