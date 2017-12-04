@@ -18,16 +18,16 @@ Route::post('/login', function (Request $request) {
     $response = $http->post(env("APP_URL") . 'oauth/token', [
         'form_params' => [
             'grant_type'    => 'password',
-            'client_id'     => 4,
-            'client_secret' => 'jjoJVSiOoie2GVaMnDlgpRudoV3K3t57XFgDQLTh',
-            'username'      => 'jaak@126.com',
-            'password'      => 'admin',
+            'client_id'     => 3,
+            'client_secret' => 'pgJfpOCrk7Ri79pqsqSnBm7A1E9GyMjqMvR7PM14',
+            'username'      => array_get($data,'username'),
+            'password'      => array_get($data,'password'),
             'scope'         => '*',
         ],
     ]);
 //return response()->json(['user'=>json_decode((string)$response->getBody(), true)]);
     return json_decode((string)$response->getBody(), true);
-});
+})->name('login');
 
 Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 //  当前登录用户信息
@@ -51,5 +51,9 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 //  更新文章
     Route::put('/articles/{id}', 'ArticleController@update');
 
-
+//  退出登录
+    Route::post('/logout', function (Request $request) {
+        $res = \Laravel\Passport\Token::where('user_id',$request->user()->id)->update(['revoked' =>1]);
+        return response()->json(['data'=>$res]);
+    });
 });

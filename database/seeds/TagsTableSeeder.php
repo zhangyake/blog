@@ -32,5 +32,10 @@ class TagsTableSeeder extends Seeder
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
+        DB::table('tags')->insert([
+            'name'=>'Laravel',
+            'created_at'=>\Carbon\Carbon::now(),
+            'updated_at'=>\Carbon\Carbon::now()
+        ]);
     }
 }
