@@ -12,34 +12,25 @@ class TypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('types')->insert([
-            'name'=>'Mysql',
+            'name'=>'技术',
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
         DB::table('types')->insert([
-            'name'=>'PHP',
+            'name'=>'读书笔记',
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
         DB::table('types')->insert([
-            'name'=>'Nginx',
+            'name'=>'生活感悟',
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
         DB::table('types')->insert([
-            'name'=>'Laravel',
+            'name'=>'文艺',
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);
-        DB::table('types')->insert([
-            'name'=>'前端开发',
-            'created_at'=>\Carbon\Carbon::now(),
-            'updated_at'=>\Carbon\Carbon::now()
-        ]);
-        DB::table('types')->insert([
-            'name'=>'后端开发',
-            'created_at'=>\Carbon\Carbon::now(),
-            'updated_at'=>\Carbon\Carbon::now()
-        ]);
+       
     }
 }

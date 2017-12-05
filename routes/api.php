@@ -18,8 +18,8 @@ Route::post('/login', function (Request $request) {
     $response = $http->post(env("APP_URL") . 'oauth/token', [
         'form_params' => [
             'grant_type'    => 'password',
-            'client_id'     => 3,
-            'client_secret' => 'pgJfpOCrk7Ri79pqsqSnBm7A1E9GyMjqMvR7PM14',
+            'client_id'     => env("CLIENT_ID"),
+            'client_secret' => env("CLIENT_SECRET"),
             'username'      => array_get($data,'username'),
             'password'      => array_get($data,'password'),
             'scope'         => '*',
