@@ -20,8 +20,8 @@ Route::post('/login', function (Request $request) {
             'grant_type'    => 'password',
             'client_id'     => env("CLIENT_ID"),
             'client_secret' => env("CLIENT_SECRET"),
-            'username'      => array_get($data,'username'),
-            'password'      => array_get($data,'password'),
+            'username'      => array_get($data, 'username'),
+            'password'      => array_get($data, 'password'),
             'scope'         => '*',
         ],
     ]);
@@ -39,7 +39,7 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 //  修改用户信息
     Route::put('/users/{id}', 'UserController@update');
 
-     //  文章类别名称
+    //  文章类别名称
     Route::get('/types', 'TypeController@index');
 
     //  文章显示
@@ -53,7 +53,68 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 
 //  退出登录
     Route::post('/logout', function (Request $request) {
-        $res = \Laravel\Passport\Token::where('user_id',$request->user()->id)->update(['revoked' =>1]);
-        return response()->json(['data'=>$res]);
+        $res = \Laravel\Passport\Token::where('user_id', $request->user()->id)->update(['revoked' => 1]);
+        return response()->json(['data' => $res]);
     });
+});
+
+Route::post('/robot', function (Request $request) {
+    $data     = $request->all();
+    $http     = new GuzzleHttp\Client;
+    $response = $http->post(env("ROBOT_URL", 'http://www.tuling123.com/openapi/api'), [
+        'json' => [
+            'key'    => env("ROBOT_KEY", '0ee53f65c46a4206a5b049f1eda674c8'),
+            'info'   => array_get($data, 'info', '你好!'),
+            'userid' => array_get($data, 'id')
+        ],
+    ]);
+    $status   = $response->getStatusCode();
+    if ($status === 200) {
+        $result = (string)$response->getBody();
+        $array   = json_decode($result, true);
+//        $code   = array_get($array, 'code');
+//        $data = array_get($array,'text','');
+//        switch ($code) {
+////  文本类
+//            case 100000:
+//                break;
+////	链接类
+//            case 200000:
+//                $data = array_get($array,'url','');
+//                break;
+////  新闻类
+//            case 302000:
+//                $data = array_get($array,'list','');
+//                break;
+////   菜谱类
+//            case 308000:
+//                $data = array_get($array,'list','');
+//                break;
+////   儿童版）	儿歌类
+//            case 313000:
+//                break;
+////   儿童版）	诗词类
+//            case 314000:
+//                break;
+////参数key错误
+//            case 40001:
+//                $data = '参数key错误';
+//                break;
+// //请求内容info为空
+//            case 40002:
+//                $data = '请求内容info为空';
+//                break;
+// //当天请求次数已使用完
+//            case 40004:
+//                $data = '当天请求次数已使用完';
+//                break;
+////数据格式异常
+//            case 40007:
+//                $data = '数据格式异常';
+//                break;
+//        }
+        return response()->json($array);
+    }
+    return response()->json(['success' => false, 'reason' => '抱歉, 系统繁忙!']);
+
 });
