@@ -42,8 +42,8 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
     //  文章类别名称
     Route::get('/types', 'TypeController@index');
 
-    //  文章显示
-    Route::get('/articles/{id}', 'ArticleController@show');
+    //  文章信息
+    Route::get('/articles/{id}', 'ArticleController@detail');
 //  文章列表
     Route::get('/articles', 'ArticleController@index');
 //  发布文章

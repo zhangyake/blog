@@ -27,6 +27,22 @@ class ArticleRepository
         return $this->model->with('type')->orderBy($sortColumn, $sort)->paginate($number);
     }
 
+
+    public function update($id, $input)
+    {
+       // 暂时不使用事务 后期加上
+        $article = $this->model->find($id);
+        $article->title = array_get($input,'title');
+        $article->content = array_get($input,'content');
+        $article->content_md = array_get($input,'content_md');
+        $article->type_id = array_get($input,'type_id');
+        $article->save();
+        if(array_get($input,'tagIds')){
+            $tagIds = array_unique(array_get($input,'tagIds'));
+            $article->tags()->sync($tagIds);
+        }
+        return true;
+    }
 //
 //    public function page($number = 10, $sort = 'desc', $sortColumn = 'created_at')
 //    {

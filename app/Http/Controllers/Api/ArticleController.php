@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Article;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -18,6 +19,13 @@ class ArticleController extends ApiController
         $this->articleRepository = $articleRepository;
     }
 
+
+    public function detail($id)
+    {
+        $article = Article::with('type','tags')->where('id', $id)->first();
+
+        return $this->successReturn(compact('article'));
+    }
 
 //  文章列表
     public function index()
