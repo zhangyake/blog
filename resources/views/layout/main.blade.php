@@ -711,7 +711,7 @@
 <header>
     <div class="header row"><a href="#" class="logo-link"><img src="{{asset('images/logo.png')}}"></a>
         <ul class="nav nav-list">
-            <li class="nav-list-item"><a href="#" target="_self" data-hover="博文"
+            <li class="nav-list-item"><a href="{{route('article_home_view')}}" target="_self" data-hover="博文"
                                          class="nav-list-link">博文</a></li>
             <li class="nav-list-item"><a href="{{route('archives_view')}}" target="_self" data-hover="归档"
                                          class="nav-list-link">归档</a></li>

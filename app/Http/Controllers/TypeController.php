@@ -24,10 +24,10 @@ class TypeController extends Controller
         $type = Type::select('name')->find($id);
         $name = array_get($type,'name') . ' 相关文章';
         $articles = $this->typeRepository->getArticles($id);
-        $recentArticles = Article::select('id','title')->orderby('id','DESC')->limit(5)->get();
-        $types   = $this->typeRepository->getTypeArticleNum();
-        $tags = Tag::select('id','name')->get();
-        return view('archives', compact('name','articles', 'types','tags','recentArticles'));
+//        $recentArticles = Article::select('id','title')->orderby('id','DESC')->limit(5)->get();
+//        $types   = $this->typeRepository->getTypeArticleNum();
+//        $tags = Tag::select('id','name')->get();
+        return view('archives', compact('name','articles'));
     }
 
 }

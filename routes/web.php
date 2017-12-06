@@ -13,10 +13,12 @@
 
 
 Route::get('/', function () {
-    return view('index');
+    return redirect('/articles');
 });
 
 Route::middleware(['homeQuery'])->group(function () {
+
+    Route::get('/articles', 'ArticleController@allArticles')->name('article_home_view');
 
     Route::get('/articles/{id}', 'ArticleController@index')->name('article_view');
 
@@ -28,3 +30,6 @@ Route::middleware(['homeQuery'])->group(function () {
 
 });
 
+Route::get('/admin', function () {
+    return view('index');
+});

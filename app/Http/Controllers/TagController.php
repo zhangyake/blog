@@ -26,10 +26,10 @@ class TagController extends Controller
         $tag = Tag::select('name')->find($id);
         $name = array_get($tag,'name') . ' 相关文章';
         $articles = $this->tagRepository->getArticles($id);
-        $recentArticles = Article::select('id','title')->orderby('id','DESC')->limit(5)->get();
-        $types   = $this->typeRepository->getTypeArticleNum();
-        $tags = Tag::select('id','name')->get();
-        return view('archives', compact('name','articles', 'types','tags','recentArticles'));
+//        $recentArticles = Article::select('id','title')->orderby('id','DESC')->limit(5)->get();
+//        $types   = $this->typeRepository->getTypeArticleNum();
+//        $tags = Tag::select('id','name')->get();
+        return view('archives', compact('name','articles'));
     }
 
 }

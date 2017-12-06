@@ -23,20 +23,26 @@ class ArticleController extends Controller
     public function index($id)
     {
         $article        = Article::with('type','tags')->where('id', $id)->first();
-        $recentArticles = Article::select('id', 'title')->orderBy('id', 'DESC')->limit(5)->get();
-        $types          = $this->typeRepository->getTypeArticleNum();
-        $tags = Tag::select('id','name')->get();
-        return view('article', compact('article', 'types', 'tags','recentArticles'));
+//        $recentArticles = Article::select('id', 'title')->orderBy('id', 'DESC')->limit(5)->get();
+//        $types          = $this->typeRepository->getTypeArticleNum();
+//        $tags = Tag::select('id','name')->get();
+        return view('article', compact('article'));
     }
 
     public function lists()
     {
         $articles       = Article::with('type')->orderBy('id', 'DESC')->get();
-        $recentArticles = Article::select('id', 'title')->orderby('id', 'DESC')->limit(5)->get();
-        $types          = $this->typeRepository->getTypeArticleNum();
-        $tags = Tag::select('id','name')->get();
+//        $recentArticles = Article::select('id', 'title')->orderby('id', 'DESC')->limit(5)->get();
+//        $types          = $this->typeRepository->getTypeArticleNum();
+//        $tags = Tag::select('id','name')->get();
         $name = '所有文章';
-        return view('archives', compact('name', 'articles', 'types','tags','recentArticles'));
+        return view('archives', compact('name', 'articles'));
+    }
+
+    public function allArticles(){
+        $articles       = Article::with('type')->orderBy('id', 'DESC')->get();
+
+        return view('welcome', compact( 'articles'));
     }
 
 

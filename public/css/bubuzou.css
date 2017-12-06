@@ -260,6 +260,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     background-color: #fff;
+    /*background-color: #ebebeb;*/
     color: #333;
 }
 
@@ -390,8 +391,19 @@ header .nav-list-item .active {
 }
 
 .home.post-list .post-list-item {
-    padding: 1em 0 2em;
-    border-bottom: 1px solid #ddd;
+    /*padding: 1em 0 2em;*/
+    box-sizing: border-box;
+    /*border-bottom: 1px solid #ddd;*/
+    /* text-overflow: ellipsis; */
+    /* width: 245px; */
+    /*height: 241px;*/
+    /*overflow: hidden;*/
+    /*!* white-space: nowrap; *!*/
+    /*text-overflow: ellipsis;*/
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .nav-list-item a {
@@ -443,7 +455,7 @@ header .nav-list-item .active {
 }
 
 .archive .post-item {
-    padding: 2px 0 0 50px;
+    padding: 2px 0 0 0px;
 }
 
 .archive .post-time,
@@ -473,13 +485,16 @@ header .nav-list-item .active {
 }
 
 .post {
-    padding-top: 1em;
+    /*padding-top: 1em;*/
+    background: #fff;
+    padding: 10px;
 }
 
 .post-block .post-title {
     display: block;
-    margin: 0.65em 0;
-    font-size: 18px;
+    margin: 0 0;
+    font-size: 24px;
+    text-align: center;
 }
 
 .post .post-block .post-title {
@@ -496,7 +511,7 @@ header .nav-list-item .active {
 }
 
 .post-block .post-info {
-    margin: 1.2em 0;
+    margin: 0.2em 0;
     font-family: Georgia, serif;
     font-size: 16px;
     color: #7f8c8d;
@@ -894,7 +909,7 @@ pre .xml .cdata {
 }
 
 section.container {
-    max-width: 700px;
+    max-width: 840px;
     margin: 0 10px;
     padding-top: 70px;
 }
@@ -957,7 +972,7 @@ footer .copyright a:hover {
     width: 230px;
     top: 90px;
     left: 50%;
-    margin-left: 310px;
+    margin-left: 400px;
 }
 
 .tags {
