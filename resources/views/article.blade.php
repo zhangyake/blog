@@ -8,7 +8,7 @@
     <div id="postAr" class="post">
         <article class="post-block">
 
-            <h1 class="post-title">{{array_get($article,'title')}} </h1>
+            <h1 class="post-title" style="text-align: left">{{array_get($article,'title')}} </h1>
 
             <div class="post-info">
 
@@ -19,7 +19,7 @@
                     <span>次访问</span>
                 </p>
                 @foreach(array_get($article,'tags',[]) as $tag)
-                    <a href="http://bubuzou.com/demos/201708/traverse-of-array-like.html" target="_blank" title=""
+                    <a href="{{route('tag_archives_view',['id'=>$tag->id])}}" target="_blank" title=""
                        class="post-demo">
                         {{array_get($tag,'name')}}</a>
                 @endforeach

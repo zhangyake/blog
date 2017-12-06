@@ -25,7 +25,7 @@
                                         {{array_get($tag,'name')}}</a>
                                 @endforeach</div>
 
-                            <div class="img" style="margin: 10px auto;text-align: center;width: 640px;">
+                            <div class="my-image">
                                 @if(array_get($article,'id')%4 === 0)
                                     <img src="http://7xqeyw.com1.z0.glb.clouddn.com/usess.png" alt="">
                                 @elseif(array_get($article,'id')%4 === 1)
