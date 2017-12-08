@@ -784,11 +784,11 @@
 
         @show
 
-        <div class="copyright"><p>© 2016 - 2017 <a href="http://weibo.com/jaakzh" target="_blank">typeR</a>,
+        <div class="copyright"><p>© 2016 - 2017 <a href="http://weibo.com/jaakzh" target="_blank">jaakzh</a>,
                 powered by <a href="https://hexo.io/" target="_blank">Laravel 5.5</a> <br> and <a
                         href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">heme-bubuzou</a>
             </p>
-            <p><span style="padding-right: 6px;">闽ICP备16007301号-2</span><span>Hosted by </span><a
+            <p><span style="padding-right: 6px;">闽ICP备-2</span><span>Hosted by </span><a
                         href="https://pages.coding.me/" style="font-weight: bold">Coding Pages</a></p></div>
         <div class="totop"><i></i></div>
     </div>
@@ -796,7 +796,7 @@
 <script src="{{asset('js/analytics.js')}}"></script>
 <script src="{{asset('js/push.js')}}"></script>
 <script src="{{asset('js/hm.js')}}"></script>
-<script async="" src="{{asset('js/MathJax.js')}}"></script>
+{{--<script async="" src="{{asset('js/MathJax.js')}}"></script>--}}
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="{{asset('js/av-mini-0.6.10.js')}}"></script>
 <script src="{{asset('js/hit-kounter-lc-0.2.0.js')}}"></script>
