@@ -30,7 +30,6 @@
             </div>
         </article>
     </div>
-
 @endsection
 
 @section('next_page')

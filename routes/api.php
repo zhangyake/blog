@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::namespace('Api')->group(function () {
+    Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
+    Route::get('vaptcha/downtime', 'VaptchaController@getDownTime');
+});
+
 Route::post('/login', function (Request $request) {
     $data     = $request->all();
     $http     = new GuzzleHttp\Client;

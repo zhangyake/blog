@@ -33,3 +33,9 @@ Route::middleware(['homeQuery'])->group(function () {
 Route::get('/admin', function () {
     return view('index');
 });
+
+Route::get('/vue', function () {
+    return view('vue');
+});
+
+
