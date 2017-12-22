@@ -59,7 +59,10 @@
                         for (let i = 0; i < list.length; i++) {
                             this.list.push(list[i])
                         }
-                        this.loading = false
+                        if(list && list.length){
+                            this.loading = false
+                        }
+
                     })
                 }, 1000)
             }
