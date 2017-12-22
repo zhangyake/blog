@@ -9,9 +9,12 @@
                     <span class="date" v-text="item.created_at"></span>
                     <div v-html="item.content.slice(0,item.content.indexOf('MORE'))">
                     </div>
-                    <router-link :to="'/article/'+item.id">
-                       查看全文
-                    </router-link>
+                    <div class="show-all">
+                        <router-link :to="'/article/'+item.id">
+                            查看全文
+                        </router-link>
+                    </div>
+
                 </article>
             </mu-list>
             <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
@@ -87,5 +90,8 @@
     .date {
         color: #7f8c8d;
         font-size: 13px;
+    }
+    .show-all{
+        text-align: right;
     }
 </style>
