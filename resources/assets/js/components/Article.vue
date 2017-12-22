@@ -56,13 +56,13 @@
                     axios.get('/api/_articles?page='+this.page).then((response) => {
                         console.log(response.data);
                         let list = response.data.data.articles.list;
-                        for (let i = 0; i < list.length; i++) {
-                            this.list.push(list[i])
-                        }
                         if(list && list.length){
-                            this.loading = false
-                        }
+                            for (let i = 0; i < list.length; i++) {
+                                this.list.push(list[i])
+                            }
 
+                        }
+                        this.loading = false
                     })
                 }, 1000)
             }
