@@ -31,6 +31,7 @@
             return {
                 list: [],
                 loading: false,
+                page:1,
                 scroller: null
             }
         }, components:{
@@ -39,7 +40,6 @@
         mounted() {
             this.scroller = this.$el;
             axios.get('/api/_articles').then((response) => {
-
                 let list = response.data.data.articles.list;
                 for (let i = 0; i < list.length; i++) {
                     this.list.push(list[i])
@@ -50,8 +50,10 @@
 
             loadMore() {
                 this.loading = true;
+
                 setTimeout(() => {
-                    axios.get('/api/_articles').then((response) => {
+                    this.page = this.page+1;
+                    axios.get('/api/_articles?page='.this.page).then((response) => {
                         console.log(response.data);
                         let list = response.data.data.articles.list;
                         for (let i = 0; i < list.length; i++) {
