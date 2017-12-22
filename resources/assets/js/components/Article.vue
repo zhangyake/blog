@@ -50,11 +50,9 @@
 
             loadMore() {
                 this.loading = true;
-
-                setTimeout(() => {
                     this.page = this.page+1;
                     axios.get('/api/_articles?page='+this.page).then((response) => {
-                        console.log(response.data);
+//                        console.log(response.data);
                         let list = response.data.data.articles.list;
                         if(list && list.length){
                             for (let i = 0; i < list.length; i++) {
@@ -64,7 +62,7 @@
                         }
                         this.loading = false
                     })
-                }, 1000)
+
             }
         }
     }
