@@ -15,7 +15,20 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->group(function () {
     Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
     Route::get('vaptcha/downtime', 'VaptchaController@getDownTime');
+
+
+    Route::get('/_articles', 'AxiosController@articles');
+    Route::get('/_articles/{id}', 'AxiosController@articleDetail');
+    Route::get('/_types', 'AxiosController@types');
+    Route::get('/_tags', 'AxiosController@tags');
+
+
+
 });
+
+
+
+
 
 Route::post('/login', function (Request $request) {
     $data     = $request->all();

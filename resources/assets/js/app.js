@@ -7,7 +7,6 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,11 +15,24 @@ window.Vue = require('vue');
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
-import Hello from './components/Hello.vue'; // 引入Hello 组件
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(ElementUI);
+import Vue from 'vue';
+
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+import 'muse-ui/dist/theme-carbon.css' // 使用 carbon 主题
+import App from './App.vue';
+import router from './router/index.js';
+
+Vue.use(MuseUI)
+
+
+
+
 const app = new Vue({
     el: '#app',
-    render: h => h(Hello)
+    router,
+    render: h => h(App)
 });
