@@ -53,7 +53,7 @@
 
                 setTimeout(() => {
                     this.page = this.page+1;
-                    axios.get('/api/_articles?page='.this.page).then((response) => {
+                    axios.get('/api/_articles?page='+this.page).then((response) => {
                         console.log(response.data);
                         let list = response.data.data.articles.list;
                         for (let i = 0; i < list.length; i++) {
