@@ -1,11 +1,11 @@
 <template>
     <div>
-        <br>
-        <br>
+        <br/>
+        <br/>
         <section>
             <h2>All Tags</h2>
             <p>
-                <span class="tag" v-for="(item, index) in tags" :key="'paper'+index" v-text="item.name"></span>
+                <span class="tag" v-for="(item, index) in tags" :key="'__paper'+index" v-text="item.name"></span>
             </p>
         </section>
 
@@ -23,7 +23,7 @@
         },
         mounted() {
             axios.get('/api/_tags').then((response) => {
-                console.log(response.data);
+//                console.log(response.data);
                 this.tags = response.data.data.tags;
             })
         },

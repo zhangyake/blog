@@ -2,7 +2,8 @@
     <div>
         <mu-appbar title="" class="app-bar">
             <mu-icon-button icon="menu" slot="left" label="toggle drawer" @click="toggle(true)"/>
-            <mu-avatar src="/images/uicon.jpg" slot="right"/>
+             <mu-avatar src="/images/uicon.jpg" slot="right" @click="routerTo('About')"/>
+
             <span slot="left">Yake's Blog</span>
         </mu-appbar>
         <mu-drawer :open="open" :docked="docked" @close="toggle()" width="40%">

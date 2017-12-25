@@ -1,18 +1,16 @@
 <template>
     <div class="about-me">
         <mu-card>
-            <mu-card-header title="伪全栈程序员" subTitle="加油!">
+            <mu-card-header title="伪全栈程序员" subTitle="自我介绍">
                 <mu-avatar src="/images/uicon.jpg" slot="avatar"/>
             </mu-card-header>
-            <mu-card-media title="Hello" subTitle="Welcome to Here !">
-                <img src="/images/sun.jpg" />
-            </mu-card-media>
-            <mu-card-title title="Sunshine" subTitle="sunshine"/>
+            <!--<mu-card-media title="Hello" subTitle="Welcome to Here !">-->
+                <!--<img src="/images/sun.jpg" />-->
+            <!--</mu-card-media>-->
+            <!--<mu-card-title title="自我介绍" subTitle=""/>-->
             <mu-card-text>
-                散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-                调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-                似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-                找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
+                本人学识渊博、经验丰富，代码风骚、效率恐怖，PHP、Java、Python、Javascript 无不精通，熟练掌握各种框架，深山苦练 20 余年，一天只睡 4 小时，
+                千里之外定位问题，瞬息之间修复上线。身体强壮、健步如飞，可连续编程 100 小时不休息，讨论技术方案5小时。
             </mu-card-text>
         </mu-card>
 
@@ -22,7 +20,7 @@
 <script>
 
     export default {
-
+name:'about'
     }
 </script>
 <style scoped>

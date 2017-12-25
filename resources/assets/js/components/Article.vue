@@ -1,41 +1,41 @@
 <template>
-    <div>
+
         <div class="demo-infinite-container">
             <mu-list>
-                <article v-for="(item,index) in list" :key="'mu-card'+index">
+                <div class="article" v-for="(item,index) in list" :key="'mu-card'+index">
                     <router-link :to="'/article/'+item.id">
                         <div class="title" v-text="item.title"></div>
                     </router-link>
                     <span class="date" v-text="item.created_at"></span>
-                    <div v-html="item.content.slice(0,item.content.indexOf('MORE'))">
-                    </div>
+                    <div v-html="item.content.slice(0,item.content.indexOf('MORE'))"></div>
                     <div class="show-all">
                         <router-link :to="'/article/'+item.id">
                             查看全文
                         </router-link>
                     </div>
 
-                </article>
+                </div>
             </mu-list>
-            <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
-
+            <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"> </mu-infinite-scroll>
+            <div v-if="noArticle" class="dixian"> ~ ~ 我是有底线的 ~ ~ </div>
         </div>
-        <!--<Footer></Footer>-->
-    </div>
+
 
 </template>
 <script>
-    import Footer from './common/Footer.vue'
+//    import Footer from './common/Footer.vue'
+
     export default {
         data() {
             return {
                 list: [],
                 loading: false,
-                page:1,
-                scroller: null
+                page: 1,
+                scroller: null,
+                noArticle: false
             }
-        }, components:{
-            Footer
+        }, components: {
+//            Footer
         },
         mounted() {
             this.scroller = this.$el;
@@ -49,19 +49,27 @@
         methods: {
 
             loadMore() {
-                this.loading = true;
-                    this.page = this.page+1;
-                    axios.get('/api/_articles?page='+this.page).then((response) => {
-//                        console.log(response.data);
+                this.page = this.page + 1;
+                if (!this.noArticle) {
+                    axios.get('/api/_articles?page=' + this.page).then((response) => {
                         let list = response.data.data.articles.list;
-                        if(list && list.length){
-                            for (let i = 0; i < list.length; i++) {
-                                this.list.push(list[i])
-                            }
+                        if (list && list.length) {
+                            this.loading = true;
+                            setTimeout(() => {
+                                for (let i = 0; i < list.length; i++) {
+                                    this.list.push(list[i])
+                                }
+                                this.loading = false;
+                            }, 2000);
 
+                        } else {
+                            this.noArticle = true;
                         }
-                        this.loading = false
+
+
                     })
+                }
+
 
             }
         }
@@ -77,12 +85,12 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    article {
+    .article {
         padding: 10px;
         border-bottom: solid 1px #ebebeb;
     }
 
-    article a {
+    .article a {
         color: #42b983;
     }
 
@@ -94,7 +102,15 @@
         color: #7f8c8d;
         font-size: 13px;
     }
-    .show-all{
+
+    .show-all {
         text-align: right;
+    }
+
+    .dixian {
+        text-align: center;
+        color: #42b983;
+        margin: 10px 0 30px 0;
+        font-size: 18px;
     }
 </style>

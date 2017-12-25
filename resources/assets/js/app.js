@@ -26,7 +26,7 @@ import 'muse-ui/dist/theme-carbon.css' // 使用 carbon 主题
 import App from './App.vue';
 import router from './router/index.js';
 
-Vue.use(MuseUI)
+Vue.use(MuseUI);
 
 
 

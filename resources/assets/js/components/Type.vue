@@ -5,9 +5,9 @@
         <br>
 
         <mu-timeline iconColor="#42b983">
-            <mu-timeline-item v-for="(item, index) in articles" :key="'paper'+index" >
+            <mu-timeline-item v-for="(item, index) in articles" :key="'paper_'+index">
                 <span slot="time" v-text="item.created_at"></span>
-                <span slot="des"  class="des" v-text="item.title" @click="toArticle(item.id)"></span>
+                <span slot="des" class="des" v-text="item.title" @click="toArticle(item.id)"></span>
             </mu-timeline-item>
         </mu-timeline>
 
@@ -15,22 +15,23 @@
 
 </template>
 <script>
-    import  axios from  'axios'
+    import axios from 'axios'
+
     export default {
         data() {
             return {
-                articles:[]
+                articles: []
             }
         },
-        mounted(){
-            axios.get('/api/_articles').then((response)=>{
-                console.log(response.data);
+        mounted() {
+            axios.get('/api/_articles').then((response) => {
+//                console.log(response.data);
                 this.articles = response.data.data.articles.list;
             })
         },
         methods: {
-            toArticle(id){
-                this.$router.push({ name: 'Article', params: { id }})
+            toArticle(id) {
+                this.$router.push({name: 'Article', params: {id}})
             }
         }
     }
@@ -43,11 +44,13 @@
         margin: 20px;
         text-align: center;
     }
-    .time-line-demo{
-        margin-left:10px;
+
+    .time-line-demo {
+        margin-left: 10px;
         padding: 10px;
     }
-    .des{
+
+    .des {
         color: #42b983;
     }
 

@@ -5,7 +5,7 @@ import About from '../components/About.vue'
 import Type from '../components/Type.vue'
 import Tag from '../components/Tag.vue'
 import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 export default new VueRouter({
     saveScrollPosition: true,
