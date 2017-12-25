@@ -28,7 +28,7 @@ class AxiosController extends ApiController
     // 文章
     public function articles()
     {
-        $data                     = Article::with('type')->paginate()->toArray();
+        $data                     = Article::with('type')->orderBy('id','DESC')->paginate()->toArray();
         $articles['total']        = array_get($data, 'total');
         $articles['current_page'] = array_get($data, 'current_page');
         $articles['last_page']    = array_get($data, 'last_page');
