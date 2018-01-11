@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a831d37427126cc772d3fb0511760370",
+    "content-hash": "6ac1142e918d9cb16c53f58ce4b7facb",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -3003,6 +3003,39 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "tonyski/netease-cloud-music-for-laravel",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tonyski/netease-cloud-music-for-laravel.git",
+                "reference": "3dfac320e1028fa15b22b048ceb30a757f7f160f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/tonyski/netease-cloud-music-for-laravel/3dfac320e1028fa15b22b048ceb30a757f7f160f.zip",
+                "reference": "3dfac320e1028fa15b22b048ceb30a757f7f160f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tonyski\\NCMusic\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Tonyski",
+                    "email": "tonyski@126.com"
+                }
+            ],
+            "time": "2016-12-30T02:48:07+00:00"
         },
         {
             "name": "vaptcha/vaptcha-sdk",

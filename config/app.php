@@ -179,6 +179,9 @@ return [
 
         Laravel\Passport\PassportServiceProvider::class,
 
+//        网易云音乐API for Laravel5
+        Tonyski\NCMusic\NCMusicServiceProvider::class,
+
     ],
 
     /*
@@ -227,7 +230,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+//        网易云音乐API for Laravel5
+        'NCMusic' => Tonyski\NCMusic\Facades\NCMusic::class,
     ],
 
 ];
