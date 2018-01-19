@@ -19,7 +19,7 @@
         <div class="slider-header">
           <div class="author-image"></div>
           <div class="author-name">张小张 &nbsp;
-            <i class="icon iconfont icon-github li-icon"></i>
+            <a href="https://github.com/zhangyake" target="_blank"><i class="icon iconfont icon-github li-icon"></i></a>
           </div>
           <div class="author-email">
             <a href="mailto:zhangykvip@126.com" title="zhangykvip@126.com">zhangykvip@126.com</a>
