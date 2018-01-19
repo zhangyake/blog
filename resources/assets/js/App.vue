@@ -1,21 +1,15 @@
 <template>
-    <div>
-        <Sider></Sider>
-        <router-view></router-view>
+    <div id="app">
+        <router-view/>
     </div>
-
 </template>
+
 <script>
-    import Sider from './components/common/Sider.vue'
     export default {
-       name:'app',
-        components: {Sider}
-
-
+        name: 'app'
     }
 </script>
+
 <style>
-
-
 </style>
 
