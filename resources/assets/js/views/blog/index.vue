@@ -55,16 +55,7 @@
         </div>
       </div>
     </transition>
-    <div class="music" :style="{width:music_width+ 'px'}" >
-      <!-- showlrc -->
-      <aplayer autoplay :music="{
-          title: '体面《前任3》',
-          author: '演唱 - 于文文',
-          url: 'http://dl.stream.qqmusic.qq.com/C400000Md1wq0vnwzE.m4a?guid=9415382876&vkey=771BFE747150E1C6BE5B05813A1BA12CDB8B907504764735037ED3FB89295F432D9ED0DB34EDC80F11E1425DD6586663ADFB2239A855F16C&uin=&fromtag=999',
-          pic: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000001qYTzY2oyDyZ.jpg?max_age=2592000',
-          lrc: '[00:00.00] 别堆砌怀念让剧情 变得狗血 [00:32.00]深爱了多年又何必 毁了经典 都已成年不拖不欠'
-        }"></aplayer>
-    </div>
+
     <!-- 全屏遮罩 -->
     <div class="app-shade" v-if="show" @click="showSilder"></div>
   </div>

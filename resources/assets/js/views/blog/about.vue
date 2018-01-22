@@ -6,16 +6,38 @@
       <div class="sub-title">这个人比较懒 什么都没有留下</div>
     </div>
     <div class="body-item">
+      <br>
+      <div class="article-content">
+      本人学识渊博、经验丰富，代码风骚、效率恐怖，PHP、Java、Python、Javascript 无不精通，熟练掌握各种框架，深山苦练 20 余年，一天只睡 4 小时， 千里之外定位问题，瞬息之间修复上线。身体强壮、健步如飞，可连续编程 100 小时不休息，讨论技术方案5小时。
+    </div> </div>
+    <div class="music"  :style="{width:music_width+ 'px'}" >
+      <!-- showlrc -->
+      <aplayer showlrc autoplay :music="{
+          title: '那些你很冒险的梦',
+          author: '演唱 - 林俊杰',
+          url:'/file/那些你很冒险的梦.mp3',
+          pic: 'http://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg?param=130y130',
+          lrc:  `[00:00.00] 作曲 : 林俊杰\n[00:01.00] 作词 :
+               王雅君\n[00:14.15]当两颗心开始震动\n[00:21.81]当你瞳孔学会闪躲\n[00:28.25]当爱慢慢被遮住只剩下黑\n[00:35.87]距离像影子被拉拖\n[00:40.23]\n[00:43.10]当爱的故事剩听说\n[00:49.26]我找不到你单纯的面孔\n[00:56.67]当生命每分每秒都为你转动\n[01:03.54]心多执着就加倍心痛\n[01:09.06]\n[01:09.71]那些你很冒险的梦
+               我陪你去疯\n[01:17.59]折纸飞机 碰到雨天 终究会坠落\n[01:23.79]太残忍的话我直说 因为爱很重\n[01:31.71]你却不想懂
+               只往反方向走\n[01:37.95]\n[01:50.12]当爱的故事剩听说\n[01:56.48]我找不到你单纯的面孔\n[02:03.31]当生命每分每秒都为你转动\n[02:10.40]心有多执着就加倍心痛\n[02:16.35]\n[02:16.97]那些你很冒险的梦
+               我陪你去疯\n[02:24.78]折纸飞机 碰到雨天 终究会坠落\n[02:30.84]太残忍的话我直说 因为爱很重\n[02:38.49]你却不想懂
+               只往反方向走\n[02:44.48]\n[02:46.35]我不想放手 你松开的左手\n[02:49.78]你爱的放纵 我白不回天空\n[02:53.71]我输了 累了 当你 再也
+               不回头\n[03:00.84]\n[03:02.54]那些你很冒险的梦 我陪你去疯\n[03:10.61]折纸飞机 碰到雨天 终究会坠落\n[03:16.67]太残忍的话我直说
+               因为爱很重\n[03:24.56]你却不想懂 只往反方向走\n[03:31.24]你真的不懂 我的爱已降落\n[03:41.50]\n`
 
+        }"></aplayer>
     </div>
-
   </div>
 
 </template>
 
 <script>
-
+import Aplayer from 'vue-aplayer'
 export default {
+    components: {
+        Aplayer
+    },
   data () {
     return {
       show: false,
@@ -23,11 +45,13 @@ export default {
       loading: false,
       page: 1,
       scroller: null,
-      noArticle: false
+      noArticle: false,
+        music_width:375
     }
   },
   mounted () {
-
+      let w = document.body.clientWidth
+      this.music_width = w >= 414 ? 415 : w
   },
   methods: {
     showSilder () {
@@ -63,7 +87,14 @@ export default {
   font-weight: 300;
   color: #c5cae9;
 }
+.music{
+  position: fixed;
+  left: 0;
+  width: 300px;
+  bottom: 0;
+  background-color: #ffffff;
 
+}
 @media screen and (min-width: 968px) {
   .app-body .body-item {
     margin-top: 20px;
@@ -82,6 +113,14 @@ export default {
     /* height: 200px; */
     /* padding-top: 16px; */
   }
+}
+.article-content {
+  padding-left: 20px;
+  padding-right: 20px;
+  word-break: break-all;
+  padding-bottom: 18px;
+  line-height: 1.8;
+  font-size: 15px;
 }
 .archives-date{
     padding: 30px 0 18px 20px;
