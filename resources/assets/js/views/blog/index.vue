@@ -93,7 +93,7 @@
         },
         mounted () {
             let w = document.body.clientWidth
-            this.music_width = w >= 375 ? 376 : w
+            this.music_width = w >= 414 ? 415 : w
         },
         methods: {
             showSilder () {
@@ -247,6 +247,15 @@
       padding: 16px 20px 0;
       margin-left: 15%;
       margin-right: 15%;
+    }
+
+    .music{
+      position: fixed;
+      left: 0;
+      width: 300px;
+      bottom: 0;
+      background-color: #ffffff;
+
     }
   }
 
