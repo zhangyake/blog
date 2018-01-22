@@ -41,7 +41,7 @@ const store = new Vuex.Store({
     AchivesList ({ commit }, data) {
       return new Promise((resolve, reject) => {
         axios({
-          url: `/api/_archives?page=${data.page}`,
+          url: `/api/_archives?page=${data.page}&tag_id=${data.tag_id}`,
           method: 'get'
         }).then(response => {
           if (response.data) {

@@ -10,10 +10,10 @@
       <div class="article-tags" v-if="show">
         <ul class="article-tag-list">
           <li class="article-tag-list-item" v-for="x in tags" :key="'mu-card-'+x.id">
-            <a v-if="x.articles_count<=10" class="article-tag-list-link tag-p1 waves-effect waves-button" :href="'#/tags/'+x.id" v-text="x.name"></a>
-            <a v-else-if="x.articles_count<=20" class="article-tag-list-link tag-p2 waves-effect waves-button" :href="'#/tags/'+x.id" v-text="x.name"></a>
-            <a v-else-if="x.articles_count<=30" class="article-tag-list-link tag-p3 waves-effect waves-button" :href="'#/tags/'+x.id" v-text="x.name"></a>
-            <a v-else class="article-tag-list-link waves-effect tag-p4 waves-button" :href="'/tags/'+x.id" v-text="x.name"></a>
+            <a v-if="x.articles_count<=10" class="article-tag-list-link tag-p1 waves-effect waves-button"  v-text="x.name" @click="toArchives(x.id)"></a>
+            <a v-else-if="x.articles_count<=20" class="article-tag-list-link tag-p2 waves-effect waves-button"  v-text="x.name" @click="toArchives(x.id)"></a>
+            <a v-else-if="x.articles_count<=30" class="article-tag-list-link tag-p3 waves-effect waves-button"  v-text="x.name" @click="toArchives(x.id)"></a>
+            <a v-else class="article-tag-list-link  waves-effect  tag-p4  waves-button"  v-text="x.name" @click="toArchives(x.id)"></a>
           </li>
 
         </ul>
@@ -54,7 +54,10 @@ export default {
     },
     toArticle (id) {
       this.$router.push({ name: 'Article', params: { 'id': id } })
-    }
+    },
+      toArchives (id) {
+          this.$router.push({ name: 'Archives', params: { 'tag_id': id } })
+      }
   }
 }
 </script>

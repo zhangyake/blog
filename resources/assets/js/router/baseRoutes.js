@@ -24,7 +24,7 @@ export default [
         component: Article
       },
       {
-        path: '/archives',
+        path: '/archives/:tag_id',
         name: 'Archives',
         component: Archives
       },

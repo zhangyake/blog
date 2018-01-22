@@ -18,7 +18,7 @@
         <div class="article-tags">
           <ul class="article-tag-list">
             <li class="article-tag-list-item" v-for="x in article.tags" :key="'mu-card-'+x.id">
-              <span class="article-tag-list-link waves-effect waves-button"  v-text="x.name"></span>
+              <span class="article-tag-list-link waves-effect waves-button"  v-text="x.name" @click="toArchives(x.id)"></span>
             </li>
 
           </ul>
@@ -53,7 +53,9 @@ export default {
     }
   },
   methods: {
-
+      toArchives (id) {
+          this.$router.push({ name: 'Archives', params: { 'tag_id': id } })
+      },
   }
 }
 </script>

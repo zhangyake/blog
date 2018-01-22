@@ -14,7 +14,7 @@
         <div class="article-tags">
           <ul class="article-tag-list">
             <li class="article-tag-list-item" v-for="x in item.tags" :key="'mu-card-'+x.id">
-               <span class="article-tag-list-link waves-effect waves-button"  v-text="x.name"></span>
+               <span class="article-tag-list-link waves-effect waves-button"  v-text="x.name" @click="toArchives(x.id)"></span>
             </li>
 
           </ul>
@@ -40,8 +40,10 @@ export default {
     }
   },
   mounted () {
-    let page = this.page
-    this.$store.dispatch('AchivesList', {page}).then((response) => {
+      let id = this.$route.params.tag_id ? this.$route.params.tag_id : 0
+
+      let page = this.page
+    this.$store.dispatch('AchivesList', {page,tag_id:id}).then((response) => {
       // console.log(response)
       let list = response.data.articles.list
       if (list) {
@@ -53,6 +55,9 @@ export default {
     showSilder () {
       this.show = !this.show
     },
+      toArchives (id) {
+          this.$router.push({ name: 'Archives', params: { 'tag_id': id } })
+      },
     toArticle (id) {
       this.$router.push({ name: 'Article', params: { 'id': id } })
     }
