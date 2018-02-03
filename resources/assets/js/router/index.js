@@ -1,40 +1,26 @@
 import Vue from 'vue'
-import Article from '../components/Article.vue'
-import ArticleDetail from '../components/ArticleDetail.vue'
-import About from '../components/About.vue'
-import Type from '../components/Type.vue'
-import Tag from '../components/Tag.vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import Router from 'vue-router'
+import baseRoutes from './baseRoutes'
 
-export default new VueRouter({
-    saveScrollPosition: true,
+Vue.use(Router)
+
+const router = new Router({
+    // mode: 'history',
     routes: [
-        {
-            name: 'Home',
-            path: '/',
-            component: Article
-        },
-        {
-            name: 'Tag',
-            path: '/tag',
-            component: Tag
+        ...baseRoutes
+    ],
+    // scrollBehavior (to, from, savedPosition) {
+    //     return { x: 0, y: 0 }
+    // }
+})
 
-        },
-        {
-            name: 'Type',
-            path: '/type',
-            component: Type
-        },
-        {
-            name: 'About',
-            path: '/about',
-            component: About
-        },
-        {
-            name: 'Article',
-            path: '/article/:id',
-            component: ArticleDetail
-        },
-    ]
-});
+router.beforeEach((to, from, next) => {
+    // 访问的路由没有定义 直接404页面
+    if (!to.name) {
+        next('404')
+    } else {
+        next()
+    }
+})
+
+export default router

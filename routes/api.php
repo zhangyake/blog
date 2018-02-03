@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Tonyski\NCMusic\Facades\NCMusic;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,40 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('music', function (Request $request) {
+
+    $search = $request->input('s');
+    $type   = $request->input('t');
+
+    switch ($type) {
+        case 'search':
+            $result = NCMusic::search($search); //关键字搜索
+            break;
+        case 'artist':
+            $result = NCMusic::artist($search); //歌手热门单曲
+            break;
+        case 'playlist':
+            $result = NCMusic::playlist($search); //歌手热门单曲
+            break;
+        case 'url':
+            $result = NCMusic::url($search); //歌曲地址获取
+            break;
+        case 'lyric':
+            $result = NCMusic::lyric($search); //歌词解析
+            break;
+        case 'mv':
+            $result = NCMusic::mv($search); //MV解析
+            break;
+        case 'album':
+            $result = NCMusic::album($search); //专辑解析
+            break;
+        default:
+            $result = NCMusic::search($search); //关键字搜索
+    }
+    return $result;
+});
+
+
 Route::namespace('Api')->group(function () {
     Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
     Route::get('vaptcha/downtime', 'VaptchaController@getDownTime');
@@ -21,13 +57,10 @@ Route::namespace('Api')->group(function () {
     Route::get('/_articles/{id}', 'AxiosController@articleDetail');
     Route::get('/_types', 'AxiosController@types');
     Route::get('/_tags', 'AxiosController@tags');
-
+    Route::get('/_archives', 'AxiosController@archives');
 
 
 });
-
-
-
 
 
 Route::post('/login', function (Request $request) {
@@ -89,7 +122,7 @@ Route::post('/robot', function (Request $request) {
     $status   = $response->getStatusCode();
     if ($status === 200) {
         $result = (string)$response->getBody();
-        $array   = json_decode($result, true);
+        $array  = json_decode($result, true);
 //        $code   = array_get($array, 'code');
 //        $data = array_get($array,'text','');
 //        switch ($code) {

@@ -20,13 +20,10 @@ require('./bootstrap');
 // Vue.use(ElementUI);
 import Vue from 'vue';
 
-import MuseUI from 'muse-ui'
-import 'muse-ui/dist/muse-ui.css'
-import 'muse-ui/dist/theme-carbon.css' // 使用 carbon 主题
+import store from './store'
 import App from './App.vue';
 import router from './router/index.js';
 
-Vue.use(MuseUI)
 
 
 
@@ -34,5 +31,6 @@ Vue.use(MuseUI)
 const app = new Vue({
     el: '#app',
     router,
+    store,
     render: h => h(App)
 });
