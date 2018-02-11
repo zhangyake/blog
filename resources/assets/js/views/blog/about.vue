@@ -3,7 +3,7 @@
   <div class="app-body" >
     <div class="body-header">
       <div class="title">关于我</div>
-      <div class="sub-title">伪全栈程序猿的自留地*</div>
+      <div class="sub-title">-- 伪全栈程序猿的自留地 --</div>
     </div>
     <div class="body-item">
       <br>
@@ -54,30 +54,16 @@ export default {
   mounted() {
     let w = document.body.clientWidth
     this.music_width = w >= 375 ? 376 : w
-    this.copyTextToClipboard(this.message)
-    
   },
   methods: {
-    showSilder() {
-      this.show = !this.show
-    },
-    toArticle(id) {
-      this.$router.push({ name: 'Article', params: { 'id': id } })
-    },copyTextToClipboard(text) {
-var textArea = document.createElement("textarea");
-textArea.style.background = 'transparent';
-textArea.value = text;
-document.body.appendChild(textArea);
-textArea.select();
-try {
-var successful = document.execCommand('copy');
-var msg = successful ? 'successful' : 'unsuccessful';
-console.log(msg)
-} catch (err) {
-console.log('Oops, unable to copy');
-}
-document.body.removeChild(textArea);}
-  }
+      showSilder() {
+          this.show = !this.show
+      },
+      toArticle(id) {
+          this.$router.push({name: 'Article', params: {'id': id}})
+      }
+      }
+
 }
 </script>
 
