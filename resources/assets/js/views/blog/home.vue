@@ -17,7 +17,7 @@
         <div class="article-tags">
           <ul class="article-tag-list">
             <li class="article-tag-list-item" v-for="x in item.tags" :key="'mu-card-'+x.id">
-              <span class="article-tag-list-link waves-effect waves-button" v-text="x.name" @click="toArchives(x.id)"></span>
+              <span class="article-tag-list-link waves-effect waves-button" v-text="x.name" @click="toArchives(x.id)" ></span>
             </li>
 
           </ul>

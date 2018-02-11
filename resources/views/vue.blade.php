@@ -11,6 +11,7 @@
     <link rel=stylesheet href="./css/normalize.min.css">
     <link href="./css/animate.css@3.5.1.css" rel=stylesheet type=text/css>
     <link href="./css/bubuzou.css" rel=stylesheet type=text/css>
+    <!-- <script type=text/javascript src="{{ asset('/static/js/clipboard.min.js') }}" ></script> -->
 </head>
 <body>
 <div id="app">

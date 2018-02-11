@@ -8,6 +8,7 @@
     <title>YK'S BLOG</title>
     <style></style>
     <link href="{{ asset('/static/css/app.css') }}"  rel=stylesheet>
+   
 </head>
 
 <body>

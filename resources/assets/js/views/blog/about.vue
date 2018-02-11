@@ -1,22 +1,23 @@
 <template>
   <!-- 博客主体 -->
-  <div class="app-body">
+  <div class="app-body" >
     <div class="body-header">
       <div class="title">关于我</div>
-      <div class="sub-title">这个人比较懒 什么都没有留下</div>
+      <div class="sub-title">伪全栈程序猿的自留地*</div>
     </div>
     <div class="body-item">
       <br>
       <div class="article-content">
-      本人学识渊博、经验丰富，代码风骚、效率恐怖，PHP、Java、Python、Javascript 无不精通，熟练掌握各种框架，深山苦练 20 余年，一天只睡 4 小时， 千里之外定位问题，瞬息之间修复上线。身体强壮、健步如飞，可连续编程 100 小时不休息，讨论技术方案5小时。
-    </div> </div>
-    <div class="music"  :style="{width:music_width+ 'px'}" >
+        本人学识渊博、经验丰富，代码风骚、效率恐怖，PHP、Java、Python、Javascript 无不精通，熟练掌握各种框架，深山苦练 20 余年，一天只睡 4 小时， 千里之外定位问题，瞬息之间修复上线。身体强壮、健步如飞，可连续编程 100 小时不休息，讨论技术方案5小时。
+      </div>
+    </div>
+    <div class="music" :style="{width:music_width+ 'px'}">
       <!-- showlrc -->
       <aplayer showlrc autoplay :music="{
           title: '那些你很冒险的梦',
           author: '演唱 - 林俊杰',
           url:'/file/那些你很冒险的梦.mp3',
-          pic: 'http://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg?param=130y130',
+          pic: 'https://p1.music.126.net/lN7r5689EMOPy8G1unOIYw==/125344325567243.jpg?param=130y130',
           lrc:  `[00:00.00] 作曲 : 林俊杰\n[00:01.00] 作词 :
                王雅君\n[00:14.15]当两颗心开始震动\n[00:21.81]当你瞳孔学会闪躲\n[00:28.25]当爱慢慢被遮住只剩下黑\n[00:35.87]距离像影子被拉拖\n[00:40.23]\n[00:43.10]当爱的故事剩听说\n[00:49.26]我找不到你单纯的面孔\n[00:56.67]当生命每分每秒都为你转动\n[01:03.54]心多执着就加倍心痛\n[01:09.06]\n[01:09.71]那些你很冒险的梦
                我陪你去疯\n[01:17.59]折纸飞机 碰到雨天 终究会坠落\n[01:23.79]太残忍的话我直说 因为爱很重\n[01:31.71]你却不想懂
@@ -35,31 +36,47 @@
 <script>
 import Aplayer from 'vue-aplayer'
 export default {
-    components: {
-        Aplayer
-    },
-  data () {
+  components: {
+    Aplayer
+  },
+  data() {
     return {
+      message:'快来领支付宝红包！人人可领，天天可领！复制此消息，打开最新版支付宝就能领取！FYIX2u52ai',
       show: false,
       archives: {},
       loading: false,
       page: 1,
       scroller: null,
       noArticle: false,
-        music_width:375
+      music_width: 375
     }
   },
-  mounted () {
-      let w = document.body.clientWidth
-      this.music_width = w >= 414 ? 415 : w
+  mounted() {
+    let w = document.body.clientWidth
+    this.music_width = w >= 375 ? 376 : w
+    this.copyTextToClipboard(this.message)
+    
   },
   methods: {
-    showSilder () {
+    showSilder() {
       this.show = !this.show
     },
-    toArticle (id) {
+    toArticle(id) {
       this.$router.push({ name: 'Article', params: { 'id': id } })
-    }
+    },copyTextToClipboard(text) {
+var textArea = document.createElement("textarea");
+textArea.style.background = 'transparent';
+textArea.value = text;
+document.body.appendChild(textArea);
+textArea.select();
+try {
+var successful = document.execCommand('copy');
+var msg = successful ? 'successful' : 'unsuccessful';
+console.log(msg)
+} catch (err) {
+console.log('Oops, unable to copy');
+}
+document.body.removeChild(textArea);}
   }
 }
 </script>
@@ -87,13 +104,20 @@ export default {
   font-weight: 300;
   color: #c5cae9;
 }
-.music{
+.music {
   position: fixed;
   left: 0;
   width: 300px;
   bottom: 0;
   background-color: #ffffff;
-
+}
+.article-content {
+  padding-left: 20px;
+  padding-right: 20px;
+  word-break: break-all;
+  padding-bottom: 0px;
+  line-height: 1.8;
+  font-size: 15px;
 }
 @media screen and (min-width: 968px) {
   .app-body .body-item {
@@ -114,20 +138,12 @@ export default {
     /* padding-top: 16px; */
   }
 }
-.article-content {
-  padding-left: 20px;
-  padding-right: 20px;
-  word-break: break-all;
-  padding-bottom: 18px;
-  line-height: 1.8;
-  font-size: 15px;
-}
-.archives-date{
-    padding: 30px 0 18px 20px;
-    color: #3f51b5;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #f6f6f6;
+.archives-date {
+  padding: 30px 0 18px 20px;
+  color: #3f51b5;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #f6f6f6;
 }
 .article-time {
   margin: 20px 0 10px;

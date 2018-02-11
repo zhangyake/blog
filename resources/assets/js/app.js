@@ -24,9 +24,8 @@ import store from './store'
 import App from './App.vue';
 import router from './router/index.js';
 
-
-
-
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 const app = new Vue({
     el: '#app',

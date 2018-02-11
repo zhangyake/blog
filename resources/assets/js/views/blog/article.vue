@@ -53,9 +53,9 @@ export default {
     }
   },
   methods: {
-      toArchives (id) {
-          this.$router.push({ name: 'Archives', params: { 'tag_id': id } })
-      },
+    toArchives (id) {
+      this.$router.push({ name: 'Archives', params: { 'tag_id': id } })
+    }
   }
 }
 </script>
