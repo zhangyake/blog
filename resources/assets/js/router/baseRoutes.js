@@ -5,6 +5,8 @@ import Article from '../views/blog/article.vue'
 import Archives from '../views/blog/archives.vue'
 import Tags from '../views/blog/tags.vue'
 import About from '../views/blog/about.vue'
+import Chat from '../views/blog/chat.vue'
+
 // import NotFound from '@/views/error/404'
 
 export default [
@@ -40,6 +42,11 @@ export default [
       }
     ]
   },
+    {
+        path: '/chat',
+        name: 'Chat',
+        component: Chat
+    },
   {
     path: '/404',
     redirect: { name: 'Home' }

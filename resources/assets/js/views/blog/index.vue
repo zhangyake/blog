@@ -47,6 +47,11 @@
             <i class="icon iconfont icon-icnavabout li-icon"></i>
             <div class="li-title" >关于</div>
           </div>
+
+          <div class="list-li" @click="routerTo('Chat')">
+            <i class="icon iconfont icon-archive li-icon"></i>
+            <div class="li-title" >聊天</div>
+          </div>
           <!-- <div class="list-li">
                     <i class="icon iconfont icon-iconfonticonfontweibo li-icon"></i>
                     <div class="li-title">weibo</div>
