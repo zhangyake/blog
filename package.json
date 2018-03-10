@@ -18,7 +18,7 @@
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "node-sass": "^4.7.2",
-        "sass-loader": "^6.0.6",
+        "sass-loader": "^6.0.7",
         "style-loader": "^0.19.1",
         "stylus-loader": "^3.0.1",
         "vue": "^2.5.7"
@@ -29,6 +29,7 @@
         "less": "^2.7.3",
         "less-loader": "^4.0.5",
         "muse-ui": "^2.1.0",
+        "sass": "^1.0.0-beta.5.3",
         "vue-aplayer": "^1.0.1",
         "vue-clipboard2": "0.0.8",
         "vue-router": "^3.0.1",
