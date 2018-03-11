@@ -109,7 +109,7 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
     });
 });
 
-Route::post('/robot', function (Request $request) {
+Route::get('/robot', function (Request $request) {
     $data     = $request->all();
     $http     = new GuzzleHttp\Client;
     $response = $http->post(env("ROBOT_URL", 'http://www.tuling123.com/openapi/api'), [

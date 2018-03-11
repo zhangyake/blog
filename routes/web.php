@@ -13,9 +13,13 @@
 
 
 Route::get('/', function () {
-//    return redirect('/articles');
 //    博客前台页面
-      return view('vue');
+      return view('index');
+});
+
+Route::get('/chat', function () {
+//    博客前台页面
+    return view('chat');
 });
 
 Route::middleware(['homeQuery'])->group(function () {
@@ -34,7 +38,7 @@ Route::middleware(['homeQuery'])->group(function () {
 
 Route::get('/admin', function () {
 //    博客后台页面
-    return view('index');
+    return view('admin');
 });
 
 

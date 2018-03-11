@@ -99,6 +99,8 @@ export default {
       this.show = !this.show
       if(name=='Archives'){
         this.$router.push({ name: 'Archives', params: { 'tag_id': 0 } })
+      }else if(name=='Chat'){
+          window.open('/chat')
       }else{
         this.$router.push({ name })
       }

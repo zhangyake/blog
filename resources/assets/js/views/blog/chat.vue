@@ -1,25 +1,16 @@
 <template>
     <div class="app-body" >
-        <div class="body-header">
-            <div class="title">关于我</div>
-            <div class="sub-title">-- 伪全栈程序猿的自留地 --</div>
-        </div>
-        <div class="body-item">
-
-        </div>
-        <div class="music">
-
-
-        </div>
+        <weChat></weChat>
     </div>
 
 </template>
 
 <script>
-    import Aplayer from 'vue-aplayer'
+
+   import weChat from '../../components/weChat.vue'
     export default {
         components: {
-            Aplayer
+            weChat
         },
         data() {
             return {
@@ -51,137 +42,115 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .app-body {
-        margin-top: 56px;
-        background-color: #f6f6f6;
-    }
-
-    .app-body .body-header {
-        padding: 40px 0 36px 36px;
-        background-color: #3f51b5;
-    }
-    .body-header .title {
-        font-size: 24px;
-        line-height: 30px;
-        color: #ffffff;
-    }
-    .body-header .sub-title {
-        padding-top: 6px;
-        font-size: 14px;
-        line-height: 20px;
-        font-weight: 300;
-        color: #c5cae9;
-    }
-    .music {
-        position: fixed;
-        left: 0;
-        width: 300px;
-        bottom: 0;
-        background-color: #ffffff;
-    }
-    .article-content {
-        padding-left: 20px;
-        padding-right: 20px;
-        word-break: break-all;
-        padding-bottom: 0px;
-        line-height: 1.8;
-        font-size: 15px;
-    }
-    @media screen and (min-width: 968px) {
-        .app-body .body-item {
-            margin-top: 20px;
-            background-color: #ffffff;
-            /* height: 200px; */
-            padding: 16px 20px 0;
-            margin-left: 15%;
-            margin-right: 15%;
+         * {
+            box-sizing: border-box;
+            /* 在X5新内核Blink中，在排版页面的时候，会主动对字体进行放大，会检测页面中的主字体，当某一块字体在我们的判定规则中，认为字号较小，并且是页面中的主要字体，就会采取主动放大的操作。然而这不是我们想要的，可以采取给最大高度解决 */
+            max-height: 100000px;
         }
-    }
 
-    @media screen and (max-width: 967px) {
-        .app-body .body-item {
-            /* margin-top: 20px; */
-            background-color: #ffffff;
-            /* height: 200px; */
-            /* padding-top: 16px; */
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            max-height: 100000px;
         }
-    }
-    .archives-date {
-        padding: 30px 0 18px 20px;
-        color: #3f51b5;
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #f6f6f6;
-    }
-    .article-time {
-        margin: 20px 0 10px;
-        line-height: 14px;
-        font-size: 13px;
-        font-weight: bold;
-        color: #727272;
-        padding-left: 20px;
-    }
-    .article-title {
-        color: #3f51b5;
-        position: relative;
-        display: inline-block;
-        font-size: 20px;
-        line-height: 24px;
-        margin: 0 0 10px;
-        padding-left: 20px;
-    }
-    .article-tags {
-        border-bottom: 1px solid #ddd;
-        padding: 5px 20px 5px 20px;
-    }
-    .article-tag-list {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        font-size: 13px;
-        list-style: none;
-    }
-    .article-tag-list-item {
-        display: inline-block;
-        margin: 0 8px 8px 0;
-        border-radius: 2px;
-    }
-    .article-tag-list-item:nth-child(n + 1) {
-        background: #ff9800;
-    }
-    .article-tag-list-item:nth-child(n + 2) {
-        background: #673ab7;
-    }
-    .article-tag-list-item:nth-child(n + 3) {
-        background: #8bc34a;
-    }
-    .article-tag-list-item:nth-child(n + 4) {
-        background: #f44336;
-    }
-    .article-tag-list-item:nth-child(n + 5) {
-        background: #00abc0;
-    }
-    .waves-button,
-    .waves-button:hover,
-    .waves-button:visited,
-    .waves-button-input {
-        white-space: nowrap;
-        vertical-align: middle;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        background-color: rgba(0, 0, 0, 0);
-        font-size: 1em;
-        text-align: center;
-        text-decoration: none;
-        z-index: 1;
-    }
-    .article-tag-list-link {
-        display: block;
-        padding: 0 16px;
-        line-height: 28px;
-        color: rgba(255, 255, 255, 0.8);
-        -webkit-transition: 0.2s ease-in-out;
-        transition: 0.2s ease-in-out;
-    }
+
+        *,
+        *:before,
+        *:after {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        html,
+        body,
+        div,
+        span,
+        object,
+        iframe,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        blockquote,
+        pre,
+        a,
+        abbr,
+        address,
+        cite,
+        code,
+        del,
+        dfn,
+        em,
+        img,
+        ins,
+        kbd,
+        q,
+        samp,
+        small,
+        strong,
+        sub,
+        sup,
+        var,
+        b,
+        i,
+        dl,
+        dt,
+        dd,
+        ol,
+        ul,
+        li,
+        fieldset,
+        form,
+        label,
+        legend,
+        table,
+        caption,
+        tbody,
+        tfoot,
+        thead,
+        tr,
+        th,
+        textarea,
+        td {
+            border: 0 none;
+            font-size: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0;
+            vertical-align: baseline;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: normal;
+        }
+
+        em,
+        strong {
+            font-style: normal;
+        }
+
+        ul,
+        ol,
+        li {
+            list-style: none;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f6f6f6;
+            font-size: 0.24rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
 </style>
