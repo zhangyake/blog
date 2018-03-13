@@ -108,7 +108,9 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
         return response()->json(['data' => $res]);
     });
 });
+
 //http://ip.taobao.com/instructions.html
+//Todo 访问者ip 访问次数 访问时间 访问地点
 Route::get('/robot', function (Request $request) {
     $data     = $request->all();
     $http     = new GuzzleHttp\Client;
