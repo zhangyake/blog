@@ -111,7 +111,6 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 
 //http://ip.taobao.com/instructions.html
 //Todo 访问者ip 访问次数 访问时间 访问地点
-//Todo 评论功能
 
 Route::get('/robot', function (Request $request) {
     $data     = $request->all();
