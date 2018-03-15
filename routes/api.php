@@ -111,7 +111,7 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 
 Route::get('/ip', function (Request $request) {
     $ip = $request->getClientIp();
-    $ip='180.162.245.209';
+//    $ip='180.162.245.209';
     try {
         $http = new GuzzleHttp\Client;
         $response = $http->get(env("GAODE_IP_URL", 'https://restapi.amap.com/v3/ip').'?ip='.$ip.'&output=json&key=26af63ed8ca12da1c7fa64098eacdbe5');
