@@ -68,14 +68,13 @@
 </template>
 
 <script>
-import Aplayer from 'vue-aplayer'
+
 export default {
   components: {
-    Aplayer
+
   },
   data () {
     return {
-      music_width: 300,
       m_show: false,
       show: false,
       choose: 1,
@@ -88,8 +87,9 @@ export default {
     }
   },
   mounted () {
-    let w = document.body.clientWidth
-    this.music_width = w >= 375 ? 376 : w
+      this.$store.dispatch('ClientInfo').then((response) => {
+          console.log(response)
+      })
   },
   methods: {
     showSilder () {

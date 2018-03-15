@@ -109,8 +109,30 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
     });
 });
 
-//http://ip.taobao.com/instructions.html
-//Todo 访问者ip 访问次数 访问时间 访问地点
+Route::get('/ip', function (Request $request) {
+    $ip = $request->getClientIp();
+    $ip='180.162.245.209';
+    try {
+        $http = new GuzzleHttp\Client;
+        $response = $http->get(env("GAODE_IP_URL", 'https://restapi.amap.com/v3/ip').'?ip='.$ip.'&output=json&key=26af63ed8ca12da1c7fa64098eacdbe5');
+        $status   = $response->getStatusCode();
+        if ($status === 200) {
+            $result = (string)$response->getBody();
+            $array  = json_decode($result, true);
+           if ($array['status'] == 1){
+               $visit = new \App\Visit();
+               $visit->fill($array)->save();
+               return response()->json(['success' => true, 'reason' => '']);
+           }else{
+               \Log::info($ip);
+           }
+        }
+    } catch (Exception $e) {
+        \Log::error($ip);
+        \Log::info($e->getMessage());
+    }
+    return response()->json(['success' => false, 'reason' => '抱歉, 系统繁忙!']);
+});
 
 Route::get('/robot', function (Request $request) {
     $data     = $request->all();

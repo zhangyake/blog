@@ -10,7 +10,21 @@ const store = new Vuex.Store({
   mutations: {
   },
   actions: {
-    ArticleList ({ commit }, data) {
+    ClientInfo ({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/api/ip`,
+          method: 'get'
+        }).then(response => {
+          if (response.data) {
+            resolve(response.data)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+      ArticleList ({ commit }, data) {
       return new Promise((resolve, reject) => {
         axios({
           url: `/api/_articles?page=${data.page}`,
