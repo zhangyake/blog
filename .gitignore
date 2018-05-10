@@ -14,3 +14,4 @@ yarn-error.log
 /public/.DS_Store
 .gitignore
 resources/.DS_Store
+*/*/.DS_Store
