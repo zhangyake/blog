@@ -47,6 +47,10 @@ Route::get('music', function (Request $request) {
     return $result;
 });
 
+Route::get('free_books', function (Request $request) {
+ $data = \App\FreeBook::where('is_show','1')->get();
+ return response()->json(compact('data'), 200);
+});
 
 Route::namespace('Api')->group(function () {
     Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
