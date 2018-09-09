@@ -51,6 +51,35 @@ Route::get('free_books', function (Request $request) {
  $data = \App\FreeBook::where('is_show','1')->get();
  return response()->json(compact('data'), 200);
 });
+Route::post('free_books', function (Request $request) {
+    $inputs = $request->all();
+    $freeBookId = array_get($inputs,'free_book_id');
+    $freeBook = \App\FreeBook::where('is_show','1')->where('status',1)->where('id',$freeBookId)->first();
+
+    if( $freeBook && array_get($inputs,'user_name') && array_get($inputs,'address') && array_get($inputs,'mobile')){
+        \DB::beginTransaction();
+        try {
+            $bookReceiver = new \App\BookReceiver();
+            $bookReceiver->free_book_id = $freeBookId;
+            $bookReceiver->user_name = array_get($inputs,'user_name');
+            $bookReceiver->address = array_get($inputs,'address');
+            $bookReceiver->mobile = array_get($inputs,'mobile');
+            $bookReceiver->save();
+            $freeBook->status = 2;
+            $freeBook->save();
+            \DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \Log::INFO($e->getMessage());
+            return response()->json(['msg'=>'服务繁忙!'], 500);
+
+        }
+        return response()->json(compact('data'), 200);
+
+    }
+    return response()->json(['msg'=>'参数错误'], 400);
+
+});
 
 Route::namespace('Api')->group(function () {
     Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
