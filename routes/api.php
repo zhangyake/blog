@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Tonyski\NCMusic\Facades\NCMusic;
 
 
@@ -67,7 +69,10 @@ Route::post('free_books', function (Request $request) {
             $bookReceiver->save();
             $freeBook->status = 2;
             $freeBook->save();
-            \DB::commit();
+            // 发送提醒发货邮件
+	        Mail::to('337141794@qq.com')->send(new OrderShipped($bookReceiver));
+
+	        \DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             \Log::INFO($e->getMessage());
