@@ -176,9 +176,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Laravel\Passport\PassportServiceProvider::class,
-
 //        网易云音乐API for Laravel5
         Tonyski\NCMusic\NCMusicServiceProvider::class,
 

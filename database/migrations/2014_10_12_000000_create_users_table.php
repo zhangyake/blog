@@ -15,15 +15,27 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->comment('用户名');
+            $table->string('nickname')->nullable()->comment('昵称');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->tinyInteger('is_admin')->default(0);
-            $table->string('gender');
-            $table->timestamp('date');
-            $table->string('desc');
-            $table->rememberToken();
+            $table->string('password')->comment('密码');
+            $table->string('user_face')->nullable()->comment('用户头像');
+            $table->tinyInteger('gender')->default(0)->comment('性别 0：未知 1:男性 2：女性');
+            $table->string('desc')->nullable()->comment('描述');
+            $table->tinyInteger('state')->default(1)->comment('1:启用 0：禁用');
             $table->timestamps();
+        });
+
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique()->comment('角色名称');
+        });
+
+        Schema::create('role_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('role_id');
+            $table->integer('user_id');
+            $table->unique(['role_id', 'user_id'],'role_user_unique_index');
         });
     }
 
@@ -35,5 +47,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_users');
     }
 }

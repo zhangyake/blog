@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name'=>'admin',
+            'nickname'=>'李白',
             'email'=>'jaak@126.com',
             'password'=>bcrypt('admin'),
-            'is_admin'=>1,
-            'gender'=>'male',
+            'gender'=>'1',
             'desc'=>'admin user',
-            'date'=>\Carbon\Carbon::now(),
+            'state'=>'0',
             'created_at'=>\Carbon\Carbon::now(),
             'updated_at'=>\Carbon\Carbon::now()
         ]);

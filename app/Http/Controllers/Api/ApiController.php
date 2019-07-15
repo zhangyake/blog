@@ -4,30 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class ApiController extends Controller
 {
 
-    public function successReturn($data = [], $msg = 'ok')
+    protected function reqValidate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
     {
-        return response()->json(compact('data', 'msg'), 200);
-    }
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
 
-    public function errorReturn($msg = '', $status = 400)
-    {
-        if ($msg === '') {
-            switch ($status) {
-                case 400:
-                    $msg = 'request error';
-                    break;
-                case 500:
-                    $msg = 'system error';
-                    break;
-                default:
-                    $msg = 'error';
-            }
+        if ($validator->fails()) {
+            $errors = collect($validator->errors())->flatten()->all();
+            abort(422, join('|', $errors));
         }
-
-        return response()->json(compact('data', 'msg'), $status);
     }
 }

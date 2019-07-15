@@ -1,14 +1,24 @@
 <?php
 
 namespace App;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
-
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
+/**
+ * App\User
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read mixed $is_admin
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
+ * @mixin \Eloquent
+ */
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +26,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'date', 'desc', 'gender'
+        'name',
+        'nickname',
+        'email',
+        'password',
+        'user_face',
+        'desc',
+        'gender',
+        'state'
     ];
 
     /**
@@ -25,12 +42,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
-    public function getIsAdminAttribute($value)
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
     {
-        $array = [0 => '否', 1 => '是'];
-        return array_get($array, $value);
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

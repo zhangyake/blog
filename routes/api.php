@@ -1,10 +1,11 @@
 <?php
 
 use App\Mail\OrderShipped;
+use Gregwar\Captcha\CaptchaBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Tonyski\NCMusic\Facades\NCMusic;
-
+use Illuminate\Support\Facades\Redis;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,24 +102,45 @@ Route::namespace('Api')->group(function () {
 });
 
 
-Route::post('/login', function (Request $request) {
-    $data     = $request->all();
-    $http     = new GuzzleHttp\Client;
-    $response = $http->post(env("APP_URL") . 'oauth/token', [
-        'form_params' => [
-            'grant_type'    => 'password',
-            'client_id'     => env("CLIENT_ID"),
-            'client_secret' => env("CLIENT_SECRET"),
-            'username'      => array_get($data, 'username'),
-            'password'      => array_get($data, 'password'),
-            'scope'         => '*',
-        ],
-    ]);
-//return response()->json(['user'=>json_decode((string)$response->getBody(), true)]);
-    return json_decode((string)$response->getBody(), true);
-})->name('login');
+//Route::post('/login', function (Request $request) {
+//    $data     = $request->all();
+//    $http     = new GuzzleHttp\Client;
+//    $response = $http->post(env("APP_URL") . 'oauth/token', [
+//        'form_params' => [
+//            'grant_type'    => 'password',
+//            'client_id'     => env("CLIENT_ID"),
+//            'client_secret' => env("CLIENT_SECRET"),
+//            'username'      => array_get($data, 'username'),
+//            'password'      => array_get($data, 'password'),
+//            'scope'         => '*',
+//        ],
+//    ]);
+////return response()->json(['user'=>json_decode((string)$response->getBody(), true)]);
+//    return json_decode((string)$response->getBody(), true);
+//})->name('login');
 
-Route::middleware(['auth:api'])->namespace('Api')->group(function () {
+//后台登录
+Route::post('auth/login', 'Api\Admin\AuthController@login');
+
+// 获取返回图片验证码
+Route::get('/captcha/{uuid}', function(Request $request, $uuid) {
+    $builder = new  CaptchaBuilder();
+    $builder->setIgnoreAllEffects(true)->build(100, 30);
+    $code = $builder->getPhrase();
+    Redis::setex($uuid, 180, $code); // 180s 存活时间
+    return response($builder->output(280))->header('Content-type', 'image/jpeg');
+});
+
+
+Route::middleware([])->namespace('Api\Admin')->group(function () {
+
+    Route::post('auth/logout', 'AuthController@logout');
+    Route::post('auth/refresh', 'AuthController@refresh');
+    Route::post('auth/me', 'AuthController@me');
+    Route::put('auth/reset', 'AuthController@resetPassword');
+
+
+
 //  当前登录用户信息
     Route::get('/userinfo', 'UserController@show');
 //  用户列表
@@ -128,18 +150,31 @@ Route::middleware(['auth:api'])->namespace('Api')->group(function () {
 //  修改用户信息
     Route::put('/users/{id}', 'UserController@update');
 
-    //  文章类别名称
-    Route::get('/types', 'TypeController@index');
+    //  标签列表
+    Route::get('/tags', 'TagController@index');
+    //  新增标签
+    Route::post('/tags', 'TagController@store');
+    //  编辑标签
+    Route::put('/tags/{id}', 'TagController@update');
+
+    //  分类列表
+    Route::get('/categories', 'CategoryController@index');
+    //  新增分类
+    Route::post('/categories', 'CategoryController@store');
+    //  编辑分类
+    Route::put('/categories/{id}', 'CategoryController@update');
+
 
     //  文章信息
     Route::get('/articles/{id}', 'ArticleController@detail');
-//  文章列表
+    //  文章列表
     Route::get('/articles', 'ArticleController@index');
-//  发布文章
+    //  发布文章
     Route::post('/articles', 'ArticleController@store');
-//  更新文章
+    //  更新文章
     Route::put('/articles/{id}', 'ArticleController@update');
-
+    //  更新文章
+    Route::put('/articles/{id}/state', 'ArticleController@updateState');
 //  退出登录
     Route::post('/logout', function (Request $request) {
         $res = \Laravel\Passport\Token::where('user_id', $request->user()->id)->update(['revoked' => 1]);

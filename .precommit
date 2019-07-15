@@ -1,0 +1,9 @@
+#!/bin/sh
+
+commit=`sh phpcs.sh`
+if [ -n "$commit" ]
+then
+    echo -e >&2 "\n=================== Tips ===================\nSome codes have been formatted automatically.\nPlease rescan and recommit them."
+    exit 1
+fi
+exit 0

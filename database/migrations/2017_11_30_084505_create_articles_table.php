@@ -17,11 +17,13 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->comment('文章标题');
-            $table->integer('user_id')->comment('作者id user表id');
-            $table->integer('type_id')->comment('文章类别id');
             $table->longText('content_md')->comment('文章内容');
             $table->longText('content')->comment('文章内容');
-            $table->tinyInteger('is_show')->default('1')->comment('是否显示');
+            $table->text('summary')->comment('总结');
+            $table->integer('user_id')->comment('作者id user表id');
+            $table->integer('category_id')->comment('文章分类id');
+            $table->tinyInteger('state')->default('0')->comment('0表示草稿箱，1表示已发表，2表示已删除');
+            $table->integer('page_view')->default('0')->comment('浏览次数');
             $table->timestamps();
         });
     }

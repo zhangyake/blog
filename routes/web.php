@@ -14,9 +14,9 @@
 
 Route::get('/', function () {
 //    博客前台页面
-      $url = 'https://blog.zhangyake.site';
-      return  redirect('/')->setTargetUrl($url);
-     // return view('index');
+//      $url = 'https://blog.zhangyake.site';
+//      return  redirect('/')->setTargetUrl($url);
+      return view('index');
 });
 
 Route::get('/chat', function () {

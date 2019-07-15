@@ -11,6 +11,5 @@ class TagArticleTableSeeder extends Seeder
      */
     public function run()
     {
-        //
     }
 }
