@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\Admin;
+
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
@@ -19,18 +20,19 @@ class AuthController extends ApiController
      */
     public function login()
     {
-        $tmpCode = Redis::get(request('uuid'));// 获取redis
-        $code    = request('code');
+        $tmpCode = Redis::get(request('uuid')); // 获取redis
+        $code = request('code');
         if (!$tmpCode) {
             return response()->json(['message' => '验证码已过期！'], 400);
         }
-        if (strcasecmp($code, $tmpCode) !== 0) {
+        if (0 !== strcasecmp($code, $tmpCode)) {
             return response()->json(['message' => '验证码有误！'], 400);
         }
         $credentials = request(['name', 'password']);
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['message' => '账号或密码有误！'], 401);
         }
+
         return $this->respondWithToken($token);
     }
 
@@ -41,7 +43,7 @@ class AuthController extends ApiController
      */
     public function me()
     {
-        return response()->json(auth('admin_api')->user());
+        return response()->json(auth('api')->user());
     }
 
     /**
@@ -52,6 +54,7 @@ class AuthController extends ApiController
     public function logout()
     {
         auth()->logout();
+
         return response()->json(['message' => 'Successfully logged out']);
     }
 
@@ -68,7 +71,7 @@ class AuthController extends ApiController
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -76,8 +79,8 @@ class AuthController extends ApiController
     {
         return response()->json([
                 'access_token' => $token,
-                'token_type'   => 'bearer',
-                'expires_in'   => auth()
+                'token_type' => 'bearer',
+                'expires_in' => auth()
                         ->factory()
                         ->getTTL() * 60,
             ]);
@@ -85,9 +88,8 @@ class AuthController extends ApiController
 
     public function resetPassword(Request $request)
     {
-
         $this->reqValidate($request, [
-                'username'     => 'required',
+                'username' => 'required',
                 'old_password' => 'required',
                 'new_password' => 'required',
             ]);
@@ -95,14 +97,14 @@ class AuthController extends ApiController
         if ($request->username != $admin->name) {
             return response()->json(['message' => '用户名有误!'], 400);
         }
-        $oldPwd  = $admin->getAuthPassword();
+        $oldPwd = $admin->getAuthPassword();
         $isCheck = Hash::check($request->old_password, $oldPwd);
         if ($isCheck) {
             $admin->password = bcrypt($request->new_password);
             $admin->save();
+
             return response()->json(['message' => 'Successfully reset']);
-        }
-        else {
+        } else {
             return response()->json(['message' => '旧密码不对'], 400);
         }
     }

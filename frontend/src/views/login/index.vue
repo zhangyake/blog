@@ -170,7 +170,7 @@ export default {
                   this.$store.commit('SET_NAME',res.username)
                   setKey('user_name',res.username)
                   this.$store.dispatch('getUserMenu').then(()=>{
-                  this.$router.push({ name: 'welcome' })
+                  this.$router.push({ name: 'home' })
                   })
                 })
               }).catch(err=>{
