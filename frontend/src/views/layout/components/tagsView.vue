@@ -108,7 +108,7 @@ export default {
     padding: 5px 20px;
     right: 0px;
     background: #fff;
-    z-index: 100;
+    z-index: 8;
     box-shadow: -3px 0 15px 3px rgba(0, 0, 0, 0.1);
   }
   .tags-view-wrapper {

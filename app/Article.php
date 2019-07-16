@@ -25,6 +25,11 @@ class Article extends Model
         'state'
     ];
 
+     protected $appends = ['state_txt'];
+     protected $states = [
+         '待发布','已发布','已删除'
+     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
@@ -38,5 +43,10 @@ class Article extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tag_articles', 'article_id', 'tag_id');
+    }
+
+    public function getStateTxtAttribute($value)
+    {
+        return $this->states[$this->attributes['state']];
     }
 }

@@ -1,6 +1,8 @@
 <style>
-/*@import "simplemde/dist/simplemde.min.css";*/
-/*@import "highlight.js/styles/atom-one-dark.css";*/
+  @import '~simplemde/dist/simplemde.min.css';
+  /* @import '~github-markdown-css'; */
+
+  @import '~highlight.js/styles/atom-one-dark.css';
 @import "./markdown.css";
 .add-new-tag-con {
   margin-top: 20px;
@@ -46,12 +48,12 @@
 }
 .CodeMirror-fullscreen {
   z-index: 901;
-}
+} 
 </style>
 
 <template>
     <div>
-        <Form ref="formValidate" :model="addRow" :label-width="60">
+        <Form ref="formValidate" :model="addRow" :label-width="60" >
             <Row :gutter="32">
                 <Col span="16">
                 <Card>
@@ -93,8 +95,8 @@
                     <Icon type="ios-loop-strong"></Icon>
                     Change
                 </a> -->
-                    <markdown-editor v-model="content" :highlight="true" preview-class="markdown" ref="markdownEditor"></markdown-editor>
-
+                   
+<vue-simplemde v-model="content" ref="markdownEditor" :configs="configs" :highlight="true" preview-class="markdown" />
                     <!-- <div class="button-wrap">
       <button type="button" @click="handleOutputMARKDOWN">输出MARKDOWN</button>
       <button type="button" @click="handleOutputHTML">输出HTML</button>
@@ -115,7 +117,7 @@
                         <Icon type="ios-calendar-outline"></Icon>&nbsp;&nbsp;
                         <span v-if="publishTimeType === 'immediately'">立即发布</span>
                         <span v-else>定时：{{ publishTime }}</span>
-                        <Button v-show="!editPublishTime" size="small" @click="handleEditPublishTime" type="text">修改</Button>
+                        <Button v-show="!editPublishTime" size="small" @click="handleEditPublishTime" >修改</Button>
                         <transition name="publish-time">
                             <div v-show="editPublishTime" class="publish-time-picker-con">
                                 <div class="margin-top-10">
@@ -123,15 +125,15 @@
                                 </div>
                                 <div class="margin-top-10">
                                     <Button type="primary" @click="handleSavePublishTime">确认</Button>
-                                    <Button type="ghost" @click="cancelEditPublishTime">取消</Button>
+                                    <Button  @click="cancelEditPublishTime">取消</Button>
                                 </div>
                             </div>
                         </transition>
                     </p>
                     <Row class="margin-top-10 publish-button-con">
-                        <!-- <span class="publish-button">
+                        <span class="publish-button">
                             <Button @click="handlePreview" icon="eye">预览</Button>
-                        </span> -->
+                        </span>
                         <span class="publish-button">
                             <Button @click="toPublish('formValidate')" :loading="publishLoading" icon="ios-checkmark" style="width:90px;" type="primary">发布</Button>
                         </span>
@@ -196,7 +198,7 @@
                                 <Button @click="createNewTag" size="small" type="primary">确定</Button>
                                 </Col>
                                 <Col span="5">
-                                <Button @click="cancelCreateNewTag" size="small" type="ghost">取消</Button>
+                                <Button @click="cancelCreateNewTag" size="small" >取消</Button>
                                 </Col>
                             </div>
                         </transition>
@@ -211,13 +213,13 @@
 </template>
 <script>
 
-import markdownEditor from 'vue-simplemde/src/markdown-editor';
+ import VueSimplemde from 'vue-simplemde'
 import hljs from "highlight.js";
 window.hljs = hljs;
 
 export default {
     components: {
-        markdownEditor,
+        VueSimplemde,
     },
     data() {
         return {
@@ -238,7 +240,15 @@ export default {
 
             ],
             tagIds: [],
-            offenUsedClass: []
+            offenUsedClass: [],
+                configs: {
+      
+      
+         
+        spellChecker: false
+      
+      },
+          
         };
     },
     mounted() {

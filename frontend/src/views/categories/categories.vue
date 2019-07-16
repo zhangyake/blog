@@ -1,36 +1,37 @@
 <template>
     <div>
         <Row :gutter="16">
-            <Col span="4">
-            <Button @click="showAddModal" type="primary">创建分类</Button>
+             <Col span="2">
+            <Button @click="showAddModal" type="success" icon="ios-add">创建分类</Button>
             </Col>
-            <Col :xs="{ span: 14, offset: 2 }" :sm="{ span: 8, offset: 8}" :md="{ span: 6, offset: 10 }" :lg="{ span: 4, offset: 12 }">
-            <Form label-position="right" :label-width="60">
-                <FormItem label="分类名:" class="">
+            <Col span="4">
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
                     <Input type="text" v-model="query.name" placeholder="Enter category name"></Input>
                 </FormItem>
             </Form>
             </Col>
-            <Col span="4">
-            <Button type="primary" @click="toQuery" :loading="queryLoading">查询</Button>
+            <Col span="12">
+            <Button type="primary" @click="toQuery" icon="ios-search" :loading="queryLoading">查询</Button>
             </Col>
+           
         </Row>
 
-        <Table :loading="queryLoading" border ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+        <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
 
-        <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>
+        <!-- <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page> -->
 
         <Modal v-model="showEdit" title="修改分类" @on-ok="toEdit" @on-cancel="cancel" width="480">
             <Form :model="editRow" ref="editFormValidate" label-position="right" :label-width="140">
                 <FormItem label="名字" prop="name" :rules="{ required: true, message: '请输入名字', trigger: 'blur' }">
                     <Input v-model="editRow.name" style="width:200px"></Input>
                 </FormItem>
-                <FormItem label="路径" prop="path" :rules="{ required: true, message: '请输入路径地址', trigger: 'blur' }">
+                <!-- <FormItem label="路径" prop="path" :rules="{ required: true, message: '请输入路径地址', trigger: 'blur' }">
                     <Input v-model="editRow.path" style="width:200px"></Input>
                 </FormItem>
                 <FormItem label="描述" prop="description">
                     <Input v-model="editRow.description" style="width:200px" type="textarea" :autosize="{minRows: 2,maxRows: 4}"></Input>
-                </FormItem>
+                </FormItem> -->
 
             </Form>
         </Modal>
@@ -40,16 +41,16 @@
                 <FormItem label="名字" prop="name">
                     <Input v-model="addRow.name" style="width:200px"></Input>
                 </FormItem>
-                <FormItem label="路径" prop="path">
+                <!-- <FormItem label="路径" prop="path">
                     <Input v-model="addRow.path" style="width:200px"></Input>
                 </FormItem>
                 <FormItem label="描述" prop="description">
                     <Input v-model="addRow.description" style="width:200px" type="textarea" :autosize="{minRows: 2,maxRows: 4}" placeholder="Enter something..."></Input>
-                </FormItem>
+                </FormItem> -->
             </Form>
             <div slot="footer" style="color:#f60;text-align:center">
                 <Button type="default" @click="cancel">取消</Button>
-                <Button type="primary" @click="toAdd('formValidate')" :loading="loading">保存</Button>
+                <Button type="success" @click="toAdd('formValidate')" :loading="loading">保存</Button>
             </div>
         </Modal>
 
@@ -76,22 +77,22 @@ export default {
                     align: "center"
                 },
                 {
-                    title: "ID",
+                    title: "编号",
                     width: 60,
                     key: "id"
                 },
                 {
-                    title: "名字",
+                    title: "分类名称",
                     key: "name"
                 },
-                {
-                    title: "路径",
-                    key: "path"
-                },
-                {
-                    title: "描述",
-                    key: "description"
-                },
+                // {
+                //     title: "路径",
+                //     key: "path"
+                // },
+                // {
+                //     title: "描述",
+                //     key: "description"
+                // },
                 {
                     title: "创建时间",
                     key: "created_at"
@@ -130,9 +131,9 @@ export default {
                 name: [
                     { required: true, message: 'The name cannot be empty', trigger: 'blur' }
                 ],
-                path: [
-                    { required: true, message: 'The path cannot be empty', trigger: 'blur' },
-                ],
+                // path: [
+                //     { required: true, message: 'The path cannot be empty', trigger: 'blur' },
+                // ],
                 // description: [
                 //     { required: true, message: 'The description cannot be empty', trigger: 'blur' },
                 // ],
