@@ -1,24 +1,57 @@
 <template>
     <div>
-        <Row :gutter="16">
+        <Row  type="flex" justify="center" >
+        
             <Col span="4">
-            <Button @click="showAddModal" type="primary">新增用户</Button>
-            </Col>
-            <Col :xs="{ span: 14, offset: 2 }" :sm="{ span: 8, offset: 8}" :md="{ span: 6, offset: 10 }" :lg="{ span: 4, offset: 12 }">
-            <Form label-position="right" :label-width="60">
-                <FormItem label="用户名:" class="">
-                    <Input type="text" v-model="query.name" placeholder="Enter user name"></Input>
+            <Form  :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入用户名或昵称搜索用户" style="width:280px;" >
+                    <Icon type="ios-search" slot="prefix" />
+                    
+                    </Input>
                 </FormItem>
             </Form>
             </Col>
-            <Col span="4">
-            <Button type="primary" @click="toQuery" :loading="queryLoading">查询</Button>
+            <Col span="4" >
+            <Button icon="ios-search" type="primary" @click="toQuery" :loading="queryLoading" style="margin-left:20px;">搜索</Button>
             </Col>
         </Row>
+ <Row :gutter="32" >
+ <Col span="6" v-for="(user,index) in tableDatas" :key="index+'user'" style="margin-bottom:10px;" >
+ <Card   >
+        <p slot="title" style="font-size:16px;font-weight:400;">
+            {{user.nickname}}
+        </p>
+        <a href="#" slot="extra">
+            删除
+        </a>
+        <div style="text-align:center">
+        <Avatar shape="square"  src="https://i.loli.net/2017/08/21/599a521472424.jpg"  size="large"/>
 
-        <Table :loading="queryLoading" border ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+        </div>
+       
+        <ul class="user-ul">
+            <li>用户名: {{user.name}}</li>
+            <li>电子邮箱: {{user.email}}</li>
+            <li>注册时间: {{user.created_at}}</li>
+            <li>用户状态:  
+                <i-switch size="large" v-model="user.state" :true-value="1" :false-value="0">
+                 <span slot="open">开启</span>
+                 <span slot="close">关闭</span>
+               </i-switch> </li>
+            <li>用户角色: {{user.gender}}</li>
+        </ul>
+    </Card>
+</Col>
 
-        <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>
+
+ </Row>
+
+
+
+        <!-- <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>-->
+
+        <!-- <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>  -->
 
         <Modal v-model="showEdit" title="编辑用户信息" @on-ok="toEdit" @on-cancel="cancel" width="480">
             <Form :model="editRow" ref="editFormValidate" label-position="right" :label-width="140">
@@ -70,7 +103,7 @@
                 <Button type="primary" @click="toAdd('formValidate')" :loading="loading">保存</Button>
             </div>
         </Modal>
-
+    
     </div>
 </template>
 <script>
@@ -358,5 +391,11 @@ export default {
 <style lang="less" scoped>
 .margin-top-10 {
   margin-top: 10px;
+}
+.user-ul{
+    list-style: none;
+    li{
+        color: #2d8cf0;
+    }
 }
 </style>

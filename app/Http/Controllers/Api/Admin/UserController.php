@@ -11,7 +11,10 @@ class UserController extends ApiController
     //  用户列表
     public function index()
     {
-        $users = User::paginate();
+        $name = request('name');
+        $users = User::query()->when($name!==null,function ($query)use ($name){
+            $query->where('name','like','%'.$name.'%')->orWhere('nickname','like','%'.$name.'%');
+        })->paginate();
         return UserResource::collection($users);
     }
 

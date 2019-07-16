@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import markdownEditor from 'vue-simplemde/src/markdown-editor';
+import markdownEditor from 'vue-simplemde';
 import hljs from 'highlight.js';
 window.hljs = hljs;
 export default {
@@ -53,6 +53,9 @@ export default {
       configs: {
         status: false,
         toolbar: ['image'],
+         
+        spellChecker: false
+      
       },
       output: '',
       type: 'markdown',
@@ -85,8 +88,8 @@ export default {
 </script>
 
 <style>
-@import 'simplemde/dist/simplemde.min.css';
-@import 'highlight.js/styles/atom-one-dark.css';
+@import '~simplemde/dist/simplemde.min.css';
+@import '~highlight.js/styles/atom-one-dark.css';
 
 body {
   margin: 0;
@@ -116,5 +119,5 @@ body {
   color: #abb2bf !important;
   background: #282c34 !important;
 }
-@import "./markdown.css";
+/* @import "./markdown.css"; */
 </style>

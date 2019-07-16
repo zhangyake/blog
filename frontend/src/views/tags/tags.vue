@@ -1,55 +1,55 @@
 <template>
     <div>
         <Row :gutter="16">
-            <Col span="4">
-            <Button @click="showAddModal" type="primary">创建标签</Button>
+            <Col span="2">
+            <Button @click="showAddModal" type="success" icon="ios-add">创建标签</Button>
             </Col>
-            <Col :xs="{ span: 14, offset: 2 }" :sm="{ span: 8, offset: 8}" :md="{ span: 6, offset: 10 }" :lg="{ span: 4, offset: 12 }">
-            <Form label-position="right" :label-width="60">
-                <FormItem label="标签名:" class="">
-                    <Input type="text" v-model="query.tag" placeholder="Enter tag name"></Input>
+            <Col span="4">
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入标签名字查询" ></Input>
                 </FormItem>
             </Form>
             </Col>
-            <Col span="4">
-            <Button type="primary" @click="toQuery" :loading="queryLoading">查询</Button>
+            <Col span="12">
+            <Button type="primary" @click="toQuery" :loading="queryLoading" icon="ios-search" >查询</Button>
             </Col>
         </Row>
 
-        <Table :loading="queryLoading" border ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+        <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
 
-        <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>
+        <!-- <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page> -->
 
         <Modal v-model="showEdit" title="修改标签" @on-ok="toEdit" @on-cancel="cancel" width="480">
             <Form :model="editRow" ref="editFormValidate" label-position="right" :label-width="140">
-                <FormItem label="标签" prop="tag">
-                    <Input v-model="editRow.tag" style="width:200px" disabled></Input>
+                <FormItem label="标签" prop="name">
+                    <Input v-model="editRow.name" style="width:200px"></Input>
                 </FormItem>
-                <FormItem label="标题" prop="title" :rules="{ required: true, message: '请输入邮箱地址', trigger: 'blur' }">
+                <!-- <FormItem label="标题" prop="title" :rules="{ required: true, message: '请输入邮箱地址', trigger: 'blur' }">
                     <Input v-model="editRow.title" style="width:200px"></Input>
                 </FormItem>
                 <FormItem label="描述">
                     <Input v-model="editRow.meta_description" style="width:200px" type="textarea" :autosize="{minRows: 2,maxRows: 4}"></Input>
-                </FormItem>
+                </FormItem> -->
 
             </Form>
         </Modal>
 
         <Modal v-model="showAdd" title="创建标签" width="480">
             <Form :model="addRow" ref="formValidate" :rules="ruleValidate" label-position="right" :label-width="140">
-                <FormItem label="标签" prop="tag">
-                    <Input v-model="addRow.tag" style="width:200px"></Input>
+                <FormItem label="标签" prop="name">
+                    <Input v-model="addRow.name" style="width:200px"></Input>
                 </FormItem>
-                <FormItem label="标题" prop="title">
+                <!-- <FormItem label="标题" prop="title">
                     <Input v-model="addRow.title" style="width:200px"></Input>
                 </FormItem>
                 <FormItem label="描述" prop="meta_description">
                     <Input v-model="addRow.meta_description" style="width:200px" type="textarea" :autosize="{minRows: 2,maxRows: 4}" placeholder="Enter something..."></Input>
-                </FormItem>
+                </FormItem> -->
             </Form>
             <div slot="footer" style="color:#f60;text-align:center">
                 <Button type="default" @click="cancel">取消</Button>
-                <Button type="primary" @click="toAdd('formValidate')" :loading="loading">保存</Button>
+                <Button type="success" @click="toAdd('formValidate')" :loading="loading">保存</Button>
             </div>
         </Modal>
 
@@ -72,30 +72,30 @@ export default {
             columns: [
                 {
                     type: "selection",
-                    width: 60,
+                    width: 80,
                     align: "center"
                 },
                 {
-                    title: "ID",
-                    width: 60,
+                    title: "编号",
+                    width: 160,
                     key: "id"
                 },
                 {
                     title: "标签",
-                    key: "tag"
+                    key: "name"
                 },
-                {
-                    title: "标题",
-                    key: "title"
-                },
-                {
-                    title: "主要描述",
-                    key: "meta_description"
-                },
-                {
-                    title: "创建时间",
-                    key: "created_at"
-                },
+                // {
+                //     title: "标题",
+                //     key: "title"
+                // },
+                // {
+                //     title: "主要描述",
+                //     key: "meta_description"
+                // },
+                // {
+                //     title: "创建时间",
+                //     key: "created_at"
+                // },
                 {
                     title: "操作",
                     key: "action",
@@ -127,15 +127,15 @@ export default {
             tableDatas: [],
 
             ruleValidate: {
-                tag: [
-                    { required: true, message: 'The tag cannot be empty', trigger: 'blur' }
+                name: [
+                    { required: true, message: '标签名称不能为空', trigger: 'blur' }
                 ],
-                title: [
-                    { required: true, message: 'The title cannot be empty', trigger: 'blur' },
-                ],
-                meta_description: [
-                    { required: true, message: 'The meta_description cannot be empty', trigger: 'blur' },
-                ],
+                // title: [
+                //     { required: true, message: 'The title cannot be empty', trigger: 'blur' },
+                // ],
+                // meta_description: [
+                //     { required: true, message: 'The meta_description cannot be empty', trigger: 'blur' },
+                // ],
             }
         };
     },
@@ -259,7 +259,8 @@ export default {
             this.$refs[name].resetFields();
         },
         cancel() {
-            console.log("cancel");
+           this.showAdd = false
+           this.showEdit = false
         },
         toQuery() {
             this.queryList();

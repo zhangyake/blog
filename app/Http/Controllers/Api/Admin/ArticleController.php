@@ -11,9 +11,17 @@ class ArticleController extends ApiController
     //  文章列表
     public function index()
     {
-        $data = Article::query()
-                       ->orderBy('created_at', 'desc')
-                       ->paginate(10);
+        $name  = request('name');
+        $state = request('state');
+        $data  = Article::query()
+                        ->when($name !== null, function ($query) use ($name) {
+                            $query->where('name', 'like', '%' . $name . '%');
+                        })
+                        ->when($state !== null, function ($query) use ($state) {
+                            $query->where('state', $state);
+                        })
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
         return ArticleResource::collection($data);
     }
 
@@ -42,7 +50,7 @@ class ArticleController extends ApiController
             'category_id' => 'required|exists:categories,id',
             'state'       => 'required'
         ]);
-        $data = $request->input();
+        $data    = $request->input();
         $article = new Article();
         $article->fill($data);
         $article->save();
@@ -64,7 +72,7 @@ class ArticleController extends ApiController
             'category_id' => 'required|exists:categories,id',
             'state'       => 'required'
         ]);
-        $data    = $request->all();
+        $data = $request->all();
         $article->update($data);
         $article->tags()
                 ->sync($request->get('tags'));
@@ -76,9 +84,9 @@ class ArticleController extends ApiController
     {
         $article = Article::findOrFail($id);
         $this->reqValidate($request, [
-            'state'       => 'required|in:0,1,2'
+            'state' => 'required|in:0,1,2'
         ]);
-        $data    = $request->only('state');
+        $data = $request->only('state');
         $article->update($data);
         return response()->json();
     }

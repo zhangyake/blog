@@ -32,8 +32,8 @@ export default {
 </script>
 <style>
 
-@import "simplemde/dist/simplemde.min.css";
-@import "highlight.js/styles/atom-one-dark.css";
+@import "~simplemde/dist/simplemde.min.css";
+@import "~highlight.js/styles/atom-one-dark.css";
 @import "./markdown.css";
 </style>
 

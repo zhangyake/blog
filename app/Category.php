@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
-    public $timestamps=false;
     protected $fillable=['name'];
     public function articles(){
         return $this->hasMany(Article::class,'category_id','id')->select(['id','title','created_at','user_id','category_id']);

@@ -1,24 +1,81 @@
 <template>
     <div>
-        <Row :gutter="16">
+      
+
+
+<Tabs type="card" @on-click="handleTabsClick">
+        <TabPane label="全部文章 " name="all">  <Row :gutter="16">
+            
             <Col span="4">
-            <Button @click="toRoute('articles_add')" type="primary">创建文章</Button>
-            </Col>
-            <Col :xs="{ span: 14, offset: 2 }" :sm="{ span: 8, offset: 8}" :md="{ span: 6, offset: 10 }" :lg="{ span: 4, offset: 12 }">
-            <Form label-position="right" :label-width="60">
-                <FormItem label="标题:" class="">
-                    <Input type="text" v-model="query.name" placeholder="Enter article name"></Input>
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入文章名称搜索"></Input>
                 </FormItem>
             </Form>
             </Col>
             <Col span="4">
-            <Button type="primary" @click="toQuery" :loading="queryLoading">查询</Button>
+            <Button type="primary" @click="toQuery('')" :loading="queryLoading" icon="ios-search">查询</Button>
             </Col>
         </Row>
+        
+           <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
 
-        <Table :loading="queryLoading" border ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
 
-        <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>
+        
+        </TabPane>
+        <TabPane label="已发布" name="1"> <Row :gutter="16">
+            
+            <Col span="4">
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入文章名称搜索"></Input>
+                </FormItem>
+            </Form>
+            </Col>
+            <Col span="4">
+            <Button type="primary" @click="toQuery(1)" :loading="queryLoading" icon="ios-search">查询</Button>
+            </Col>
+        </Row>
+        
+           <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+
+</TabPane>
+        <TabPane label="草稿箱" name="0"> <Row :gutter="16">
+            
+            <Col span="4">
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入文章名称搜索"></Input>
+                </FormItem>
+            </Form>
+            </Col>
+            <Col span="4">
+            <Button type="primary" @click="toQuery(0)" :loading="queryLoading" icon="ios-search">查询</Button>
+            </Col>
+        </Row>
+        
+           <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+
+</TabPane>
+        <TabPane label="回收站" name="2"> <Row :gutter="16">
+            
+            <Col span="4">
+            <Form label-position="right" :label-width="0">
+                <FormItem label="" class="">
+                    <Input type="text" v-model="query.name" placeholder="输入文章名称搜索"></Input>
+                </FormItem>
+            </Form>
+            </Col>
+            <Col span="4">
+            <Button type="primary" @click="toQuery(2)" :loading="queryLoading" icon="ios-search">查询</Button>
+            </Col>
+        </Row>
+        
+           <Table :loading="queryLoading"  ref="selection" :columns="columns" :data="tableDatas" stripe @on-select-all="selectAlldata"></Table>
+
+</TabPane>
+    </Tabs>
+             <Page :total="total" class-name="margin-top-10" @on-page-size-change="pageSizeChange" @on-change="pageChange" size="small" show-total show-elevator show-sizer :page-size="10" class="margin-top-10"></Page>
 
 
     </div>
@@ -53,35 +110,20 @@ export default {
                     key: "title"
                 },
                 {
-                    title: "副标题",
+                    title: "作者",
                     key: "subtitle"
                 },
                 {
                     title: "状态",
-                    key: "status",
-                    width: 90,
+                    key: "state",
+                    align: "center",
+                    width: 160,
                     render: (h, params) => {
-                        return h("div", [
-                            h("i-switch", {
-                                props: {
-                                    value: params.row.status === 1,
-                                    size: "large"
-                                },
-                                scopedSlots: {
-                                    open: () => {
-                                        return "on";
-                                    },
-                                    close: () => {
-                                        return "off";
-                                    }
-                                },
-                                on: {
-                                    "on-change": status => {
-                                        this.changeStatus(params.index);
-                                    }
-                                }
-                            })
-                        ]);
+                        return h("div",[
+                            h('Tag',{ props: {
+                                color: params.row.state==0?'blue':( params.row.state==1?'success':'error')}
+                            },params.row.state_txt)
+                        ],);
                     }
                 },
                 {
@@ -139,14 +181,15 @@ export default {
             this.per_page = per_page;
             this.queryList();
         },
-        async queryList() {
+        async queryList(status) {
             try {
                 this.queryLoading = true
 
                 const data = {
                     page: this.page,
                     per_page: this.per_page,
-                    name: this.query.name
+                    name: this.query.name,
+                    state:status
                 }
                 const result = await this.api.getArticleList(data);
                 this.queryLoading = false
@@ -212,9 +255,18 @@ export default {
         cancel() {
             console.log("cancel");
         },
-        toQuery() {
-            this.queryList();
+        toQuery(status) {
+            console.log(status)
+            this.queryList(status);
         },
+        handleTabsClick(name){
+            if(name!=='all'){
+                this.queryList(name)
+            }else{
+                this.queryList()
+            }
+           
+        }
 
     }
 };

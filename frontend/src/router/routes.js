@@ -56,6 +56,16 @@ export const asyncRouterMap = [
         ]
     },
     {
+        path: '/articles',
+        name: 'articles',
+        meta: { title: '文章管理', icon: 'android-menu' },
+        component: layout,
+        children: [
+            { path: 'index', meta: { title: '文章列表', icon: 'document-text' }, name: 'articles_index', component: () => import('@/views/articles/articles') },
+            { path: 'create', meta: { title: '发布文章', icon: 'document-text' },  name: 'articles_add', component: () => import('@/views/articles/add-article') },
+        ]
+    },
+    {
         path: '/users',
         name: 'users',
         meta: { title: '', icon: 'person-stalker' },
@@ -82,17 +92,7 @@ export const asyncRouterMap = [
             { path: 'index', meta: { title: '分类管理', icon: 'ios-list' }, name: 'categories_index', component: () => import('@/views/categories/categories') }
         ]
     },
-    {
-        path: '/articles',
-        name: 'articles',
-        meta: { title: '', icon: 'android-menu' },
-        component: layout,
-        children: [
-            { path: 'index', meta: { title: '文章列表', icon: 'document-text' }, name: 'articles_index', component: () => import('@/views/articles/articles') },
-            { path: 'create', meta: { title: '创建文章', icon: 'document-text' }, hidden: true, name: 'articles_add', component: () => import('@/views/articles/add-article') }
-            //   { path: 'create2', meta: { title: '创建2', icon: 'document-text' }, hidden: true, name: 'articles_add2', component: () => import('@/views/articles/add-md') }
-        ]
-    },
+  
     {
         path: '/friendslinks',
         name: 'friendslinks',
@@ -108,5 +108,6 @@ export const asyncRouterMap = [
  * 登陆路由
  */
 export const constantRouterMap = [
-    { path: '/login', name: 'login', hidden: true, meta: { title: '系统登录' }, component: login }
+    { path: '/login', name: 'login', hidden: true, meta: { title: '系统登录' }, component: login },
+    { path: '/preview', meta: { title: '创建2', icon: 'document-text' }, hidden: true, name: 'preview_article', component: () => import('@/views/articles/preview') }
 ]

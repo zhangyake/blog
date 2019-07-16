@@ -41,7 +41,7 @@ class AuthController extends ApiController
      */
     public function me()
     {
-        return response()->json(auth('admin_api')->user());
+        return response()->json(auth('api')->user());
     }
 
     /**
