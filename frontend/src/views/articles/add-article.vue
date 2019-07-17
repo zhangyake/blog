@@ -88,9 +88,10 @@
                 </a> -->
                    
 <vue-simplemde v-model="content" ref="markdownEditor" :configs="configs" :highlight="true" preview-class="markdown" />
+                     <button type="button" @click="handleOutputHTML">输出HTML</button>
                     <!-- <div class="button-wrap">
       <button type="button" @click="handleOutputMARKDOWN">输出MARKDOWN</button>
-      <button type="button" @click="handleOutputHTML">输出HTML</button>
+     
       <pre v-text="output"></pre>
       <div v-html="output" v-show="type === 'html'" class="markdown"></div>
     </div> -->
@@ -385,6 +386,7 @@ export default {
         handleOutputHTML() {
             this.type = 'html';
             this.output = this.simplemde.markdown(this.content);
+            console.log(this.output)
         },
         handleOutputMARKDOWN() {
             this.type = 'markdown';
