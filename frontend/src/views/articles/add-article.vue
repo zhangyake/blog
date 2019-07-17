@@ -1,8 +1,6 @@
 <style>
   @import '~simplemde/dist/simplemde.min.css';
-  /* @import '~github-markdown-css'; */
-
-  @import '~highlight.js/styles/atom-one-dark.css';
+  @import '~highlight.js/styles/far.css';
 @import "./markdown.css";
 .add-new-tag-con {
   margin-top: 20px;
@@ -67,21 +65,14 @@
                                 </Col>
                             </Row>
                         </FormItem>
-                        <FormItem label="副标题" prop="subtitle" :rules="{ required: true, message: '请输入副标题', trigger: 'blur' }">
-                            <Row>
-                                <Col span="18">
-                                <Input placeholder="Enter 文章副标题" v-model="addRow.subtitle"></Input>
-                                </Col>
-                            </Row>
-                        </FormItem>
 
                         <FormItem label="页面图片" prop="page_image">
                             <Row>
                                 <Col span="18">
-                                <Input placeholder="可粘贴外部链接" v-model="addRow.page_image"> </Input>
+                                <Input placeholder="可粘贴外部链接" v-model="addRow.page_image_url"> </Input>
                                 </Col>
                                 <Col span="6">
-                                <Upload action="/api/upload" :on-success="uploadSuccess">
+                                <Upload action="/api/upload" :on-success="uploadSuccess" name="image" :headers="headers">
                                     <Button type="success">上传图片</Button>
                                 </Upload>
                                 </Col>
@@ -212,7 +203,7 @@
     </div>
 </template>
 <script>
-
+import { getToken } from '@/utils/auth'
  import VueSimplemde from 'vue-simplemde'
 import hljs from "highlight.js";
 window.hljs = hljs;
@@ -242,18 +233,19 @@ export default {
             tagIds: [],
             offenUsedClass: [],
                 configs: {
-      
-      
-         
         spellChecker: false
-      
       },
+      headers:{
+
+      }
           
         };
     },
     mounted() {
         this.allTags()
         this.allCategories()
+        this.headers ={'Authorization': 'Bearer ' + getToken() }// 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+
     },
     computed: {
         simplemde() {
@@ -338,10 +330,11 @@ export default {
                     const data = {
                         ...this.addRow,
                         content: this.content,
+                        content_md: this.content,
                         category_id: this.categoryId,
-                        tag_ids: this.tagIds,
+                        tags: this.tagIds,
                         published_at:this.publishTime,
-                        status: this.publishTime? 0:1
+                        state: this.publishTime? 0:1
                     }
                     this.handlePublish(data)
                 } else {
@@ -398,8 +391,7 @@ export default {
             this.output = this.content;
         },
         uploadSuccess( response, file, fileList){
-// console.log(response,file,fileList)
-this.$set(this.addRow, 'page_image', response.data)
+          this.$set(this.addRow, 'page_image_url', response.url)
 
         }
     }

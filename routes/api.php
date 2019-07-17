@@ -87,16 +87,16 @@ Route::post('free_books', function (Request $request) {
 
 });
 
-Route::namespace('Api')->group(function () {
-    Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
-    Route::get('vaptcha/downtime', 'VaptchaController@getDownTime');
+Route::namespace('Api\App')->group(function () {
+//    Route::get('vaptcha/challenge', 'VaptchaController@getChallenge');
+//    Route::get('vaptcha/downtime', 'VaptchaController@getDownTime');
 
 
-    Route::get('/_articles', 'AxiosController@articles');
-    Route::get('/_articles/{id}', 'AxiosController@articleDetail');
-    Route::get('/_types', 'AxiosController@types');
-    Route::get('/_tags', 'AxiosController@tags');
-    Route::get('/_archives', 'AxiosController@archives');
+    Route::get('/_articles', 'ArticleController@articles');
+    Route::get('/_articles/{id}', 'ArticleController@articleDetail');
+    Route::get('/_categories', 'ArticleController@categories');
+    Route::get('/_tags', 'ArticleController@tags');
+    Route::get('/_archives', 'ArticleController@archives');
 
 
 });
@@ -132,14 +132,15 @@ Route::get('/captcha/{uuid}', function(Request $request, $uuid) {
 });
 
 
-Route::middleware([])->namespace('Api\Admin')->group(function () {
+Route::middleware(['auth:api'])->namespace('Api\Admin')->group(function () {
 
     Route::post('auth/logout', 'AuthController@logout');
     Route::post('auth/refresh', 'AuthController@refresh');
     Route::post('auth/me', 'AuthController@me');
     Route::put('auth/reset', 'AuthController@resetPassword');
 
-
+    Route::get('upload', 'UploadController@index');
+    Route::post('upload', 'UploadController@fileUpload');
 
 //  当前登录用户信息
     Route::get('/userinfo', 'UserController@show');
@@ -175,11 +176,7 @@ Route::middleware([])->namespace('Api\Admin')->group(function () {
     Route::put('/articles/{id}', 'ArticleController@update');
     //  更新文章
     Route::put('/articles/{id}/state', 'ArticleController@updateState');
-//  退出登录
-    Route::post('/logout', function (Request $request) {
-        $res = \Laravel\Passport\Token::where('user_id', $request->user()->id)->update(['revoked' => 1]);
-        return response()->json(['data' => $res]);
-    });
+
 });
 
 Route::get('/ip', function (Request $request) {

@@ -18,8 +18,8 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title')->comment('文章标题');
             $table->longText('content_md')->comment('文章内容');
-            $table->longText('content')->comment('文章内容');
-            $table->text('summary')->comment('总结');
+            $table->longText('content')->comment('文章内容html');
+            $table->string('page_image_url')->comment('文章图片url');
             $table->integer('user_id')->comment('作者id user表id');
             $table->integer('category_id')->comment('文章分类id');
             $table->tinyInteger('state')->default('0')->comment('0表示草稿箱，1表示已发表，2表示已删除');
