@@ -2,6 +2,7 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 /**
  * App\Article
  *
@@ -19,7 +20,7 @@ class Article extends Model
         'title',
         'content',
         'content_md',
-        'summary',
+        'page_image_url',
         'user_id',
         'category_id',
         'state'
@@ -35,6 +36,11 @@ class Article extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return date('Y-m-d', strtotime($value));
@@ -48,5 +54,9 @@ class Article extends Model
     public function getStateTxtAttribute($value)
     {
         return $this->states[$this->attributes['state']];
+    }
+    public function getPageImageUrlAttribute($value)
+    {
+        return Str::startsWith($value,['http:','https:']) ? $value : asset("storage/$value");
     }
 }

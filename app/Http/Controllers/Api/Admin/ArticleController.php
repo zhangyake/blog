@@ -13,7 +13,7 @@ class ArticleController extends ApiController
     {
         $name  = request('name');
         $state = request('state');
-        $data  = Article::query()
+        $data  = Article::with('user')
                         ->when($name !== null, function ($query) use ($name) {
                             $query->where('name', 'like', '%' . $name . '%');
                         })
@@ -40,15 +40,15 @@ class ArticleController extends ApiController
      */
     public function store(Request $request)
     {
-        $request->merge(['user_id' => 1 ? "1" : auth()->id()]);
+        $request->merge(['user_id' => auth()->id()]);
         $this->reqValidate($request, [
-            'title'       => 'required',
-            'content'     => 'required',
-            'content_md'  => 'required',
-            'summary'     => 'required',
-            'user_id'     => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'state'       => 'required'
+            'title'          => 'required',
+            'content'        => 'required',
+            'content_md'     => 'required',
+            'page_image_url' => 'required',
+            'user_id'        => 'required',
+            'category_id'    => 'required|exists:categories,id',
+            'state'          => 'required'
         ]);
         $data    = $request->input();
         $article = new Article();
@@ -64,13 +64,13 @@ class ArticleController extends ApiController
     {
         $article = Article::findOrFail($id);
         $this->reqValidate($request, [
-            'title'       => 'required',
-            'content'     => 'required',
-            'content_md'  => 'required',
-            'summary'     => 'required',
-            'user_id'     => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'state'       => 'required'
+            'title'          => 'required',
+            'content'        => 'required',
+            'content_md'     => 'required',
+            'page_image_url' => 'required',
+            'user_id'        => 'required',
+            'category_id'    => 'required|exists:categories,id',
+            'state'          => 'required'
         ]);
         $data = $request->all();
         $article->update($data);

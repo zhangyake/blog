@@ -111,7 +111,7 @@ export default {
                 },
                 {
                     title: "作者",
-                    key: "subtitle"
+                    key: "user_name"
                 },
                 {
                     title: "状态",
