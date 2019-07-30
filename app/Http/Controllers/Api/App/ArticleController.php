@@ -7,11 +7,12 @@ use App\Category;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Admin\CategoryResource;
 use App\Http\Resources\Admin\TagResource;
+use App\Http\Resources\App\ArticleArchiveCollection;
 use App\Http\Resources\App\ArticleDetailResource;
 use App\Http\Resources\App\ArticleResource;
 use App\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class ArticleController extends ApiController
 {
@@ -57,18 +58,15 @@ class ArticleController extends ApiController
     public function archives(Request $request)
     {
         $tagId = $request->input('tag_id');
-        $query = Article::with(['type', 'tags']);
+        $query = Article::with(['tags']);
         if ($tagId) {
             $query->whereHas('tags', function ($query) use ($tagId) {
                 $query->where('tags.id', $tagId);
             });
         }
-        $data = $query->select(DB::raw("id,tag_id,title,created_at,DATE_FORMAT(`created_at`,'%M,%Y') as archives"))->orderBy('id', 'DESC')->paginate()->toArray();
-        $articles['total'] = array_get($data, 'total');
-        $articles['current_page'] = array_get($data, 'current_page');
-        $articles['last_page'] = array_get($data, 'last_page');
-        $articles['list'] = collect(array_get($data, 'data'))->groupBy('archives');
+        $data = $query->select('id','title','state','created_at')->orderBy('created_at','DESC')->paginate();
 
-        return $this->successReturn(compact('articles'));
+        // collection 内部再次处理
+        return new ArticleArchiveCollection($data);
     }
 }
