@@ -13,7 +13,7 @@
 
 
 Route::get('/', function () {
-    dd(app('uploader'));
+//    dd(app('uploader'));
 //    博客前台页面
 //      $url = 'https://blog.zhangyake.site';
 //      return  redirect('/')->setTargetUrl($url);
