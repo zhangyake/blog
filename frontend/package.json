@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@xkeshi/vue-qrcode": "^1.0.0",
+    "@zkhh/v-markdown": "^0.1.8",
     "axios": "^0.18.0",
     "canvas-nest.js": "^2.0.4",
     "echarts": "^4.2.1",
