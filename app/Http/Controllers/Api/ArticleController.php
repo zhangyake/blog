@@ -7,12 +7,10 @@ use App\Http\Resources\Article\ArticleResource;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 
-
 class ArticleController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -24,9 +22,10 @@ class ArticleController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param ArticleRequest $request
+     *
      * @return ArticleResource
      */
     public function store(ArticleRequest $request)
@@ -34,16 +33,17 @@ class ArticleController extends ApiController
 //        $article = new Article();
 //        $article->fill(array_merge($request->only(['title','preview','content','status']),['user_id'=>$request->user()->id]));
 //        $article->save();
-        $article = $request->user()->articles()->create($request->only(['title','preview','content','status']));
+        $article = $request->user()->articles()->create($request->only(['title', 'preview', 'content', 'status']));
         $article->tags()->sync($request->input('tags'));
 
         return new ArticleResource($article);
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return ArticleResource
      */
     public function show($id)
@@ -54,16 +54,17 @@ class ArticleController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param ArticleRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(ArticleRequest $request, $id)
     {
         $article = Article::findOrFail($id);
-        $article->fill($request->only(['title','preview','content','status']));
+        $article->fill($request->only(['title', 'preview', 'content', 'status']));
         $article->save();
         $article->tags()->sync($request->input('tags'));
 
@@ -71,10 +72,12 @@ class ArticleController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param Article $article id
+     *
      * @return \Illuminate\Http\Response
+     *
      * @throws \Exception
      */
     public function destroy(Article $article)
@@ -82,6 +85,6 @@ class ArticleController extends ApiController
         $article->tags()->sync([]);
         $article->delete();
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Hash;
+
 class AuthController extends ApiController
 {
     /**
@@ -26,8 +27,8 @@ class AuthController extends ApiController
     {
         $credentials = request(['username', 'password']);
 
-        if (! $token = auth('api')->attempt($credentials)) {
-             $this->errorUnauthorized();
+        if (!$token = auth('api')->attempt($credentials)) {
+            $this->errorUnauthorized();
         }
 
         return $this->respondWithToken($token);
@@ -68,7 +69,7 @@ class AuthController extends ApiController
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -77,24 +78,25 @@ class AuthController extends ApiController
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
         ]);
     }
 
     public function resetPassword(Request $request)
     {
         $admin = auth('admin')->user();
-        if($request->username!=$admin->username){
-            return response()->json(['message' => '用户名有误!'],400);
+        if ($request->username != $admin->username) {
+            return response()->json(['message' => '用户名有误!'], 400);
         }
         $oldPwd = $admin->getAuthPassword();
         $isCheck = Hash::check($request->old_password, $oldPwd);
         if ($isCheck) {
             $admin->password = bcrypt($request->new_password);
             $admin->save();
+
             return $this->json(['message' => 'Successfully reset']);
-        }else{
-             $this->error('旧密码不对');
+        } else {
+            $this->error('旧密码不对');
         }
     }
 }

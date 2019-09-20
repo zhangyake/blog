@@ -7,11 +7,11 @@ use App\Http\Resources\Admin\AdminResource;
 use App\Http\Requests\AdminRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+
 class UserController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -23,9 +23,10 @@ class UserController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param Request $request
+     *
      * @return AdminResource
      */
     public function store(Request $request)
@@ -38,9 +39,10 @@ class UserController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return AdminResource
      */
     public function show($id)
@@ -51,10 +53,11 @@ class UserController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param AdminRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(AdminRequest $request, $id)
@@ -67,15 +70,16 @@ class UserController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         User::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

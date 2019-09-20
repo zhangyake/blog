@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Article extends Model
 {
     use SoftDeletes;
     protected $table = 'articles';
     protected $guarded = ['id'];
-
 
     // -------------- relations ------------------
     public function author()
@@ -19,7 +19,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class,'article_tags');
+        return $this->belongsToMany(Tag::class, 'article_tags');
     }
 
     public function likes()

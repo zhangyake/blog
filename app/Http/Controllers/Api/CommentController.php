@@ -7,12 +7,10 @@ use App\Http\Resources\Comment\CommentResource;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 
-
 class CommentController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -24,9 +22,10 @@ class CommentController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param CommentRequest $request
+     *
      * @return CommentResource
      */
     public function store(CommentRequest $request)
@@ -39,9 +38,10 @@ class CommentController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return CommentResource
      */
     public function show($id)
@@ -52,10 +52,11 @@ class CommentController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param CommentRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(CommentRequest $request, $id)
@@ -68,15 +69,16 @@ class CommentController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      Comment::destroy($id);
+        Comment::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

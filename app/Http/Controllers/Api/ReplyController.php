@@ -7,12 +7,10 @@ use App\Http\Resources\Reply\ReplyResource;
 use App\Http\Requests\ReplyRequest;
 use App\Models\Reply;
 
-
 class ReplyController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -24,9 +22,10 @@ class ReplyController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param ReplyRequest $request
+     *
      * @return ReplyResource
      */
     public function store(ReplyRequest $request)
@@ -39,9 +38,10 @@ class ReplyController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return ReplyResource
      */
     public function show($id)
@@ -52,10 +52,11 @@ class ReplyController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param ReplyRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(ReplyRequest $request, $id)
@@ -68,15 +69,16 @@ class ReplyController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      Reply::destroy($id);
+        Reply::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

@@ -7,12 +7,10 @@ use App\Http\Resources\Favorite\FavoriteResource;
 use App\Http\Requests\FavoriteRequest;
 use App\Models\Favorite;
 
-
 class FavoriteController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -24,9 +22,10 @@ class FavoriteController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param FavoriteRequest $request
+     *
      * @return FavoriteResource
      */
     public function store(FavoriteRequest $request)
@@ -39,9 +38,10 @@ class FavoriteController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return FavoriteResource
      */
     public function show($id)
@@ -52,10 +52,11 @@ class FavoriteController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param FavoriteRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(FavoriteRequest $request, $id)
@@ -68,15 +69,16 @@ class FavoriteController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      Favorite::destroy($id);
+        Favorite::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

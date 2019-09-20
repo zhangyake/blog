@@ -6,13 +6,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+
 class ApiController extends Controller
 {
     /**
      * Respond with a created response and associate a location if provided.
      *
-     * @param null|string $location
-     * @param null $content
+     * @param string|null $location
+     * @param null        $content
+     *
      * @return Response
      */
     public function created($location = null, $content = null)
@@ -23,14 +25,15 @@ class ApiController extends Controller
         if (!is_null($location)) {
             $response->header('Location', $location);
         }
+
         return $response;
     }
 
     /**
      * Respond with an accepted response and associate a location and/or content if provided.
      *
-     * @param null|string $location
-     * @param mixed $content
+     * @param string|null $location
+     * @param mixed       $content
      *
      * @return Response
      */
@@ -42,6 +45,7 @@ class ApiController extends Controller
         if (!is_null($location)) {
             $response->header('Location', $location);
         }
+
         return $response;
     }
 
@@ -59,8 +63,10 @@ class ApiController extends Controller
 
     /**
      * Return a json response.
+     *
      * @param array $data
      * @param array $headers
+     *
      * @return Response
      */
     public function json($data = [], array $headers = [])
@@ -70,8 +76,10 @@ class ApiController extends Controller
 
     /**
      *  Bind an item to a apiResource and start building a response.
+     *
      * @param JsonResource $resource
-     * @param array $meta
+     * @param array        $meta
+     *
      * @return mixed
      */
     public function item(JsonResource $resource, $meta = [])
@@ -82,6 +90,7 @@ class ApiController extends Controller
         if (count($meta)) {
             return $resource->additional($meta);
         }
+
         return $resource;
     }
 
@@ -89,7 +98,8 @@ class ApiController extends Controller
      * Bind a collection to a apiResource and start building a response.
      *
      * @param ResourceCollection $collection
-     * @param array $meta
+     * @param array              $meta
+     *
      * @return ResourceCollection|Response
      */
     public function collection(ResourceCollection $collection, $meta = [])
@@ -97,6 +107,7 @@ class ApiController extends Controller
         if (count($meta)) {
             return $collection->additional($meta);
         }
+
         return $collection;
     }
 
@@ -105,6 +116,7 @@ class ApiController extends Controller
      *
      * @param string $message
      * @param        $statusCode
+     *
      * @return void
      */
     public function error($message, $statusCode = 400)

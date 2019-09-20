@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -49,7 +48,6 @@ return [
             'driver' => 'jwt',
             'provider' => 'admins',
         ],
-
     ],
 
     /*
@@ -106,5 +104,4 @@ return [
             'expire' => 60,
         ],
     ],
-
 ];

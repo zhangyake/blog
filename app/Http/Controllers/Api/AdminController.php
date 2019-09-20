@@ -6,11 +6,11 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Admin\AdminResource;
 use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
+
 class AdminController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -22,9 +22,10 @@ class AdminController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param AdminRequest $request
+     *
      * @return AdminResource
      */
     public function store(AdminRequest $request)
@@ -37,9 +38,10 @@ class AdminController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return AdminResource
      */
     public function show($id)
@@ -50,10 +52,11 @@ class AdminController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param AdminRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(AdminRequest $request, $id)
@@ -66,15 +69,16 @@ class AdminController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      Admin::destroy($id);
+        Admin::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

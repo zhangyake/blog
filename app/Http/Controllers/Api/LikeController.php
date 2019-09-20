@@ -7,12 +7,10 @@ use App\Http\Resources\Like\LikeResource;
 use App\Http\Requests\LikeRequest;
 use App\Models\Like;
 
-
 class LikeController extends ApiController
 {
-
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -24,9 +22,10 @@ class LikeController extends ApiController
     }
 
     /**
-     * 新增记录
+     * 新增记录.
      *
      * @param LikeRequest $request
+     *
      * @return LikeResource
      */
     public function store(LikeRequest $request)
@@ -39,9 +38,10 @@ class LikeController extends ApiController
     }
 
     /**
-     * 查看详情
+     * 查看详情.
      *
      * @param $id
+     *
      * @return LikeResource
      */
     public function show($id)
@@ -52,10 +52,11 @@ class LikeController extends ApiController
     }
 
     /**
-     * 更新
+     * 更新.
      *
      * @param LikeRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(LikeRequest $request, $id)
@@ -68,15 +69,16 @@ class LikeController extends ApiController
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      Like::destroy($id);
+        Like::destroy($id);
 
-      return $this->noContent();
+        return $this->noContent();
     }
 }

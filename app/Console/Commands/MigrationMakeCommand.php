@@ -3,16 +3,15 @@
  * Created by PhpStorm.
  * User: jaak
  * Date: 2019-09-10
- * Time: 22:40
+ * Time: 22:40.
  */
 
 namespace App\Console\Commands;
 
-
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
-use \Exception;
+use Exception;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,10 +20,10 @@ class MigrationMakeCommand extends Command
 {
     /**
      * The console command name.
-     * https://github.com/laracasts/Laravel-5-Generators-Extended
-     * @var string
-     * php artisan make:migration:schema create_posts_table --schema="user_id:unsignedInteger:foreign, title:string, body:text"
+     * https://github.com/laracasts/Laravel-5-Generators-Extended.
      *
+     * @var string
+     *             php artisan make:migration:schema create_posts_table --schema="user_id:unsignedInteger:foreign, title:string, body:text"
      */
     protected $name = 'make:migration:schema';
 
@@ -58,7 +57,7 @@ class MigrationMakeCommand extends Command
      * Create a new command instance.
      *
      * @param Filesystem $files
-     * @param Composer $composer
+     * @param Composer   $composer
      */
     public function __construct(Filesystem $files)
     {
@@ -90,7 +89,7 @@ class MigrationMakeCommand extends Command
 
         $this->makeMigration();
         $this->call('curd:generator', [
-            'name' => $this->getModelName()
+            'name' => $this->getModelName(),
         ]);
 //        $this->makeModel();
     }
@@ -113,7 +112,7 @@ class MigrationMakeCommand extends Command
         $name = $this->argument('name');
 
         if ($this->files->exists($path = $this->getPath($name))) {
-            return $this->error($this->type . ' already exists!');
+            return $this->error($this->type.' already exists!');
         }
 
         $this->makeDirectory($path);
@@ -134,7 +133,7 @@ class MigrationMakeCommand extends Command
 
         if ($this->option('model') && !$this->files->exists($modelPath)) {
             $this->call('make:model', [
-                'name' => $this->getModelName()
+                'name' => $this->getModelName(),
             ]);
         }
     }
@@ -142,7 +141,8 @@ class MigrationMakeCommand extends Command
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string $path
+     * @param string $path
+     *
      * @return string
      */
     protected function makeDirectory($path)
@@ -155,25 +155,27 @@ class MigrationMakeCommand extends Command
     /**
      * Get the path to where we should store the migration.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getPath($name)
     {
-        return base_path() . '/database/migrations/' . date('Y_m_d_His') . '_' . $name . '.php';
+        return base_path().'/database/migrations/'.date('Y_m_d_His').'_'.$name.'.php';
     }
 
     /**
      * Get the destination class path.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return string
      */
     protected function getModelPath($name)
     {
         $name = str_replace($this->getAppNamespace(), '', $name);
 
-        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
+        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 
     /**
@@ -195,7 +197,8 @@ class MigrationMakeCommand extends Command
     /**
      * Replace the class name in the stub.
      *
-     * @param  string $stub
+     * @param string $stub
+     *
      * @return $this
      */
     protected function replaceClassName(&$stub)
@@ -210,7 +213,8 @@ class MigrationMakeCommand extends Command
     /**
      * Replace the table name in the stub.
      *
-     * @param  string $stub
+     * @param string $stub
+     *
      * @return $this
      */
     protected function replaceTableName(&$stub)
@@ -225,7 +229,8 @@ class MigrationMakeCommand extends Command
     /**
      * Replace the schema for the stub.
      *
-     * @param  string $stub
+     * @param string $stub
+     *
      * @return $this
      */
     protected function replaceSchema(&$stub)
@@ -276,32 +281,32 @@ class MigrationMakeCommand extends Command
         ];
     }
 
-
-
     /**
      * Parse the migration name into something we can use.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return array
      */
     public function nameParse($name)
     {
         $segments = array_reverse(explode('_', $name));
 
-        if ($segments[0] == 'table') {
+        if ('table' == $segments[0]) {
             array_shift($segments);
         }
 
         return [
             'action' => $this->getAction($segments),
-            'table' => $this->getTableName($segments)
+            'table' => $this->getTableName($segments),
         ];
     }
 
     /**
      * Calculate the table name.
      *
-     * @param  array $segments
+     * @param array $segments
+     *
      * @return array
      */
     private function getTableName($segments)
@@ -322,7 +327,8 @@ class MigrationMakeCommand extends Command
     /**
      * Determine the user's desired action for the migration.
      *
-     * @param  array $segments
+     * @param array $segments
+     *
      * @return mixed
      */
     private function getAction(&$segments)
@@ -334,7 +340,8 @@ class MigrationMakeCommand extends Command
      * Normalize the user's chosen action to name to
      * something that we recognize.
      *
-     * @param  string $action
+     * @param string $action
+     *
      * @return string
      */
     private function normalizeActionName($action)
@@ -360,7 +367,8 @@ class MigrationMakeCommand extends Command
     /**
      * Determine if the current segment is a connecting word.
      *
-     * @param  string $segment
+     * @param string $segment
+     *
      * @return bool
      */
     private function isConnectingWord($segment)
@@ -369,8 +377,6 @@ class MigrationMakeCommand extends Command
 
         return in_array($segment, $connectors);
     }
-
-
 
     /**
      * The parsed schema.
@@ -381,9 +387,10 @@ class MigrationMakeCommand extends Command
 
     /**
      * Parse the command line migration schema.
-     * Ex: name:string, age:integer:nullable
+     * Ex: name:string, age:integer:nullable.
      *
-     * @param  string $schema
+     * @param string $schema
+     *
      * @return array
      */
     public function schemaParse($schema)
@@ -415,7 +422,8 @@ class MigrationMakeCommand extends Command
     /**
      * Add a field to the schema array.
      *
-     * @param  array $field
+     * @param array $field
+     *
      * @return $this
      */
     private function addField($field)
@@ -428,7 +436,8 @@ class MigrationMakeCommand extends Command
     /**
      * Get an array of fields from the given schema.
      *
-     * @param  string $schema
+     * @param string $schema
+     *
      * @return array
      */
     private function splitIntoFields($schema)
@@ -439,7 +448,8 @@ class MigrationMakeCommand extends Command
     /**
      * Get the segments of the schema field.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return array
      */
     private function parseSegments($field)
@@ -464,12 +474,15 @@ class MigrationMakeCommand extends Command
     /**
      * Parse any given options into something usable.
      *
-     * @param  array $options
+     * @param array $options
+     *
      * @return array
      */
     private function parseOptions($options)
     {
-        if (empty($options)) return [];
+        if (empty($options)) {
+            return [];
+        }
 
         foreach ($options as $option) {
             if (Str::contains($option, '(')) {
@@ -502,9 +515,10 @@ class MigrationMakeCommand extends Command
 
     /**
      * Try to figure out the name of a table from a foreign key.
-     * Ex: user_id => users
+     * Ex: user_id => users.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return string
      */
     private function getTableNameFromForeignKey($key)
@@ -515,14 +529,14 @@ class MigrationMakeCommand extends Command
     /**
      * Determine if the user wants a foreign constraint for the field.
      *
-     * @param  array $segments
+     * @param array $segments
+     *
      * @return bool
      */
     private function fieldNeedsForeignConstraint($segments)
     {
         return array_key_exists('foreign', $segments['options']);
     }
-
 
     /**
      * A template to be inserted.
@@ -534,9 +548,11 @@ class MigrationMakeCommand extends Command
     /**
      * Create the PHP syntax for the given schema.
      *
-     * @param  array $schema
-     * @param  array $meta
+     * @param array $schema
+     * @param array $meta
+     *
      * @return string
+     *
      * @throws Exception
      */
     public function syntaxBuilderCreate($schema, $meta)
@@ -550,24 +566,26 @@ class MigrationMakeCommand extends Command
     /**
      * Create the schema for the "up" method.
      *
-     * @param  string $schema
-     * @param  array $meta
+     * @param string $schema
+     * @param array  $meta
+     *
      * @return string
+     *
      * @throws Exception
      */
     private function createSchemaForUpMethod($schema, $meta)
     {
         $fields = $this->constructSchema($schema);
 
-        if ($meta['action'] == 'create') {
+        if ('create' == $meta['action']) {
             return $this->insert($fields)->into($this->getCreateSchemaWrapper());
         }
 
-        if ($meta['action'] == 'add') {
+        if ('add' == $meta['action']) {
             return $this->insert($fields)->into($this->getChangeSchemaWrapper());
         }
 
-        if ($meta['action'] == 'remove') {
+        if ('remove' == $meta['action']) {
             $fields = $this->constructSchema($schema, 'Drop');
 
             return $this->insert($fields)->into($this->getChangeSchemaWrapper());
@@ -580,22 +598,24 @@ class MigrationMakeCommand extends Command
     /**
      * Construct the syntax for a down field.
      *
-     * @param  array $schema
-     * @param  array $meta
+     * @param array $schema
+     * @param array $meta
+     *
      * @return string
+     *
      * @throws Exception
      */
     private function createSchemaForDownMethod($schema, $meta)
     {
         // If the user created a table, then for the down
         // method, we should drop it.
-        if ($meta['action'] == 'create') {
+        if ('create' == $meta['action']) {
             return sprintf("Schema::dropIfExists('%s');", $meta['table']);
         }
 
         // If the user added columns to a table, then for
         // the down method, we should remove them.
-        if ($meta['action'] == 'add') {
+        if ('add' == $meta['action']) {
             $fields = $this->constructSchema($schema, 'Drop');
 
             return $this->insert($fields)->into($this->getChangeSchemaWrapper());
@@ -603,7 +623,7 @@ class MigrationMakeCommand extends Command
 
         // If the user removed columns from a table, then for
         // the down method, we should add them back on.
-        if ($meta['action'] == 'remove') {
+        if ('remove' == $meta['action']) {
             $fields = $this->constructSchema($schema);
 
             return $this->insert($fields)->into($this->getChangeSchemaWrapper());
@@ -611,13 +631,13 @@ class MigrationMakeCommand extends Command
 
         // Otherwise, we have no idea how to proceed.
         throw new Exception('Could not determine what you are trying to do. Sorry! Check your migration name.');
-
     }
 
     /**
      * Store the given template, to be inserted somewhere.
      *
-     * @param  string $template
+     * @param string $template
+     *
      * @return $this
      */
     private function insert($template)
@@ -630,13 +650,14 @@ class MigrationMakeCommand extends Command
     /**
      * Get the stored template, and insert into the given wrapper.
      *
-     * @param  string $wrapper
-     * @param  string $placeholder
+     * @param string $wrapper
+     * @param string $placeholder
+     *
      * @return mixed
      */
     private function into($wrapper, $placeholder = 'schema_up')
     {
-        return str_replace('{{' . $placeholder . '}}', $this->template, $wrapper);
+        return str_replace('{{'.$placeholder.'}}', $this->template, $wrapper);
     }
 
     /**
@@ -662,13 +683,16 @@ class MigrationMakeCommand extends Command
     /**
      * Construct the schema fields.
      *
-     * @param  array $schema
-     * @param  string $direction
+     * @param array  $schema
+     * @param string $direction
+     *
      * @return array
      */
     private function constructSchema($schema, $direction = 'Add')
     {
-        if (!$schema) return '';
+        if (!$schema) {
+            return '';
+        }
 
         $fields = array_map(function ($field) use ($direction) {
             $method = "{$direction}Column";
@@ -676,14 +700,14 @@ class MigrationMakeCommand extends Command
             return $this->$method($field);
         }, $schema);
 
-        return implode("\n" . str_repeat(' ', 12), $fields);
+        return implode("\n".str_repeat(' ', 12), $fields);
     }
-
 
     /**
      * Construct the syntax to add a column.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return string
      */
     private function addColumn($field)
@@ -693,13 +717,13 @@ class MigrationMakeCommand extends Command
         // If there are arguments for the schema type, like decimal('amount', 5, 2)
         // then we have to remember to work those in.
         if ($field['arguments']) {
-            $syntax = substr($syntax, 0, -1) . ', ';
+            $syntax = substr($syntax, 0, -1).', ';
 
-            $syntax .= implode(', ', $field['arguments']) . ')';
+            $syntax .= implode(', ', $field['arguments']).')';
         }
 
         foreach ($field['options'] as $method => $value) {
-            $syntax .= sprintf("->%s(%s)", $method, $value === true ? '' : $value);
+            $syntax .= sprintf('->%s(%s)', $method, true === $value ? '' : $value);
         }
 
         return $syntax .= ';';
@@ -708,7 +732,8 @@ class MigrationMakeCommand extends Command
     /**
      * Construct the syntax to drop a column.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return string
      */
     private function dropColumn($field)

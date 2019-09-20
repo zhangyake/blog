@@ -18,17 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-
     'middleware' => 'api',
-    'prefix' => 'auth'
-
+    'prefix' => 'auth',
 ], function ($router) {
-
     Route::post('login', 'Api\AuthController@login');
     Route::post('logout', 'Api\AuthController@logout');
     Route::post('refresh', 'Api\AuthController@refresh');
     Route::post('me', 'Api\AuthController@me');
-
 });
 
 // Admin 相关接口
@@ -38,7 +34,7 @@ Route::get('admins/{id}', 'Api\AdminController@show');
 Route::put('admins/{id}', 'Api\AdminController@update');
 Route::delete('admins/{id}', 'Api\AdminController@destroy');
 
-Route::middleware('auth:api')->group( function () {
+Route::middleware('auth:api')->group(function () {
     // Tag 相关接口
     Route::get('tags', 'Api\TagController@index');
     Route::get('tags/all', 'Api\TagController@all');
