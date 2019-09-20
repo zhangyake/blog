@@ -1,57 +1,100 @@
-@extends('layout.main')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <title>Laravel</title>
 
-@section('articles')
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-    <ul class="home post-list">
-        @foreach($articles as  $article)
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
 
-            <li class="post-list-item ">
+            .full-height {
+                height: 100vh;
+            }
 
-                <article class="post-block">
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
 
-                    <h1 class="post-title">
-                        <a href="{{route('article_view',['id'=>$article->id])}}" class="post-title-link">
+            .position-ref {
+                position: relative;
+            }
 
-                            {{array_get($article,'title')}}    </a>
-                    </h1>
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
 
-                    <div class="post-info">
-                        <div class="post-content">
-                            <div class="info"
-                                 style="margin: 0 auto;text-align: center"> {{array_get($article,'created_at')}} @foreach(array_get($article,'tags',[]) as $tag)
-                                    <a href="{{route('tag_archives_view',['id'=>$tag->id])}}" target="_blank" title=""
-                                       class="post-demo">
-                                        {{array_get($tag,'name')}}</a>
-                                @endforeach</div>
+            .content {
+                text-align: center;
+            }
 
-                            <div class="my-image">
-                                @if(array_get($article,'id')%4 === 0)
-                                    <img src="http://7xqeyw.com1.z0.glb.clouddn.com/usess.png" alt="">
-                                @elseif(array_get($article,'id')%4 === 1)
-                                    <img src="http://7xqeyw.com1.z0.glb.clouddn.com/201611-ipad-605420_1920.jpg" alt="">
-                                @elseif(array_get($article,'id')%4 === 2)
-                                    <img src="http://7xqeyw.com1.z0.glb.clouddn.com/qweqsad.png" alt="">
-                                @elseif(array_get($article,'id')%4 === 3)
-                                    <img src="http://imgmini.dfshurufa.com/mobile/20160325172758_220bfff17cc1d8fa3fb6c8fae974bde9_2.jpeg"
-                                         alt="">
-                                @endif
+            .title {
+                font-size: 84px;
+            }
 
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
 
-                            </div>
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
 
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
 
-                        </div>
-                    </div>
-                </article>
+            <div class="content">
+                <div class="title m-b-md">
+                    Laravel
+                </div>
 
-            </li>
-        @endforeach
-    </ul>
-
-@endsection
-
-@section('next_page')
-
-
-@endsection
+                <div class="links">
+                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://blog.laravel.com">Blog</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://vapor.laravel.com">Vapor</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

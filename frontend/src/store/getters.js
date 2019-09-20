@@ -1,13 +1,16 @@
 const getters = {
-  sidebar: state => state.app.sidebar,
-  shrink: state => state.app.shrink,
+  device: state => state.app.device,
+  theme: state => state.app.theme,
+  color: state => state.app.color,
   token: state => state.user.token,
   avatar: state => state.user.avatar,
-  name: state => state.user.name,
-  menuList: state => state.user.menuList,
-  hasMenus: state => state.user.hasMenus,
-  firstPage: state => state.user.firstPage,
-  timeOut: state => state.app.timeOut,
-  timeInterval: state => state.app.timeInterval
+  nickname: state => state.user.name,
+  welcome: state => state.user.welcome,
+  roles: state => state.user.roles,
+  userInfo: state => state.user.info,
+  addRouters: state => state.permission.addRouters,
+  multiTab: state => state.app.multiTab,
+  lang: state => state.i18n.lang
 }
+
 export default getters

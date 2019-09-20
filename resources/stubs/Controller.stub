@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\ApiController;
+use App\Http\Resources\{{modelName}}\{{modelName}}Resource;
+use App\Http\Requests\{{modelName}}Request;
+use App\Models\{{modelName}};
+
+
+class {{modelName}}Controller extends ApiController
+{
+
+    /**
+     * 分页查询
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function index()
+    {
+        ${{modelNamePluralLowerCase}} = {{modelName}}::latest()->paginate(10);
+
+        return {{modelName}}Resource::collection(${{modelNamePluralLowerCase}});
+    }
+
+    /**
+     * 新增记录
+     *
+     * @param {{modelName}}Request $request
+     * @return {{modelName}}Resource
+     */
+    public function store({{modelName}}Request $request)
+    {
+        ${{modelNameSingularLowerCase}} = new {{modelName}}();
+        ${{modelNameSingularLowerCase}}->fill($request->all());
+        ${{modelNameSingularLowerCase}}->save();
+
+        return new {{modelName}}Resource(${{modelNameSingularLowerCase}});
+    }
+
+    /**
+     * 查看详情
+     *
+     * @param $id
+     * @return {{modelName}}Resource
+     */
+    public function show($id)
+    {
+        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
+
+        return new {{modelName}}Resource(${{modelNameSingularLowerCase}});
+    }
+
+    /**
+     * 更新
+     *
+     * @param {{modelName}}Request $request
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{modelName}}Request $request, $id)
+    {
+        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
+        ${{modelNameSingularLowerCase}}->fill($request->all());
+        ${{modelNameSingularLowerCase}}->save();
+
+        return $this->noContent();
+    }
+
+    /**
+     * 删除
+     *
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+      {{modelName}}::destroy($id);
+
+      return $this->noContent();
+    }
+}

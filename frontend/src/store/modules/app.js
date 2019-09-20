@@ -1,85 +1,121 @@
+import Vue from 'vue'
+import {
+  SIDEBAR_TYPE,
+  DEFAULT_THEME,
+  DEFAULT_LAYOUT_MODE,
+  DEFAULT_COLOR,
+  DEFAULT_COLOR_WEAK,
+  DEFAULT_FIXED_HEADER,
+  DEFAULT_FIXED_SIDEMENU,
+  DEFAULT_FIXED_HEADER_HIDDEN,
+  DEFAULT_CONTENT_WIDTH_TYPE,
+  DEFAULT_MULTI_TAB
+} from '@/store/mutation-types'
 
 const app = {
   state: {
-    openedSubmenuArr: [], // 要展开的菜单数组,
-    openedTags: [{
-      meta: { title: '欢迎页' },
-      path: '',
-      name: 'welcome'
-    }], // 打开过的标签,
-    shrink: false,
-    timeOut: '',
-    timeInterval: ''
+    sidebar: true,
+    device: 'desktop',
+    theme: '',
+    layout: '',
+    contentWidth: '',
+    fixedHeader: false,
+    fixSiderbar: false,
+    autoHideHeader: false,
+    color: null,
+    weak: false,
+    multiTab: true
   },
   mutations: {
-    SET_TIME_INTERVAL (state, val) {
-      state.timeInterval = val
+    SET_SIDEBAR_TYPE: (state, type) => {
+      state.sidebar = type
+      Vue.ls.set(SIDEBAR_TYPE, type)
     },
-    SET_TIME_OUT (state, val) {
-      state.timeOut = val
+    CLOSE_SIDEBAR: (state) => {
+      Vue.ls.set(SIDEBAR_TYPE, true)
+      state.sidebar = false
     },
-    SET_SHRINK (state, boolval) {
-      state.shrink = boolval
+    TOGGLE_DEVICE: (state, device) => {
+      state.device = device
     },
-    SET_OPENEDTAGS (state, openedTags) {
-      state.openedTags = openedTags
+    TOGGLE_THEME: (state, theme) => {
+      // setStore('_DEFAULT_THEME', theme)
+      Vue.ls.set(DEFAULT_THEME, theme)
+      state.theme = theme
     },
-    addOpenSubmenu (state, name) {
-      let hasThisName = false
-      let isEmpty = false
-      if (name.length === 0) {
-        isEmpty = true
-      }
-      if (state.openedSubmenuArr.indexOf(name) > -1) {
-        hasThisName = true
-      }
-      if (!hasThisName && !isEmpty) {
-        state.openedSubmenuArr.push(name)
-      }
+    TOGGLE_LAYOUT_MODE: (state, layout) => {
+      Vue.ls.set(DEFAULT_LAYOUT_MODE, layout)
+      state.layout = layout
     },
-    removeOpenTag (state, name) {
-      const index = state.openedTags.findIndex(item => {
-        return item.name === name
-      })
-      state.openedTags.splice(index, 1)
+    TOGGLE_FIXED_HEADER: (state, fixed) => {
+      Vue.ls.set(DEFAULT_FIXED_HEADER, fixed)
+      state.fixedHeader = fixed
     },
-    addOpenTag (state, tag) {
-      let isHas = state.openedTags.some(item => {
-        return item.name === tag.name
-      })
-      if (!isHas) {
-        state.openedTags.push(tag)
-      }
+    TOGGLE_FIXED_SIDERBAR: (state, fixed) => {
+      Vue.ls.set(DEFAULT_FIXED_SIDEMENU, fixed)
+      state.fixSiderbar = fixed
     },
-    clearAllTags (state) {
-      state.openedTags.splice(1)
+    TOGGLE_FIXED_HEADER_HIDDEN: (state, show) => {
+      Vue.ls.set(DEFAULT_FIXED_HEADER_HIDDEN, show)
+      state.autoHideHeader = show
     },
-    clearOtherTags (state, vm) {
-      // let currentName = vm.$route.name
-      // state.openedTags = [vm.$route]
-      let currentName = vm.$route.name
-      let currentIndex = 0
-      state.openedTags.forEach((item, index) => {
-        if (item.name === currentName) {
-          currentIndex = index
-        }
-      })
-      if (currentIndex === 0) {
-        state.openedTags.splice(1)
-      } else {
-        state.openedTags.splice(currentIndex + 1)
-        state.openedTags.splice(1, currentIndex - 1)
-      }
+    TOGGLE_CONTENT_WIDTH: (state, type) => {
+      Vue.ls.set(DEFAULT_CONTENT_WIDTH_TYPE, type)
+      state.contentWidth = type
     },
-    setOpenSubMenu (state, names) {
-      state.openedSubmenuArr = names
+    TOGGLE_COLOR: (state, color) => {
+      Vue.ls.set(DEFAULT_COLOR, color)
+      state.color = color
+    },
+    TOGGLE_WEAK: (state, flag) => {
+      Vue.ls.set(DEFAULT_COLOR_WEAK, flag)
+      state.weak = flag
+    },
+    TOGGLE_MULTI_TAB: (state, bool) => {
+      Vue.ls.set(DEFAULT_MULTI_TAB, bool)
+      state.multiTab = bool
     }
   },
   actions: {
-    ToggleSideBar: ({ commit }) => {
-      commit('')
+    setSidebar ({ commit }, type) {
+      commit('SET_SIDEBAR_TYPE', type)
+    },
+    CloseSidebar ({ commit }) {
+      commit('CLOSE_SIDEBAR')
+    },
+    ToggleDevice ({ commit }, device) {
+      commit('TOGGLE_DEVICE', device)
+    },
+    ToggleTheme ({ commit }, theme) {
+      commit('TOGGLE_THEME', theme)
+    },
+    ToggleLayoutMode ({ commit }, mode) {
+      commit('TOGGLE_LAYOUT_MODE', mode)
+    },
+    ToggleFixedHeader ({ commit }, fixedHeader) {
+      if (!fixedHeader) {
+        commit('TOGGLE_FIXED_HEADER_HIDDEN', false)
+      }
+      commit('TOGGLE_FIXED_HEADER', fixedHeader)
+    },
+    ToggleFixSiderbar ({ commit }, fixSiderbar) {
+      commit('TOGGLE_FIXED_SIDERBAR', fixSiderbar)
+    },
+    ToggleFixedHeaderHidden ({ commit }, show) {
+      commit('TOGGLE_FIXED_HEADER_HIDDEN', show)
+    },
+    ToggleContentWidth ({ commit }, type) {
+      commit('TOGGLE_CONTENT_WIDTH', type)
+    },
+    ToggleColor ({ commit }, color) {
+      commit('TOGGLE_COLOR', color)
+    },
+    ToggleWeak ({ commit }, weakFlag) {
+      commit('TOGGLE_WEAK', weakFlag)
+    },
+    ToggleMultiTab ({ commit }, bool) {
+      commit('TOGGLE_MULTI_TAB', bool)
     }
-
   }
 }
 

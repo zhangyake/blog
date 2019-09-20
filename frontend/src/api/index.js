@@ -1,162 +1,47 @@
-import http from './../utils/http'
-
-export default {
-    login (data) {
-        return http({
-            url: '/api/auth/login',
-            method: 'post',
-            data
-        })
-    },
-    getUserInfo (data) {
-        return http({
-            url: '/api/auth/me',
-            method: 'post',
-            data
-        })
-    },
-    getUserList (params) {
-        return http({
-            url: '/api/users',
-            method: 'get',
-            params
-        })
-    },
-    addUser (data) {
-        return http({
-            url: '/api/users',
-            method: 'post',
-            data
-        })
-    },
-    updateUser (data) {
-        return http({
-            url: `/api/users/${data.id}`,
-            method: 'put',
-            data
-        })
-    },
-    deleteUser (data) {
-        return http({
-            url: `/api/users/${data.id}`,
-            method: 'delete',
-            data
-        })
-    },
-
-    getTagList (params) {
-        return http({
-            url: '/api/tags',
-            method: 'get',
-            params
-        })
-    },
-    addTag (data) {
-        return http({
-            url: '/api/tags',
-            method: 'post',
-            data
-        })
-    },
-    updateTag (data) {
-        return http({
-            url: `/api/tags/${data.id}`,
-            method: 'put',
-            data
-        })
-    },
-    deleteTag (data) {
-        return http({
-            url: `/api/tags/${data.id}`,
-            method: 'delete',
-            data
-        })
-    },
-
-    getLinkList (params) {
-        return http({
-            url: '/api/links',
-            method: 'get',
-            params
-        })
-    },
-    addLink (data) {
-        return http({
-            url: '/api/links',
-            method: 'post',
-            data
-        })
-    },
-    updateLink (data) {
-        return http({
-            url: `/api/links/${data.id}`,
-            method: 'put',
-            data
-        })
-    },
-    deleteLink (data) {
-        return http({
-            url: `/api/links/${data.id}`,
-            method: 'delete',
-            data
-        })
-    },
-
-    getCategoryList (params) {
-        return http({
-            url: '/api/categories',
-            method: 'get',
-            params
-        })
-    },
-    addCategory (data) {
-        return http({
-            url: '/api/categories',
-            method: 'post',
-            data
-        })
-    },
-    updateCategory (data) {
-        return http({
-            url: `/api/categories/${data.id}`,
-            method: 'put',
-            data
-        })
-    },
-    deleteCategory (data) {
-        return http({
-            url: `/api/categories/${data.id}`,
-            method: 'delete',
-            data
-        })
-    },
-
-    getArticleList (params) {
-        return http({
-            url: '/api/articles',
-            method: 'get',
-            params
-        })
-    },
-    addArticle (data) {
-        return http({
-            url: '/api/articles',
-            method: 'post',
-            data
-        })
-    },
-    updateArticle (data) {
-        return http({
-            url: `/api/articles/${data.id}`,
-            method: 'put',
-            data
-        })
-    },
-    deleteArticle (data) {
-        return http({
-            url: `/api/articles/${data.id}`,
-            method: 'delete',
-            data
-        })
+import http from './../utils/request'
+import interfaces from './config.js'
+const Http = {} // 包裹请求方法的容器
+// 请求格式/参数的统一
+for (const key in interfaces) {
+  const api = interfaces[key] // url method
+  // async 作用：避免进入回调地狱
+  Http[key] = async function (
+    params, // 请求参数 get：url，put，post，patch（data），delete：url
+    isFormData = false, // 标识是否是form-data请求
+    config = {} // 配置参数
+  ) {
+    //  content-type是否是form-data的判断
+    let requUrl = api.url
+    if (params) {
+      for (const key in params) {
+        if (requUrl.includes(`{${key}}`)) {
+          requUrl = requUrl.replace(`{${key}}`, params[key])
+        }
+      }
+      if (isFormData) {
+        const newParams = new FormData()
+        for (const i in params) {
+          newParams.append(i, params[i])
+        }
+        params = newParams
+      }
     }
+
+    // 不同请求的判断
+    let response = {} // 请求的返回值
+    if (
+      api.method === 'put' ||
+      api.method === 'post' ||
+      api.method === 'patch'
+    ) {
+      response = await http[api.method](requUrl, params, config)
+    } else if (api.method === 'delete' || api.method === 'get') {
+      config.params = params
+
+      response = await http[api.method](requUrl, config)
+    }
+
+    return response // 返回响应
+  }
 }
+export default Http

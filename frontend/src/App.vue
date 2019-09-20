@@ -1,19 +1,29 @@
 <template>
-  <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <router-view/>
-  </div>
+  <a-locale-provider :locale="locale">
+    <div id="app">
+      <router-view/>
+    </div>
+  </a-locale-provider>
 </template>
 
 <script>
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+import { AppDeviceEnquire } from '@/utils/mixin'
+
 export default {
-  name: 'App'
+  mixins: [AppDeviceEnquire],
+  data () {
+    return {
+      locale: zhCN
+    }
+  },
+  mounted () {
+
+  }
 }
 </script>
-
 <style>
-#app {
-  width: 100%;
-  height: 100vh;
-}
+  #app {
+    height: 100%;
+  }
 </style>
