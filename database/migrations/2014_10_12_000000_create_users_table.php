@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('username')->comment('用户名');
+            $table->string('password')->comment('密码');
             $table->string('wechat_openid')->unique()->comment('微信openId');
             $table->string('nickname')->nullable()->comment('昵称');
             $table->string('avatar')->nullable()->comment('微信头像url');
