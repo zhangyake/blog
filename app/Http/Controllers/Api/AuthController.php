@@ -10,8 +10,6 @@ class AuthController extends ApiController
 {
     /**
      * Create a new AuthController instance.
-     *
-     * @return void
      */
     public function __construct()
     {

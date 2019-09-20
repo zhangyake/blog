@@ -116,8 +116,6 @@ class ApiController extends Controller
      *
      * @param string $message
      * @param        $statusCode
-     *
-     * @return void
      */
     public function error($message, $statusCode = 400)
     {
@@ -131,8 +129,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorNotFound($message = 'Not Found')
     {
@@ -146,8 +142,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorBadRequest($message = 'Bad Request')
     {
@@ -161,8 +155,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorForbidden($message = 'Forbidden')
     {
@@ -176,8 +168,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorInternal($message = 'Internal Error')
     {
@@ -191,8 +181,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorUnauthorized($message = 'Unauthorized')
     {
@@ -206,8 +194,6 @@ class ApiController extends Controller
      * @param string $message
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     *
-     * @return void
      */
     public function errorMethodNotAllowed($message = 'Method Not Allowed')
     {
