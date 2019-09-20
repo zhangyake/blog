@@ -27,13 +27,6 @@ Route::group([
     Route::post('me', 'Api\AuthController@me');
 });
 
-// Admin 相关接口
-Route::get('admins', 'Api\AdminController@index');
-Route::post('admins', 'Api\AdminController@store');
-Route::get('admins/{id}', 'Api\AdminController@show');
-Route::put('admins/{id}', 'Api\AdminController@update');
-Route::delete('admins/{id}', 'Api\AdminController@destroy');
-
 Route::middleware('auth:api')->group(function () {
     // Tag 相关接口
     Route::get('tags', 'Api\TagController@index');
@@ -49,6 +42,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('articles/{id}', 'Api\ArticleController@show');
     Route::put('articles/{id}', 'Api\ArticleController@update');
     Route::delete('articles/{id}', 'Api\ArticleController@destroy');
+
+    // Admin 相关接口
+    Route::get('admins', 'Api\AdminController@index');
+    Route::post('admins', 'Api\AdminController@store');
+    Route::get('admins/{id}', 'Api\AdminController@show');
+    Route::put('admins/{id}', 'Api\AdminController@update');
+    Route::delete('admins/{id}', 'Api\AdminController@destroy');
 });
 
 // Area 相关接口

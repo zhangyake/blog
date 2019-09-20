@@ -3,7 +3,7 @@
 commit=`sh phpcs.sh`
 if [ -n "$commit" ]
 then
-    echo -e >&2 "\n=================== Tips ===================\nSome codes have been formatted automatically.\nPlease rescan and recommit them."
+    echo -e >&2 "\033[31m======================== Tips =======================\n 部分代码进行了自动格式化,请重新git add, git commit \n=====================================================\033[0m"
     exit 1
 fi
 exit 0
