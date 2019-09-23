@@ -18,7 +18,7 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <img src="~@/assets/logo.png" class="logo" alt="logo">
+            <img src="~@/assets/logo.svg" class="logo" alt="logo">
             <span class="title">博客后台
             </span>
           </a>
