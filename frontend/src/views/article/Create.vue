@@ -5,6 +5,7 @@
         <input
           class="title-input"
           name="name"
+          v-model="title"
           placeholder="输入文章标题..."/>
       </a-col>
       <a-col
@@ -16,21 +17,28 @@
         style="height:60px;">
         <a-popover placement="bottom" trigger="click" class="publish-popover">
           <template slot="content">
-            <div>
-              <a-tag color="pink">pink</a-tag>
-              <a-tag color="red">red</a-tag>
-              <a-tag color="orange">orange</a-tag> </div>
+            <template v-for="(tag,index) in allTags">
+              <a-checkable-tag
+                :key="tag.id"
+                :checked="selectedTags.indexOf(tag.id) > -1"
+                @change="(checked) => handleChange(tag.id, checked)"
+              >
+                {{ tag.name }}
+              </a-checkable-tag>
 
-            <div>  <a-tag color="green">green</a-tag>
-              <a-tag color="cyan">cyan</a-tag>
-              <a-tag color="blue">blue</a-tag>
-              <a-tag color="purple">purple</a-tag>
+              <br v-if="index%4===3" :key="'br'+index" />
+
+            </template>
+            <a-divider />
+            <div style="text-align:center;">
+              <a-button type="primary" ghost @click="toPublish" :loading="loading">确认并发布</a-button>
             </div>
+
           </template>
           <template slot="title">
             <span>选择标签</span>
           </template>
-          <div >发布</div>
+          <div style="color:#007fff;font-size: 1.2rem;">发布</div>
         </a-popover>
         <!-- <a-button htmlType="submit" type="primary">发布文章</a-button>
         <a-button style="margin-left: 8px" @click="toSaveArticle">保存草稿</a-button> -->
@@ -128,40 +136,48 @@ export default {
     }
     this.mdString = this.mdText
     this.addOrUpdateCssLink(this.theme)
+    this.getAllTags()
   },
   data () {
     return {
+      loading: false,
+      allTags: [],
+      selectedTags: [],
       clientHeight: '',
       mdString: '',
       htmlString: '',
-      status: 1
+      status: 1,
+      article: {}
 
     }
   },
   methods: {
+    getAllTags () {
+      this.$api.getAllTags().then(res => {
+        this.allTags = res.data
+      })
+    },
+    toPublish () {
+      this.loading = true
+      this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content: this.htmlString }).finally(() => {
+        this.$message.success('success')
+        setTimeout(() => {
+          this.$router.push({ name: 'articleList' })
+        }, 1000)
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    handleChange (tag, checked) {
+      const { selectedTags } = this
+      const nextSelectedTags = checked
+        ? [...selectedTags, tag]
+        : selectedTags.filter(t => t !== tag)
+      this.selectedTags = nextSelectedTags
+    },
     changeFixed (clientHeight) {
       document.getElementById('textarea_for_md').style.height = (clientHeight - 80) + 'px'
       document.getElementById('editor_preview_box').style.height = (clientHeight - 80) + 'px'
-    },
-    // handler
-    handleSubmit (e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          this.$api.insertArticle({ status: this.status, ...values }).finally(() => {
-
-          })
-        }
-      })
-    },
-    toSaveArticle () {
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          this.$api.insertArticle({ status: 0, ...values }).finally(() => {
-
-          })
-        }
-      })
     },
     addOrUpdateCssLink (value) {
       var themeUrl = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/' + value + '.min.css'
@@ -320,8 +336,12 @@ font-size: 1.5rem;
 border: none;
 }
 .publish-popover{
-  margin: 20px auto;
+  margin: 0 auto;
   width: 60px;
+  height: 60px;
+  line-height: 60px;
+  cursor: pointer;
+  user-select: none;
 }
 #textarea_for_md{
   outline: none;
@@ -330,6 +350,7 @@ border: none;
      resize: none;
      overflow-x: hidden;
      overflow-y:auto;
+     padding-top: 10px;
      padding-left: 28px;
     background: #f8f9fa;
     &::-webkit-scrollbar { /*滚动条整体样式*/

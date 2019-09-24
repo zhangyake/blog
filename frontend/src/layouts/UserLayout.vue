@@ -1,6 +1,6 @@
 <template>
   <div id="userLayout" :class="['user-layout-wrapper', device]">
-    <div class="bruce">
+    <!-- <div class="bruce">
       <ul class="bubble-bgwall">
         <li>Love</li>
         <li>Love</li>
@@ -13,7 +13,7 @@
         <li>Love</li>
         <li>Love</li>
       </ul>
-    </div>
+    </div> -->
     <div class="container">
       <div class="top">
         <div class="header">
@@ -188,8 +188,8 @@ export default {
     .container {
       width: 100%;
       min-height: 100%;
-      // background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
-      // background-size: 100%;
+      background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
+      background-size: 100%;
       padding: 130px 0 114px;
       position: relative;
 

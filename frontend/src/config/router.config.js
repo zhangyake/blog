@@ -1,9 +1,8 @@
 // eslint-disable-next-line
-import {UserLayout, BasicLayout, RouteView, BlankLayout, PageView} from '@/layouts'
+import { UserLayout, BasicLayout, RouteView, BlankLayout, PageView } from '@/layouts'
 import { bxAnaalyse } from '@/core/icons'
 
 export const asyncRouterMap = [
-
   {
     path: '/',
     name: 'index',
@@ -11,7 +10,6 @@ export const asyncRouterMap = [
     meta: { title: '首页' },
     redirect: '/dashboard/analysis',
     children: [
-      // dashboard
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -27,59 +25,73 @@ export const asyncRouterMap = [
           }
         ]
       },
-      // list
 
       {
-        path: '/article',
-        name: 'article',
-        hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-        component: () => import('@/views/search/Projects'),
-        meta: { title: '文章列表', keepAlive: true, icon: 'appstore' }
-      },
-      // list
-      {
-        path: '/list/user',
-        name: 'userList',
-        hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-        component: () => import('@/views/user/List'),
-        meta: { title: '会员管理', keepAlive: true, icon: 'appstore' }
-      },
+        path: '/',
+        name: 'list',
+        component: PageView,
+        // hideChildrenInMenu: true,
+        redirect: '/list/article',
+        meta: { title: '列表页', icon: 'table', permission: ['table'], hideInBreadcrumb: true
+        },
+        children: [
 
-      {
-        path: '/list/tag',
-        name: 'tags',
-        hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-        component: () => import('@/views/tag/List'),
-        meta: { title: '标签管理', keepAlive: true, icon: 'appstore' }
-      },
+          {
+            path: 'article',
+            hidden: true,
+            meta: { title: '文章列表', keepAlive: true, icon: 'appstore' },
+            name: 'articles',
+            component: () => import('@/views/search/Projects')
+          },
+          // list
+          {
+            path: '/list/user',
+            name: 'userList',
+            hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/user/List'),
+            meta: { title: '会员管理', keepAlive: true, icon: 'appstore' }
+          },
 
-      {
-        path: '/list/admin-list',
-        name: 'AdminUserListWrapper',
-        hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-        component: () => import('@/views/adminUser/List'),
-        meta: { title: '后台账号', keepAlive: true, icon: 'appstore' }
+          {
+            path: '/list/tag',
+            name: 'tags',
+            // hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/tag/List'),
+            meta: { title: '标签管理', keepAlive: true, icon: 'appstore' }
+          },
+
+          {
+            path: '/list/admin-list',
+            name: 'AdminUserListWrapper',
+            // hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+            component: () => import('@/views/adminUser/List'),
+            meta: { title: '后台账号', keepAlive: true, icon: 'appstore' }
+          }
+        ]
       }
-
     ]
   },
+
   {
     path: '/article',
     name: 'index',
     component: BlankLayout,
     meta: { title: '首页' },
-    redirect: '/create',
+    redirect: '/article/create',
     children: [
       {
-        path: '/create',
-        name: 'articleList',
+        path: 'create',
+        name: 'articleCreate',
         hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
         component: () => import('@/views/article/Create'),
         meta: { title: '创建文章', keepAlive: true, icon: 'appstore' }
-      } ]
+      }
+    ]
   },
   {
-    path: '*', redirect: '/404', hidden: true
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
 ]
 
@@ -116,5 +128,4 @@ export const constantRouterMap = [
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
   }
-
 ]
