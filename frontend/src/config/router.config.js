@@ -25,7 +25,13 @@ export const asyncRouterMap = [
           }
         ]
       },
+{
+  path: '/article',
+      meta: { title: '文章列表', icon: 'dashboard', hiddenHeaderContent: false },
 
+  name: 'articles',
+      component: () => import('@/views/search/Projects')
+},
       {
         path: '/',
         name: 'list',
@@ -36,13 +42,7 @@ export const asyncRouterMap = [
         },
         children: [
 
-          {
-            path: 'article',
-            hidden: true,
-            meta: { title: '文章列表', keepAlive: true, icon: 'appstore' },
-            name: 'articles',
-            component: () => import('@/views/search/Projects')
-          },
+
           // list
           {
             path: '/list/user',
@@ -72,22 +72,22 @@ export const asyncRouterMap = [
     ]
   },
 
-  {
-    path: '/article',
-    name: 'index',
+{
+  path: '/article',
+      name: 'index',
     component: BlankLayout,
     meta: { title: '首页' },
-    redirect: '/article/create',
-    children: [
-      {
-        path: 'create',
-        name: 'articleCreate',
-        hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-        component: () => import('@/views/article/Create'),
-        meta: { title: '创建文章', keepAlive: true, icon: 'appstore' }
-      }
-    ]
-  },
+  redirect: '/article/create',
+      children: [
+  {
+    path: 'create',
+    name: 'articleCreate',
+    hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
+    component: () => import('@/views/article/Create'),
+  meta: { title: '创建文章', keepAlive: true, icon: 'appstore' }
+}
+]
+},
   {
     path: '*',
     redirect: '/404',

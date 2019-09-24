@@ -1,54 +1,73 @@
 <template>
-  <div>
+  <page-view>
     <a-card :bordered="false" class="ant-pro-components-tag-select">
-      <a-form :form="form" layout="inline">
-        <standard-form-row title="所属类目" block style="padding-bottom: 11px;">
-          <a-form-item>
-            <tag-select>
-              <tag-select-option value="Category1">类目一</tag-select-option>
-              <tag-select-option value="Category2">类目二</tag-select-option>
-              <tag-select-option value="Category3">类目三</tag-select-option>
-              <tag-select-option value="Category4">类目四</tag-select-option>
-              <tag-select-option value="Category5">类目五</tag-select-option>
-              <tag-select-option value="Category6">类目六</tag-select-option>
-              <tag-select-option value="Category7">类目七</tag-select-option>
-              <tag-select-option value="Category8">类目八</tag-select-option>
-              <tag-select-option value="Category9">类目九</tag-select-option>
-              <tag-select-option value="Category10">类目十</tag-select-option>
-            </tag-select>
-          </a-form-item>
-        </standard-form-row>
-
-        <standard-form-row title="其它选项" grid last>
-          <a-row>
-            <a-col :lg="8" :md="10" :sm="10" :xs="24">
-              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="作者">
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline">
+          <a-row :gutter="48">
+            <a-col
+                    :md="6"
+                    :sm="24"
+            >
+              <a-form-item label="关键词">
+                <a-input v-model="queryParam.keyword" />
+              </a-form-item>
+            </a-col>
+            <a-col
+                    :md="6"
+                    :sm="24"
+            >
+              <a-form-item label="文章状态">
                 <a-select
-                  style="max-width: 200px; width: 100%;"
-                  mode="multiple"
-                  placeholder="不限"
-                  v-decorator="['author']"
-                  @change="handleChange"
+                        v-model="queryParam.status"
+                        placeholder="请选择文章状态"
+                        @change="handleQuery"
                 >
-                  <a-select-option value="lisa">王昭君</a-select-option>
+                  <!--<a-select-option-->
+                          <!--v-for="status in Object.keys(postStatus)"-->
+                          <!--:key="status"-->
+                          <!--:value="status"-->
+                  <!--&gt;{{ postStatus[status].text }}</a-select-option>-->
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :lg="8" :md="10" :sm="10" :xs="24">
-              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="好评度">
+            <a-col
+                    :md="6"
+                    :sm="24"
+            >
+              <a-form-item label="分类目录">
                 <a-select
-                  style="max-width: 200px; width: 100%;"
-                  placeholder="不限"
-                  v-decorator="['rate']"
+                        v-model="queryParam.categoryId"
+                        placeholder="请选择分类"
+                        @change="handleQuery"
                 >
-                  <a-select-option value="good">优秀</a-select-option>
-                  <a-select-option value="normal">普通</a-select-option>
+                  <a-select-option
+                          v-for="category in categories"
+                          :key="category.id"
+                  >{{ category.name }}</a-select-option>
                 </a-select>
               </a-form-item>
+            </a-col>
+
+            <a-col
+                    :md="6"
+                    :sm="24"
+            >
+              <span class="table-page-search-submitButtons">
+                <a-button
+                        type="primary"
+                        @click="handleQuery"
+                >查询</a-button>
+                <a-button
+                        style="margin-left: 8px;"
+                        @click="handleResetParam"
+                >重置</a-button>
+              </span>
             </a-col>
           </a-row>
-        </standard-form-row>
-      </a-form>
+        </a-form>
+      </div>
+
+
     </a-card>
 
     <div class="ant-pro-pages-list-projects-cardList">
@@ -78,10 +97,11 @@
         </a-list-item>
       </a-list>
     </div>
-  </div>
+  </page-view>
 </template>
 
 <script>
+  import { PageView } from '@/layouts'
 import moment from 'moment'
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
 const TagSelectOption = TagSelect.Option
@@ -89,6 +109,7 @@ const AvatarListItem = AvatarList.AvatarItem
 
 export default {
   components: {
+    PageView,
     AvatarList,
     AvatarListItem,
     Ellipsis,
@@ -98,6 +119,7 @@ export default {
   },
   data () {
     return {
+      queryParam:{},
       data: [],
       form: this.$form.createForm(this),
       loading: true
@@ -112,6 +134,12 @@ export default {
     this.getList()
   },
   methods: {
+    handleQuery(){
+
+    },
+    handleResetParam(){
+
+    },
     handleChange (value) {
       console.log(`selected ${value}`)
     },

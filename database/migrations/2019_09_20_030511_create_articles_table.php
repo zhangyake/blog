@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedTinyInteger('status');
             $table->string('title');
             $table->string('preview');
+            $table->longText('content_md');
             $table->longText('content');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('read_count')->default(0);
