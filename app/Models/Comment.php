@@ -5,23 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Comment
+ * App\Models\Comment.
  *
- * @property int $id
- * @property int $user_id
- * @property string $content
- * @property string $target_type
- * @property int $target_id
- * @property int $reply_count
- * @property int $like_count
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
- * @property-read int|null $likes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reply[] $replys
- * @property-read int|null $replys_count
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $target
- * @property-read \App\Models\User $user
+ * @property int                                                          $id
+ * @property int                                                          $user_id
+ * @property string                                                       $content
+ * @property string                                                       $target_type
+ * @property int                                                          $target_id
+ * @property int                                                          $reply_count
+ * @property int                                                          $like_count
+ * @property \Illuminate\Support\Carbon|null                              $created_at
+ * @property \Illuminate\Support\Carbon|null                              $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Like[]  $likes
+ * @property int|null                                                     $likes_count
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Reply[] $replys
+ * @property int|null                                                     $replys_count
+ * @property \Illuminate\Database\Eloquent\Model|\Eloquent                $target
+ * @property \App\Models\User                                             $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()

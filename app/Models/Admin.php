@@ -7,15 +7,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * App\Models\Admin
+ * App\Models\Admin.
  *
- * @property int $id
- * @property string $username 用户名
- * @property string $password 密码
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
+ * @property int                                                                                                       $id
+ * @property string                                                                                                    $username            用户名
+ * @property string                                                                                                    $password            密码
+ * @property \Illuminate\Support\Carbon|null                                                                           $created_at
+ * @property \Illuminate\Support\Carbon|null                                                                           $updated_at
+ * @property \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property int|null                                                                                                  $notifications_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin query()

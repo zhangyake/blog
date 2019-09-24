@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Reply
+ * App\Models\Reply.
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
- * @property-read int|null $likes_count
- * @property-read \App\Models\Reply $parent
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $target
- * @property-read \App\Models\User $user
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
+ * @property int|null                                                    $likes_count
+ * @property \App\Models\Reply                                           $parent
+ * @property \Illuminate\Database\Eloquent\Model|\Eloquent               $target
+ * @property \App\Models\User                                            $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reply newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reply newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reply query()

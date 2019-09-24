@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Favorite
+ * App\Models\Favorite.
  *
- * @property int $id
- * @property int $user_id
- * @property string $target_type
- * @property int $target_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $target
- * @property-read \App\Models\User $user
+ * @property int                                           $id
+ * @property int                                           $user_id
+ * @property string                                        $target_type
+ * @property int                                           $target_id
+ * @property \Illuminate\Support\Carbon|null               $created_at
+ * @property \Illuminate\Support\Carbon|null               $updated_at
+ * @property \Illuminate\Support\Carbon|null               $deleted_at
+ * @property \Illuminate\Database\Eloquent\Model|\Eloquent $target
+ * @property \App\Models\User                              $user
+ *
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Favorite newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Favorite newQuery()
