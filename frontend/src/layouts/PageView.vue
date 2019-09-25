@@ -117,7 +117,6 @@ export default {
           this.tabs = content.tabs
         }
       }
-      console.log(this.linkList)
     }
   }
 }

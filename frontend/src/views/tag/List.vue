@@ -53,30 +53,31 @@
     </div>
 
     <div class="ant-pro-pages-list-projects-cardList">
-    <a-list
-            :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }"
-            :dataSource="tableDatas"
-    >
-      <a-list-item slot="renderItem" slot-scope="item, index">
-        <a-card class="ant-pro-pages-list-projects-card"
-                hoverable
+      <a-list
+        :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }"
+        :dataSource="tableDatas"
+      >
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-card
+            class="ant-pro-pages-list-projects-card"
+            hoverable
 
-        >
-          <img
-                  alt="example"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                  slot="cover"
-          />
-          <template class="ant-card-actions" slot="actions">
-            {{item.name}}
-          </template>
-          <a-card-meta
-                  title="Card title"
-                  description="This is the description">
-            <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-          </a-card-meta>
-        </a-card>      </a-list-item>
-    </a-list>
+          >
+            <img
+              alt="example"
+              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              slot="cover"
+            />
+            <template class="ant-card-actions" slot="actions">
+              {{ item.name }}
+            </template>
+            <a-card-meta
+              title="Card title"
+              description="This is the description">
+              <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            </a-card-meta>
+          </a-card>      </a-list-item>
+      </a-list>
     </div>
 
     <create-form
@@ -92,7 +93,6 @@
 import CreateForm from './modules/CreateForm'
 import EditForm from './modules/EditForm'
 
-
 export default {
   components: {
     CreateForm,
@@ -102,7 +102,7 @@ export default {
     return {
       queryParam: {},
       tableDatas: [],
-      pagination: { total: 0 },
+      pagination: { },
       page: 1,
       pageSize: 10,
       loading: false
@@ -180,4 +180,3 @@ export default {
     }
   }
 </style>
-

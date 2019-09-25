@@ -14,36 +14,39 @@
         :md="12"
         :lg="12"
         :xl="12"
-        style="height:60px;">
-        <a-popover placement="bottom" trigger="click" class="publish-popover">
-          <template slot="content">
-            <template v-for="(tag,index) in allTags">
-              <a-checkable-tag
-                :key="tag.id"
-                :checked="selectedTags.indexOf(tag.id) > -1"
-                @change="(checked) => handleChange(tag.id, checked)"
-              >
-                {{ tag.name }}
-              </a-checkable-tag>
+      >
+        <div class="publish-popover">
+          <a-popover placement="bottom" trigger="click" >
+            <template slot="content">
+              <template v-for="(tag,index) in allTags">
+                <a-checkable-tag
+                  :key="tag.id"
+                  :checked="selectedTags.indexOf(tag.id) > -1"
+                  @change="(checked) => handleChange(tag.id, checked)"
+                >
+                  {{ tag.name }}
+                </a-checkable-tag>
 
-              <br v-if="index%4===3" :key="'br'+index" />
+                <br v-if="index%4===3" :key="'br'+index" />
+
+              </template>
+              <a-divider />
+              <div style="text-align:center;">
+                <a-button type="primary" ghost @click="toPublish" :loading="loading">确认并发布</a-button>
+              </div>
 
             </template>
-            <a-divider />
-            <div style="text-align:center;">
-              <a-button type="primary" ghost @click="toPublish" :loading="loading">确认并发布</a-button>
-            </div>
-
-          </template>
-          <template slot="title">
-            <span>选择标签</span>
-          </template>
-          <div style="color:#007fff;font-size: 1.2rem;">发布</div>
-        </a-popover>
+            <template slot="title">
+              <span>选择标签</span>
+            </template>
+            <a-button type="primary" ghost>发 布</a-button>
+          </a-popover></div>
         <!-- <a-button htmlType="submit" type="primary">发布文章</a-button>
         <a-button style="margin-left: 8px" @click="toSaveArticle">保存草稿</a-button> -->
       </a-col>
+    </a-row>
 
+    <a-row>
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <textarea
           @keydown.tab.exact.prevent="insertTab"
@@ -80,6 +83,7 @@
 import emojione from 'emojione'
 import marked from 'marked'
 import hljs from 'highlight.js'
+
 export default {
   props: {
     mdText: {
@@ -143,6 +147,7 @@ export default {
       loading: false,
       allTags: [],
       selectedTags: [],
+      title: '',
       clientHeight: '',
       mdString: '',
       htmlString: '',
@@ -158,8 +163,17 @@ export default {
       })
     },
     toPublish () {
+      if (this.title.trim() === '') {
+        this.$message.error('标题不能为空')
+        return
+      }
+      if (this.htmlString.trim() === '') {
+        this.$message.error('内容不能为空')
+        return
+      }
       this.loading = true
-      this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content: this.htmlString }).finally(() => {
+
+      this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content_md: this.mdString, content: this.htmlString }).finally(() => {
         this.$message.success('success')
         setTimeout(() => {
           this.$router.push({ name: 'articleList' })
@@ -176,8 +190,8 @@ export default {
       this.selectedTags = nextSelectedTags
     },
     changeFixed (clientHeight) {
-      document.getElementById('textarea_for_md').style.height = (clientHeight - 80) + 'px'
-      document.getElementById('editor_preview_box').style.height = (clientHeight - 80) + 'px'
+      document.getElementById('textarea_for_md').style.height = (clientHeight - 290) + 'px'
+      document.getElementById('editor_preview_box').style.height = (clientHeight - 290) + 'px'
     },
     addOrUpdateCssLink (value) {
       var themeUrl = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/' + value + '.min.css'
@@ -328,20 +342,22 @@ export default {
 </style>
 <style lang="less" scoped>
 .title-input{
-height: 60px;
+height: 48px;
 width: 100%;
 padding-left: 20px;
 outline: none;
-font-size: 1.5rem;
+font-size: 1.3rem;
 border: none;
+
 }
 .publish-popover{
-  margin: 0 auto;
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
-  cursor: pointer;
-  user-select: none;
+  float: right;
+  margin: 8px 10px;
+  // width: 60px;
+  // height: 48px;
+  // line-height: 48px;
+  // cursor: pointer;
+  // user-select: none;
 }
 #textarea_for_md{
   outline: none;
