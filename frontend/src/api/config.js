@@ -19,6 +19,11 @@ export default {
     url: '/api/articles',
     method: 'get'
   },
+  //   get文章
+  getArticleDetail: {
+    url: '/api/articles/{id}',
+    method: 'get'
+  },
   //   新增文章
   insertArticle: {
     url: '/api/articles',

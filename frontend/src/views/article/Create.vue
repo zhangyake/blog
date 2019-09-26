@@ -173,7 +173,7 @@ export default {
       }
       this.loading = true
 
-      this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content_md: this.mdString, content: this.htmlString }).finally(() => {
+      this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content_md: this.mdString, content: this.$refs.editor_preview_box.innerHTML }).finally(() => {
         this.$message.success('success')
         setTimeout(() => {
           this.$router.push({ name: 'articleList' })
