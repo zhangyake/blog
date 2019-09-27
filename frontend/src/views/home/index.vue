@@ -1,38 +1,80 @@
 <template>
 
-  <div class="page-header-index-wide">
-    <a-card :bordered="false" :bodyStyle="{ padding: '16px 24px', height: '100%' }" :style="{ height: '100%' }">
+  <div class="page-header-index-wide antd-pro-pages-home ">
 
-      <a-list
-        itemLayout="horizontal"
-        size="large"
-        :dataSource="listData"
+    <a-row :gutter="24">
 
-      >
-        <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
-          <template v-if="!loading" slot="actions" v-for="{type, text} in actions">
-            <span :key="type">
-              <a-icon :type="type" style="margin-right: 6px" />
-              {{ item[text] }}
-            </span>
-          </template>
-          <template v-if="!loading" slot="actions">
-            <span>
-              {{ item.created_at }}
-            </span>
-          </template>
-          <a-skeleton :loading="loading" active avatar :title="false">
-            <a-list-item-meta style="align-content:center;" >
-              <a-avatar slot="avatar" :src="item.avatar" />
+      <a-col :md="24" :lg="18">
+        <a-card :bordered="false" :bodyStyle="{ padding: '16px 24px', height: '100%' }" style="margin-bottom: 18px">
 
-              <span slot="title" >{{ item.title }}</span>
+          <a-list
+            itemLayout="horizontal"
+            size="large"
+            :dataSource="listData"
 
-            </a-list-item-meta>
+          >
+            <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+              <template v-if="!loading" slot="actions" v-for="{type, text} in actions">
+                <span :key="type">
+                  <a-icon :type="type" style="margin-right: 6px" />
+                  {{ item[text] }}
+                </span>
+              </template>
+              <template v-if="!loading" slot="actions">
+                <span>
+                  {{ item.created_at }}
+                </span>
+              </template>
+              <a-skeleton :loading="loading" active avatar :title="false">
+                <a-list-item-meta style="align-content:center;" >
+                  <a-avatar slot="avatar" :src="item.avatar" />
 
-          </a-skeleton>
-        </a-list-item>
-      </a-list>
-    </a-card>
+                  <span slot="title" >{{ item.title }}</span>
+
+                </a-list-item-meta>
+
+              </a-skeleton>
+            </a-list-item>
+          </a-list>
+        </a-card>
+      </a-col>
+
+      <a-col :md="24" :lg="6">
+        <a-card :bordered="false" style="margin-bottom: 18px" :bodyStyle="{padding:'14px 24px'}" >
+          <template slot="title" >社区规范</template>
+          <div style="min-height: 120px;">
+            Laravel 是优雅的 PHP Web 开发框架。具有高效、简洁、富于表达力等优点。采用 MVC 设计，是崇尚开发效率的全栈框架。是最受关注的 PHP 框架。
+          </div>
+          <a-row type="flex" justify="space-around">
+            <a-col span="12">
+              <a-button icon="share-alt">分享动态</a-button>
+            </a-col>
+            <a-col span="12">
+              <a-button icon="edit">发布文章</a-button>
+            </a-col>
+
+          </a-row>
+        </a-card>
+
+        <a-card title="友情推荐" style="margin-bottom: 18px" :bordered="false" :body-style="{ padding: 0 }">
+          <div style="min-height: 400px;">
+
+          </div>
+        </a-card>
+
+        <a-card :loading="loading" title="团队" :bordered="false">
+          <div class="members">
+            <a-row>
+              <a-col :span="12" v-for=" index in 1" :key="index">
+
+              </a-col>
+            </a-row>
+          </div>
+        </a-card>
+      </a-col>
+
+    </a-row>
+
   </div>
 
 </template>
@@ -77,52 +119,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .extra-wrapper {
-    line-height: 55px;
-    padding-right: 24px;
+  //  @import url('../../components/global.less');
+  .antd-pro-pages-home {
 
-    .extra-item {
-      display: inline-block;
-      margin-right: 24px;
-
-      a {
-        margin-left: 24px;
-      }
-    }
-  }
-
-  .antd-pro-pages-dashboard-analysis-twoColLayout {
-    position: relative;
-    display: flex;
-    display: block;
-    flex-flow: row wrap;
-
-    &.desktop div[class^=ant-col]:last-child {
-      position: absolute;
-      right: 0;
-      height: 100%;
-    }
-  }
-
-  .antd-pro-pages-dashboard-analysis-salesCard {
-    height: calc(100% - 24px);
     /deep/ .ant-card-head {
-      position: relative;
+      // border-top: 2px  solid @primary-color ;
+      // border-radius: 5px 5px 0 0;
+      min-height: 44px;
+       .ant-card-head-title {
+         padding: 8px 0;
+       }
     }
   }
 
-  .dashboard-analysis-iconGroup {
-    i {
-      margin-left: 16px;
-      color: rgba(0,0,0,.45);
-      cursor: pointer;
-      transition: color .32s;
-      color: black;
-    }
-  }
-  .analysis-salesTypeRadio {
-    position: absolute;
-    right: 54px;
-    bottom: 12px;
-  }
 </style>

@@ -23,6 +23,7 @@
     "lodash.get": "^4.4.2",
     "lodash.pick": "^4.4.0",
     "marked": "^0.7.0",
+    "mavon-editor": "^2.7.6",
     "md5": "^2.2.1",
     "mockjs2": "1.0.5",
     "moment": "^2.24.0",

@@ -7,58 +7,53 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: '首页' },
-    redirect: '/dashboard/analysis',
+    redirect: '/index',
     children: [
       {
-        path: '/dashboard/analysis',
+        path: '/index',
         name: 'Analysis',
-        component: () => import('@/views/home/'),
-        meta: { title: '社区', icon: 'dashboard', keepAlive: false, permission: ['dashboard'] }
+        component: () => import('@/views/home'),
+        meta: { title: '社区', keepAlive: false }
       },
+
+
       {
-        path: '/articles/analysis',
+        path: '/articles',
         name: 'articles',
-        hidden: true,
-        component: () => import('@/views/home/article'),
-        meta: { title: '文章', icon: 'dashboard', keepAlive: false, permission: ['dashboard'] }
-      },
-      // {
-      //   path: '/dashboard/analysis',
-      //   name: 'Analysis',
-      //   component: () => import('@/views/dashboard/Analysis'),
-      //   meta: { title: '仪表盘', icon: 'dashboard', keepAlive: false, permission: ['dashboard'] }
-      // },
-      {
-        path: '/article',
-        name: 'article',
         component: PageView,
-        meta: { title: '文章', icon: 'form' },
-        redirect: '/article/list',
+        hidden: true,
+        hideChildrenInMenu: true,
+        meta: { title: '文章', icon: 'form', hiddenHeaderContent: true },
+        redirect: '/articles/create',
         children: [
           {
-            path: '/article/list',
-            name: 'articleList',
-            component: () => import('@/views/article/List'),
-            meta: { title: '所有文章', keepAlive: true, icon: 'form', hiddenHeaderContent: false }
-          },
-          {
-            path: '/article/create',
+            path: '/articles/create',
             name: 'articleCreate',
-            component: () => import('@/views/article/Create'),
-            meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: false }
+            hidden: true,
+            component: () => import('@/views/article/articleEdit'),
+            meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
           }, {
             path: '/tag/list',
             name: 'TagList',
+            hidden: true,
             component: () => import('@/views/article/TagList'),
-            meta: { title: '所有标签', keepAlive: true, icon: 'form', hiddenHeaderContent: false }
+            meta: { title: '所有标签', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
           }
         ]
+      },
+      {
+        path: '/articles/:id',
+        name: 'article',
+        hidden: true,
+        component: () => import('@/views/home/article'),
+        meta: { title: '文章', keepAlive: false }
       },
       // user
       {
         path: '/account',
         component: RouteView,
         redirect: '/account/center',
+        hidden: true,
         name: 'account',
         meta: { title: '个人页', icon: 'user', keepAlive: true, permission: [ 'user' ] },
         children: [
