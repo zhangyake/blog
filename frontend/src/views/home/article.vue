@@ -78,7 +78,7 @@
           style="width:100%"
           :bordered="false"
         >
-          <div v-html="article.content"></div>
+          <div class="markdown-body" v-html="article.content"></div>
         </a-card>
       </a-col>
     </a-row>
@@ -105,13 +105,14 @@ export default {
     }
   },
   mounted () {
-    this.handleQuery()
+    console.log()
+    this.handleQuery(this.$route.params.id)
   },
   methods: {
     ...mapGetters(['nickname', 'avatar']),
-    handleQuery (query) {
+    handleQuery (id) {
       this.loading = true
-      this.$api.getArticleDetail({ id: 10 }).then(res => {
+      this.$api.getArticleDetail({ id }).then(res => {
         this.article = res.data
       }).finally(() => {
         setTimeout(() => {

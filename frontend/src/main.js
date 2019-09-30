@@ -8,6 +8,7 @@ import store from './store/'
 import api from './api'
 import bootstrap from './core/bootstrap'
 import './core/use'
+import 'mavon-editor/dist/css/index.css'
 
 import './utils/filter' // global filter
 import i18n from './locales'

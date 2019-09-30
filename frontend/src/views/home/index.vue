@@ -26,7 +26,7 @@
                 </span>
               </template>
               <a-skeleton :loading="loading" active avatar :title="false">
-                <a-list-item-meta style="align-content:center;" >
+                <a-list-item-meta style="align-content:center;" @click="$router.push({name:'article',params:{id:item.id}})">
                   <a-avatar slot="avatar" :src="item.avatar" />
 
                   <span slot="title" >{{ item.title }}</span>
