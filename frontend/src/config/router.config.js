@@ -11,11 +11,10 @@ export const asyncRouterMap = [
     children: [
       {
         path: '/index',
-        name: 'Analysis',
+        name: 'home',
         component: () => import('@/views/home'),
         meta: { title: '社区', keepAlive: false }
       },
-
 
       {
         path: '/articles',

@@ -37,8 +37,7 @@ const user = {
     Login ({ commit }, data) {
       return new Promise((resolve, reject) => {
         api.login(data).then(response => {
-
-          Vue.ls.set(ACCESS_TOKEN, response.token_type +' '+response.access_token, response.expires_in * 1000)
+          Vue.ls.set(ACCESS_TOKEN, response.token_type + ' ' + response.access_token, response.expires_in * 1000)
           commit('SET_TOKEN', response.access_token)
           commit('SET_AVATAR', 'https://preview.pro.loacg.com/avatar2.jpg')
           resolve()
@@ -54,9 +53,9 @@ const user = {
       return new Promise((resolve, reject) => {
         api.getInfo().then(response => {
           console.log(response)
-            console.log('--')
+          console.log('--')
           commit('SET_NAME', { name: response.username, welcome: welcome() })
-          commit('SET_AVATAR','https://preview.pro.loacg.com/avatar2.jpg')
+          commit('SET_AVATAR', 'https://preview.pro.loacg.com/avatar2.jpg')
           resolve(response)
         }).catch(error => {
           reject(error)

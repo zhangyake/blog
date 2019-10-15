@@ -28,4 +28,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID', '813b52edd4d38b8333df'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET', 'b4a7962aecf19440031a74deab904d6d45d401d9'),
+        'redirect' => 'http://api.blog.lara/login/github/callback',
+    ],
 ];

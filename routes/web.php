@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('login/github', 'Api\AuthController@redirectToProvider');
+Route::get('login/github/callback', 'Api\AuthController@handleProviderCallback');

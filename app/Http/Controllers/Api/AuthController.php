@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Hash;
+use Socialite;
 
 class AuthController extends ApiController
 {
@@ -13,7 +14,7 @@ class AuthController extends ApiController
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+//        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -49,7 +50,7 @@ class AuthController extends ApiController
      */
     public function logout()
     {
-        auth('admin')->logout();
+        auth('api')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -96,5 +97,27 @@ class AuthController extends ApiController
         } else {
             $this->error('旧密码不对');
         }
+    }
+
+    /**
+     * 将用户重定向到 GitHub 的授权页面.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * 从 GitHub 获取用户信息.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('github')->user();
+        dump($user);
+        // $user->token;
     }
 }
