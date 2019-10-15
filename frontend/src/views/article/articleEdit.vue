@@ -90,7 +90,6 @@
 
 import { mapGetters } from 'vuex'
 import { mavonEditor } from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
 export default {
   components: {
     mavonEditor
@@ -174,7 +173,7 @@ export default {
       this.$message.error('标题不能为空')
       return
     }
-    if (this.htmlString.trim() === '') {
+    if (this.content_md.trim() === '') {
       this.$message.error('内容不能为空')
       return
     }
