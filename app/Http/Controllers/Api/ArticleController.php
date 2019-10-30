@@ -16,7 +16,7 @@ class ArticleController extends ApiController
      */
     public function index()
     {
-        $articles = Article::latest()->paginate(10);
+        $articles = Article::with('user')->select('id', 'user_id', 'title', 'created_at', 'status', 'like_count', 'comment_count', 'read_count')->latest()->paginate(10);
 
         return ArticleResource::collection($articles);
     }

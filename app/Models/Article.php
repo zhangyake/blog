@@ -59,7 +59,7 @@ class Article extends Model
     protected $guarded = ['id'];
 
     // -------------- relations ------------------
-    public function author()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

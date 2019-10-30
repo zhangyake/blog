@@ -78,7 +78,21 @@
           style="width:100%"
           :bordered="false"
         >
+          <h2 v-text="article.title"> </h2>
+          <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
+          <a-divider/>
+
           <div class="markdown-body" v-html="article.content"></div>
+        </a-card>
+        <a-divider/>
+
+        <a-card
+          style="width:100%"
+          :bordered="false"
+        >
+          <h2 v-text="article.title"> </h2>
+          <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
+
         </a-card>
       </a-col>
     </a-row>

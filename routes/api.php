@@ -38,7 +38,6 @@ Route::middleware('auth:api')->group(function () {
 
     // Article 相关接口
     Route::post('articles', 'Api\ArticleController@store');
-    Route::get('articles/{id}', 'Api\ArticleController@show');
     Route::put('articles/{id}', 'Api\ArticleController@update');
     Route::delete('articles/{id}', 'Api\ArticleController@destroy');
 
@@ -49,6 +48,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('admins/{id}', 'Api\AdminController@update');
     Route::delete('admins/{id}', 'Api\AdminController@destroy');
 });
+Route::get('articles/{id}', 'Api\ArticleController@show');
 Route::get('articles', 'Api\ArticleController@index');
 // Area 相关接口
 //查询所有区域信息id = 0 时 省市区信息
