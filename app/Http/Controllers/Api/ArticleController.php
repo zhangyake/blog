@@ -34,7 +34,7 @@ class ArticleController extends ApiController
 //        $article->fill(array_merge($request->only(['title','preview','content','status']),['user_id'=>$request->user()->id]));
 //        $article->save();
 
-        $data = $request->only(['title', 'preview', 'content','content_md', 'status']);
+        $data = $request->only(['title', 'preview', 'content', 'content_md', 'status']);
         $article = $request->user()->articles()->create($data);
         $article->tags()->sync($request->input('tags'));
 
