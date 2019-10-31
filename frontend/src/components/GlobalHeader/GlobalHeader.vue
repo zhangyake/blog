@@ -17,6 +17,7 @@
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <a-icon v-else class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle" />
             </div>
+            <header-search v-if="device !== 'mobile'" />
             <user-menu class="header-index-right"></user-menu>
           </div>
         </div>
@@ -27,6 +28,7 @@
 
 <script>
 import UserMenu from '../tools/UserMenu'
+import HeaderSearch from '../tools/HeaderSearch'
 import SMenu from '../Menu/'
 import Logo from '../tools/Logo'
 import { mixin } from '@/utils/mixin'
@@ -34,6 +36,7 @@ import { mixin } from '@/utils/mixin'
 export default {
   name: 'GlobalHeader',
   components: {
+    HeaderSearch,
     UserMenu,
     SMenu,
     Logo
