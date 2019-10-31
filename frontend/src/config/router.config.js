@@ -17,28 +17,13 @@ export const asyncRouterMap = [
       },
 
       {
-        path: '/articles',
-        name: 'articles',
-        component: PageView,
+
+        path: '/articles/create',
+        name: 'articleCreate',
         hidden: true,
-        hideChildrenInMenu: true,
-        meta: { title: '文章', icon: 'form', hiddenHeaderContent: true },
-        redirect: '/articles/create',
-        children: [
-          {
-            path: '/articles/create',
-            name: 'articleCreate',
-            hidden: true,
-            component: () => import('@/views/article/articleEdit'),
-            meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
-          }, {
-            path: '/tag/list',
-            name: 'TagList',
-            hidden: true,
-            component: () => import('@/views/article/TagList'),
-            meta: { title: '所有标签', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
-          }
-        ]
+        component: () => import('@/views/article/articleEdit'),
+        meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
+
       },
       {
         path: '/articles/:id',

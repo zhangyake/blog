@@ -33,7 +33,9 @@ class ArticleController extends ApiController
 //        $article = new Article();
 //        $article->fill(array_merge($request->only(['title','preview','content','status']),['user_id'=>$request->user()->id]));
 //        $article->save();
-        $article = $request->user()->articles()->create($request->only(['title', 'preview', 'content', 'content_md', 'status']));
+
+        $data = $request->only(['title', 'preview', 'content','content_md', 'status']);
+        $article = $request->user()->articles()->create($data);
         $article->tags()->sync($request->input('tags'));
 
         return new ArticleResource($article);

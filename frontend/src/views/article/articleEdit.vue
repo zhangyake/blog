@@ -20,6 +20,7 @@
                   :ishljs="true"
                   :toolbars="toolbars"
                   style="height: 100%"
+                  :externalLink="externalLink"
                   v-model="content_md"
                   @change="mdChange" ></mavon-editor>
               </div>
@@ -29,57 +30,59 @@
           </a-row>
 
         </a-card>
-        <a-col
-          :xs="24"
-          :sm="24"
-          :md="24"
-          :lg="24"
-          :xl="24"
-          style="margin-top:1px; padding:5px ; text-align:right;background:#fff">
-          <a-button type="primary" @click="toPublish">发布</a-button>
-        </a-col>
+
       </a-col>
       <a-col :md="24" :lg="7">
-        <a-card :bordered="false">
-          <div class="account-center-avatarHolder">
-            <div class="avatar">
-              <img :src="avatar()">
-            </div>
-            <div class="username">{{ nickname() }}</div>
-            <div class="bio">海纳百川，有容乃大</div>
-          </div>
-          <div class="account-center-detail">
-            <p>
-              <i class="title"></i>交互专家
-            </p>
-            <p>
-              <i class="group"></i>蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED
-            </p>
-            <p>
-              <i class="address"></i>
-              <span>浙江省</span>
-              <span>杭州市</span>
-            </p>
-          </div>
-          <a-divider />
+        <a-card :bordered="false" title="发布文章">
+          <a-form >
+            <a-form-item label="选择标签" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
 
-          <div class="account-center-tags">
-            <div class="tagsTitle">标签</div>
-            <div>
-              <template v-for="(tag) in tags">
-                <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
-                  <a-tag :key="tag">{{ `${tag.slice(0, 20)}...` }}</a-tag>
-                </a-tooltip>
-                <a-tag v-else :key="tag">{{ tag }}</a-tag>
+              <template v-for=" tag in tags">
+                <a-checkable-tag
+                  color="#f50"
+                  :key="tag.id"
+                  :checked="selectedTags.indexOf(tag.id) > -1"
+                  @change="(checked) => handleChange(tag, checked)"
+                >
+                  {{ tag.name }}
+                </a-checkable-tag>
               </template>
+            </a-form-item>
+
+            <a-form-item label="预览图" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
+              <a-upload
+                v-decorator="[
+                  'upload',
+                  {
+                    valuePropName: 'fileList'
+                  },
+                ]"
+                name="logo"
+                action="/upload.do"
+                list-type="picture"
+              >
+                <a-button> <a-icon type="upload" /> 点击上传 </a-button>
+              </a-upload>
+            </a-form-item>
+
+            <a-form-item label="状态" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+              <a-radio-group name="radioGroup" :defaultValue="2">
+                <a-radio :value="1">私密</a-radio>
+                <a-radio :value="2">公开</a-radio>
+              </a-radio-group>
+            </a-form-item>
+
+            <div class="account-center-tags">
+
             </div>
-          </div>
-          <a-divider :dashed="true" />
+            <a-divider :dashed="true" />
 
-          <div class="account-center-team">
-            <div class="teamTitle">团队</div>
+            <div class="account-center-team" style="text-align:center">
 
-          </div>
+              <a-button type="primary" @click="toPublish">确定</a-button>
+
+            </div>
+          </a-form>
         </a-card>
       </a-col>
     </a-row>
@@ -96,6 +99,13 @@ export default {
   },
   data () {
     return {
+      externalLink: {
+        // hljs_js: false,
+        hljs_css: false,
+        markdown_css: false,
+        katex_js: false,
+        katex_css: false
+      },
       clientHeight: '',
       subfield: false,
       toolbars: {
@@ -138,8 +148,8 @@ export default {
       content_md: '',
       content: '',
       article: {},
-      tags: ['很有想法的', '专注设计', '辣~', '大长腿', '川妹子', '海纳百川']
-
+      tags: [],
+      selectedTags: []
     }
   },
   watch: {
@@ -156,8 +166,13 @@ export default {
     }
     this.handleQuery()
   },
-  methods: { handleChange (value) {
-
+  methods: { handleChange (tag, checked) {
+    const { selectedTags } = this
+    const nextSelectedTags = checked
+      ? [...selectedTags, tag.id]
+      : selectedTags.filter(t => t !== tag.id)
+    console.log('You are interested in: ', nextSelectedTags)
+    this.selectedTags = nextSelectedTags
   },
   ...mapGetters(['nickname', 'avatar']),
   changeFixed (clientHeight) {
@@ -179,7 +194,7 @@ export default {
     }
     this.loading = true
 
-    this.$api.insertArticle({ status: 1, preview: this.title, title: this.title, content_md: this.content_md, content: this.content }).finally(() => {
+    this.$api.insertArticle({ tags: this.selectedTags, status: 1, preview: this.title, title: this.title, content_md: this.content_md, content: this.content }).finally(() => {
       this.$message.success('success')
       setTimeout(() => {
         this.$router.push({ name: 'articleList' })
@@ -190,19 +205,25 @@ export default {
   },
   handleQuery (query) {
     // this.loading = true
-    // this.$api.getArticleDetail({ id: 10 }).then(res => {
-    //   this.article = res.data
-    // }).finally(() => {
-    //   setTimeout(() => {
-    //     this.loading = false
-    //   }, 300)
-    // })
+    this.$api.getAllTags().then(res => {
+      this.tags = res.data
+    }).finally(() => {
+      setTimeout(() => {
+        this.loading = false
+      }, 300)
+    })
   }
   }
 }
 </script>
+<style>
+.dropdownClassName{
+  z-index: 99999;
 
+}
+</style>
 <style lang="less" scoped>
+
 .page-header-wrapper-grid-content-main {
   width: 100%;
   height: 100%;

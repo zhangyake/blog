@@ -74,25 +74,31 @@
         </a-card>
       </a-col>
       <a-col :md="24" :lg="17">
+
         <a-card
           style="width:100%"
           :bordered="false"
-        >
-          <h2 v-text="article.title"> </h2>
-          <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
-          <a-divider/>
+        > <a-skeleton :loading="loading">
+          <div>
+            <h2 v-text="article.title"> </h2>
+            <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
+            <a-divider/>
 
-          <div class="markdown-body" v-html="article.content"></div>
+            <div class="markdown-body" v-html="article.content"></div>
+          </div>
+        </a-skeleton>
         </a-card>
+
         <a-divider/>
 
         <a-card
           style="width:100%"
           :bordered="false"
         >
-          <h2 v-text="article.title"> </h2>
-          <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
-
+          <a-skeleton :loading="loading">
+            <h2 v-text="article.title"> </h2>
+            <p>1个月前 / 浏览量 1345 /  评论5 / 点赞9 </p>
+          </a-skeleton>
         </a-card>
       </a-col>
     </a-row>

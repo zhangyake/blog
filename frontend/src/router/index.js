@@ -18,7 +18,7 @@ const router = new Router({
   // routes: constantRouterMap
   routes: constantRouterMap.concat(asyncRouterMap)
 })
-const whiteList = ['login', 'register', 'registerResult', 'index', 'home'] // no redirect whitelist
+const whiteList = ['login', 'register', 'article', 'index', 'home'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
