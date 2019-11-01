@@ -26,11 +26,11 @@ class ReplyController extends ApiController
      * 新增记录.
      *
      * @param ReplyRequest $request
+     * @param Comment      $comment
      *
-     * @param Comment $comment
      * @return ReplyResource
      */
-    public function storeCommentReplay(ReplyRequest $request,Comment $comment)
+    public function storeCommentReplay(ReplyRequest $request, Comment $comment)
     {
         $reply = $request->all();
         $reply->user_id = auth('api')->id;

@@ -17,7 +17,7 @@ class ArticleResource extends JsonResource
     {
         return [
             'author' => [
-                'avatar'=>$this->user->avatar
+                'avatar' => $this->user->avatar,
             ],
             'comment_count' => $this->comment_count,
             'created_at' => $this->created_at,
@@ -27,7 +27,7 @@ class ArticleResource extends JsonResource
             'status' => $this->status,
             'content' => $this->content,
             'title' => $this->title,
-            'comments'=>$this->comments
+            'comments' => $this->comments,
         ];
     }
 }

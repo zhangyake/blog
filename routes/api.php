@@ -61,8 +61,6 @@ Route::get('articles', 'Api\ArticleController@index');
 //查询所有区域信息id = 0 时 省市区信息
 Route::get('areas/{id}', 'Api\AreaController@children');
 
-
-
 // Reply 相关接口
 Route::get('replies', 'Api\ReplyController@index');
 Route::post('replies', 'Api\ReplyController@store');

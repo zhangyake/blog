@@ -53,7 +53,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     protected $table = 'users';
-    protected $fillable = ['username','password','github_user_id','nickname','email','avatar'];
+    protected $fillable = ['username', 'password', 'github_user_id', 'nickname', 'email', 'avatar'];
 
     /**
      * The attributes that should be hidden for arrays.

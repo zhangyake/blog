@@ -122,12 +122,11 @@ class AuthController extends ApiController
             ['github_user_id' => $githubUser->id],
             ['username' => $githubUser->name,
              'nickname' => $githubUser->nickname,
-             'email'=>$githubUser->email,
-             'avatar'=>$githubUser->avatar]
+             'email' => $githubUser->email,
+             'avatar' => $githubUser->avatar, ]
         );
         $token = auth('api')->login($user);
-        return view('login',['token'=>$token,'domain'=>'http://192.168.8.240:8001']);
 
-
+        return view('login', ['token' => $token, 'domain' => 'http://192.168.8.240:8001']);
     }
 }

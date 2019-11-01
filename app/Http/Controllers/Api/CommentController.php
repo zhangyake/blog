@@ -26,7 +26,8 @@ class CommentController extends ApiController
      * 新增记录.
      *
      * @param CommentRequest $request
-     * @param Article $article
+     * @param Article        $article
+     *
      * @return CommentResource
      */
     public function storeArticleComment(CommentRequest $request, Article $article)

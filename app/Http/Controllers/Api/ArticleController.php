@@ -50,7 +50,7 @@ class ArticleController extends ApiController
      */
     public function show($id)
     {
-        $article = Article::with(['user','comments.user'])->findOrFail($id);
+        $article = Article::with(['user', 'comments.user'])->findOrFail($id);
 
         return new ArticleResource($article);
     }
