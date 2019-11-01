@@ -1,6 +1,6 @@
 <template>
   <div class="user-wrapper">
-    <div class="content-box">
+    <div class="content-box" v-if="nickname">
       <!-- <a href="https://pro.loacg.com/docs/getting-started" target="_blank">
         <span class="action">
           <a-icon type="question-circle-o"></a-icon>
@@ -39,6 +39,13 @@
         </a-menu>
       </a-dropdown>
       <!-- <lang-select /> -->
+    </div>
+    <div class="content-box" v-else>
+
+      <a href="javascript:;" @click="handleLogin">
+        <a-icon type="login" />
+        <span> 登录</span>
+      </a>
     </div>
   </div>
 </template>
@@ -79,6 +86,9 @@ export default {
         onCancel () {
         }
       })
+    },
+    handleLogin () {
+      this.$router.push({ name: 'login' })
     }
   }
 }

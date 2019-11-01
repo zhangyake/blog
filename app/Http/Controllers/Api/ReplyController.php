@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Reply\ReplyResource;
 use App\Http\Requests\ReplyRequest;
+use App\Models\Comment;
 use App\Models\Reply;
 
 class ReplyController extends ApiController
@@ -26,13 +27,15 @@ class ReplyController extends ApiController
      *
      * @param ReplyRequest $request
      *
+     * @param Comment $comment
      * @return ReplyResource
      */
-    public function store(ReplyRequest $request)
+    public function storeCommentReplay(ReplyRequest $request,Comment $comment)
     {
-        $reply = new Reply();
-        $reply->fill($request->all());
-        $reply->save();
+        $reply = $request->all();
+        $reply->user_id = auth('api')->id;
+        $reply->like_count = 0;
+        $comment->replys()->create($reply);
 
         return new ReplyResource($reply);
     }

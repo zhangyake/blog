@@ -13,6 +13,8 @@ class CommentRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'content'=>'required'
+        ];
     }
 }

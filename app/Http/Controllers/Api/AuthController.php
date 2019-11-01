@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Hash;
@@ -116,8 +117,17 @@ class AuthController extends ApiController
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('github')->user();
-        dump($user);
-        // $user->token;
+        $githubUser = Socialite::driver('github')->user();
+        $user = User::firstOrCreate(
+            ['github_user_id' => $githubUser->id],
+            ['username' => $githubUser->name,
+             'nickname' => $githubUser->nickname,
+             'email'=>$githubUser->email,
+             'avatar'=>$githubUser->avatar]
+        );
+        $token = auth('api')->login($user);
+        return view('login',['token'=>$token,'domain'=>'http://192.168.8.240:8001']);
+
+
     }
 }

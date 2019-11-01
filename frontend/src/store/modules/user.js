@@ -55,7 +55,7 @@ const user = {
           console.log(response)
           console.log('--')
           commit('SET_NAME', { name: response.username, welcome: welcome() })
-          commit('SET_AVATAR', 'https://preview.pro.loacg.com/avatar2.jpg')
+          commit('SET_AVATAR', response.avatar ? response.avatar : 'https://preview.pro.loacg.com/avatar2.jpg')
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -71,6 +71,7 @@ const user = {
         }).catch(() => {
           resolve()
         }).finally(() => {
+          commit('SET_NAME', '')
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           Vue.ls.remove(ACCESS_TOKEN)

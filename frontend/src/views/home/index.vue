@@ -13,7 +13,7 @@
             :dataSource="listData"
 
           >
-            <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+            <a-list-item slot="renderItem" slot-scope="item, index" key="item.title" @click="$router.push({name:'article',params:{id:item.id}})">
               <template v-if="!loading" slot="actions" v-for="{type, text} in actions">
                 <span :key="type">
                   <a-icon :type="type" style="margin-right: 6px" />
@@ -25,9 +25,10 @@
                   {{ item.created_at }}
                 </span>
               </template>
-              <a-skeleton :loading="loading" active avatar :title="false">
-                <a-list-item-meta style="align-content:center;" @click="$router.push({name:'article',params:{id:item.id}})">
-                  <a-avatar slot="avatar" :src="item.avatar" />
+              <a-skeleton :loading="loading" active avatar :title="false" class="list-style">
+
+                <a-list-item-meta style="align-content:center;" >
+                  <a-avatar slot="avatar" :src="item.author.avatar" />
 
                   <span slot="title" >{{ item.title }}</span>
 
@@ -50,7 +51,7 @@
               <a-button icon="share-alt">分享动态</a-button>
             </a-col>
             <a-col span="12">
-              <a-button icon="edit">发布文章</a-button>
+              <a-button icon="edit" @click="$router.push({name:'articleCreate'})">发布文章</a-button>
             </a-col>
 
           </a-row>
@@ -130,6 +131,9 @@ export default {
          padding: 8px 0;
        }
     }
+  }
+  .list-style{
+    cursor: pointer;
   }
 
 </style>

@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      if (store.getters.nickname == '') {
+      if (store.getters.nickname === '') {
         store
           .dispatch('GetInfo')
           .then(res => {

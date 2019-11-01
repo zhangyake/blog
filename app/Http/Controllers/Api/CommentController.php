@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Comment\CommentResource;
 use App\Http\Requests\CommentRequest;
+use App\Models\Article;
 use App\Models\Comment;
 
 class CommentController extends ApiController
@@ -25,14 +26,16 @@ class CommentController extends ApiController
      * 新增记录.
      *
      * @param CommentRequest $request
-     *
+     * @param Article $article
      * @return CommentResource
      */
-    public function store(CommentRequest $request)
+    public function storeArticleComment(CommentRequest $request, Article $article)
     {
-        $comment = new Comment();
-        $comment->fill($request->all());
-        $comment->save();
+        $comment = $request->only(['content']);
+        $comment['user_id'] = auth('api')->id();
+        $comment['reply_count'] = 0;
+        $comment['like_count'] = 0;
+        $article->comments()->create($comment);
 
         return new CommentResource($comment);
     }

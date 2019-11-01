@@ -44,9 +44,9 @@ export default {
     url: '/api/tags/all',
     method: 'get'
   },
-  //   新增标签
-  insertTag: {
-    url: '/api/tags',
+  //   新增文章评论
+  storeArticleComment: {
+    url: '/api/article/{id}/comment',
     method: 'post'
   },
   //   更新标签

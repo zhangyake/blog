@@ -216,12 +216,7 @@ export default {
   }
 }
 </script>
-<style>
-.dropdownClassName{
-  z-index: 99999;
 
-}
-</style>
 <style lang="less" scoped>
 
 .page-header-wrapper-grid-content-main {

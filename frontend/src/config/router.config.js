@@ -8,31 +8,42 @@ export const asyncRouterMap = [
     component: BasicLayout,
     meta: { title: '首页' },
     redirect: '/index',
+
     children: [
-      {
-        path: '/index',
-        name: 'home',
-        component: () => import('@/views/home'),
-        meta: { title: '社区', keepAlive: false }
-      },
 
       {
+        path: '/dashboard',
+        name: 'dashboard',
+        redirect: '/index',
+        component: PageView,
+        hideChildrenInMenu: true,
+        meta: { title: '首页', keepAlive: false },
+        children: [
+          {
+            path: '/index',
+            name: 'home',
+            component: () => import('@/views/home'),
+            meta: { title: '社区', keepAlive: false, hiddenHeaderContent: true }
+          },
 
-        path: '/articles/create',
-        name: 'articleCreate',
-        hidden: true,
-        component: () => import('@/views/article/articleEdit'),
-        meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
+          {
 
+            path: '/articles/create',
+            name: 'articleCreate',
+            hidden: true,
+            component: () => import('@/views/article/articleEdit'),
+            meta: { title: '创建文章', keepAlive: true, icon: 'form', hiddenHeaderContent: true }
+
+          },
+          {
+            path: '/articles/:id',
+            name: 'article',
+            hidden: true,
+            component: () => import('@/views/home/article'),
+            meta: { title: '文章', keepAlive: false, hiddenHeaderContent: true }
+          }
+        ]
       },
-      {
-        path: '/articles/:id',
-        name: 'article',
-        hidden: true,
-        component: () => import('@/views/home/article'),
-        meta: { title: '文章', keepAlive: false }
-      },
-      // user
       {
         path: '/account',
         component: RouteView,
@@ -88,8 +99,34 @@ export const asyncRouterMap = [
             ]
           }
         ]
-      }
+      },
+      {
+        path: '/user',
+        component: PageView,
+        redirect: '/user/login',
+        hidden: true,
+        meta: { title: '登录', keepAlive: false },
 
+        children: [
+          {
+            path: 'login',
+            name: 'login',
+            hidden: true,
+            meta: { title: '登录', keepAlive: false, hiddenHeaderContent: true },
+            component: () => import(/* webpackChunkName: "login" */ '@/views/login/Login')
+          },
+          {
+            path: 'register',
+            name: 'register',
+            component: () => import(/* webpackChunkName: "login" */ '@/views/login/Register')
+          },
+          {
+            path: 'register-result',
+            name: 'registerResult',
+            component: () => import(/* webpackChunkName: "login" */ '@/views/login/RegisterResult')
+          }
+        ]
+      }
     ]
 
   },
@@ -106,29 +143,6 @@ export const asyncRouterMap = [
  * @type { *[] }
  */
 export const constantRouterMap = [
-  {
-    path: '/user',
-    component: UserLayout,
-    redirect: '/user/login',
-    hidden: true,
-    children: [
-      {
-        path: 'login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "login" */ '@/views/login/Login')
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "login" */ '@/views/login/Register')
-      },
-      {
-        path: 'register-result',
-        name: 'registerResult',
-        component: () => import(/* webpackChunkName: "login" */ '@/views/login/RegisterResult')
-      }
-    ]
-  },
 
   {
     path: '/404',

@@ -16,7 +16,9 @@ class ArticleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'author' => $this->user->id,
+            'author' => [
+                'avatar'=>$this->user->avatar
+            ],
             'comment_count' => $this->comment_count,
             'created_at' => $this->created_at,
             'id' => $this->id,
@@ -25,6 +27,7 @@ class ArticleResource extends JsonResource
             'status' => $this->status,
             'content' => $this->content,
             'title' => $this->title,
+            'comments'=>$this->comments
         ];
     }
 }
