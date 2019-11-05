@@ -26,8 +26,7 @@ class ArticleResource extends JsonResource
             'read_count' => $this->read_count,
             'status' => $this->status,
             'content' => $this->content,
-            'title' => $this->title,
-            'comments' => $this->comments,
+            'title' => $this->title
         ];
     }
 }

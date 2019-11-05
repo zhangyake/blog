@@ -13,11 +13,14 @@ class CommentController extends ApiController
     /**
      * 分页查询.
      *
+     * @param Article $article
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function getArticleComment(Article $article)
     {
-        $comments = Comment::latest()->paginate(10);
+        $comments = $article->comments()->with('user')
+                            ->orderBy('id', 'asc')
+                            ->paginate(10);
 
         return CommentResource::collection($comments);
     }

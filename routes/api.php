@@ -42,11 +42,17 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('articles/{id}', 'Api\ArticleController@destroy');
 
     // Comment 相关接口
-    Route::get('comments', 'Api\CommentController@index');
     Route::post('article/{article}/comment', 'Api\CommentController@storeArticleComment');
     Route::get('comments/{id}', 'Api\CommentController@show');
     Route::put('comments/{id}', 'Api\CommentController@update');
     Route::delete('comments/{id}', 'Api\CommentController@destroy');
+
+    // Reply 相关接口
+    Route::get('replies', 'Api\ReplyController@index');
+    Route::post('comment/{comment}/replies', 'Api\ReplyController@storeCommentReplay');
+    Route::get('replies/{id}', 'Api\ReplyController@show');
+    Route::put('replies/{id}', 'Api\ReplyController@update');
+    Route::delete('replies/{id}', 'Api\ReplyController@destroy');
 
     // Admin 相关接口
     Route::get('admins', 'Api\AdminController@index');
@@ -61,12 +67,8 @@ Route::get('articles', 'Api\ArticleController@index');
 //查询所有区域信息id = 0 时 省市区信息
 Route::get('areas/{id}', 'Api\AreaController@children');
 
-// Reply 相关接口
-Route::get('replies', 'Api\ReplyController@index');
-Route::post('replies', 'Api\ReplyController@store');
-Route::get('replies/{id}', 'Api\ReplyController@show');
-Route::put('replies/{id}', 'Api\ReplyController@update');
-Route::delete('replies/{id}', 'Api\ReplyController@destroy');
+Route::get('article/{article}/comments', 'Api\CommentController@getArticleComment');
+
 
 // Like 相关接口
 Route::get('likes', 'Api\LikeController@index');

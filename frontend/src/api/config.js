@@ -24,6 +24,11 @@ export default {
     url: '/api/articles/{id}',
     method: 'get'
   },
+  //   get文章
+  getArticleComment: {
+    url: '/api/article/{id}/comments',
+    method: 'get'
+  },
   //   新增文章
   insertArticle: {
     url: '/api/articles',

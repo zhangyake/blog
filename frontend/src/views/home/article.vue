@@ -96,56 +96,70 @@
           :bordered="false"
         >
           <a-skeleton :loading="loading">
+
+            <a-list
+              v-if="comments.length"
+              :dataSource="comments"
+              :header="`${comments.length} ${comments.length >= 1 ? 'replies' : 'reply'}`"
+              itemLayout="vertical"
+            >
+              <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-comment
+                  :author="item.user.nickname"
+                  :avatar="item.user.avatar"
+                  :datetime="item.created_at"
+                >
+                  <div slot="content" style="width:100%;">
+                    {{ item.content }}
+                  </div>
+
+                  <template slot="actions">
+                    <span>
+                      <a-tooltip title="Like">
+                        <a-icon type="like" :theme=" item.like_count ? 'filled' : 'outlined'" @click="like" />
+                      </a-tooltip>
+                      <span style="padding-left: '8px';cursor: 'auto'">
+                        {{ item.like_count }}
+                      </span>
+                    </span>
+                    <span>评论</span>
+                  </template>
+                  <a-comment >
+                    <a-avatar
+                      slot="avatar"
+                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                      alt="Han Solo"
+                    />
+                    <div slot="content" style="width:100%">
+
+                      <a-input-search placeholder="评论" @search="toReplay" >
+                        <a-button type="primary" slot="enterButton">评论</a-button>
+                      </a-input-search>
+
+                    </div>
+                  </a-comment>
+                </a-comment>
+
+              </a-list-item>
+
+            </a-list>
+
+          </a-skeleton>
+        </a-card>
+        <a-divider/>
+
+        <a-card
+          style="width:100%"
+          :bordered="false"
+        >
+          <a-skeleton :loading="loading">
             <div>
 
               <!-- <a-button type="dashed" block > <a-icon type="info" /> 请勿发布不友善或者负能量的内容。与人为善，比聪明更重要！ </a-button> -->
-              <a-textarea v-model="comment" :autosize="{ minRows: 4, maxRows: 4 }" placeholder="Basic usage" />
-              <a-button @click="storeArticleComment">评论</a-button>
+              <a-textarea v-model="comment" :autosize="{ minRows: 4, maxRows: 4 }" placeholder="请勿发布不友善或者负能量的内容。与人为善，比聪明更重要！" />
 
-              <a-list
-                v-if="comments.length"
-                :dataSource="comments"
-                :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
-                itemLayout="horizontal"
-              >
-                <a-list-item slot="renderItem" slot-scope="item, index">
-                  <a-comment
-                    :author="item.user.nickname"
-                    :avatar="item.user.avatar"
-                    :content="item.content"
-                    :datetime="item.created_at"
-                  >
-                    <a-comment>
-                      <a-avatar
-                        slot="avatar"
-                        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                        alt="Han Solo"
-                      />
-                      <div slot="content">
+              <a-button type="primary" @click="storeArticleComment" style="float:right;top:5px;">评论</a-button>
 
-                        <a-input ></a-input>
-
-                        <a-button htmlType="submit" :loading="submitting" type="primary">
-                          Add Comment
-                        </a-button>
-
-                      </div>
-                    </a-comment>
-                    <template slot="actions">
-                      <span>
-                        <a-tooltip title="Like">
-                          <a-icon type="like" :theme="action === 'liked' ? 'filled' : 'outlined'" @click="like" />
-                        </a-tooltip>
-                        <span style="padding-left: '8px';cursor: 'auto'">
-                          {{ item.like_count }}
-                        </span>
-                      </span>
-                      <span>回复</span>
-                    </template>
-
-                  </a-comment>
-                </a-list-item>
-              </a-list>
             </div>
           </a-skeleton>
         </a-card>
@@ -184,14 +198,31 @@ export default {
       this.loading = true
       this.$api.getArticleDetail({ id }).then(res => {
         this.article = res.data
-        this.comments = this.article.comments
+      }).finally(() => {
+        setTimeout(() => {
+          this.loading = false
+        }, 300)
+      })
+      this.$api.getArticleComment({ id }).then(res => {
+        this.comments = res.data
+      }).finally(() => {
+
+      })
+    },
+    storeArticleComment () {
+      this.loading = true
+      this.$api.storeArticleComment({ id: this.article.id, content: this.comment }).then(res => {
+        this.comment = ''
       }).finally(() => {
         setTimeout(() => {
           this.loading = false
         }, 300)
       })
     },
-    storeArticleComment () {
+    like () {
+
+    },
+    toReplay () {
       this.loading = true
       this.$api.storeArticleComment({ id: this.article.id, content: this.comment }).then(res => {
         this.comment = ''
