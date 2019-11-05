@@ -14,6 +14,7 @@ class CommentController extends ApiController
      * 分页查询.
      *
      * @param Article $article
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getArticleComment(Article $article)

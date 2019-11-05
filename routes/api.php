@@ -69,7 +69,6 @@ Route::get('areas/{id}', 'Api\AreaController@children');
 
 Route::get('article/{article}/comments', 'Api\CommentController@getArticleComment');
 
-
 // Like 相关接口
 Route::get('likes', 'Api\LikeController@index');
 Route::post('likes', 'Api\LikeController@store');
