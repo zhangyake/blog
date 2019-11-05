@@ -20,7 +20,6 @@ class CommentController extends ApiController
     public function getArticleComment(Article $article)
     {
         $comments = $article->comments()->with('user')->orderBy('id', 'asc')->paginate(10);
-
         return CommentResource::collection($comments);
     }
 
