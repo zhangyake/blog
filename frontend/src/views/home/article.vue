@@ -165,6 +165,8 @@
         </a-card>
       </a-col>
     </a-row>
+    <a-back-top />
+
   </div>
 </template>
 
