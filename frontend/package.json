@@ -19,7 +19,7 @@
     "core-js": "2.6.9",
     "emojione": "^4.5.0",
     "enquire.js": "^2.1.6",
-    "highlight.js": "^9.15.10",
+    "highlight.js": "^10.1.2",
     "lodash.get": "^4.4.2",
     "lodash.pick": "^4.4.0",
     "marked": "^0.7.0",
